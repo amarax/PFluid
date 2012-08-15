@@ -1,0 +1,1701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PIData>
+  <Material>
+    <ItemID>Micro Organisms</ItemID>
+    <Name>Micro Organisms</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Carbon Compounds</ItemID>
+    <Name>Carbon Compounds</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Planktic Colonies</ItemID>
+    <Name>Planktic Colonies</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Non-CS Crystals</ItemID>
+    <Name>Non-CS Crystals</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Ionic Solutions</ItemID>
+    <Name>Ionic Solutions</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Autotrophs</ItemID>
+    <Name>Autotrophs</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Reactive Gas</ItemID>
+    <Name>Reactive Gas</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Noble Gas</ItemID>
+    <Name>Noble Gas</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Suspended Plasma</ItemID>
+    <Name>Suspended Plasma</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Noble Metals</ItemID>
+    <Name>Noble Metals</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Complex Organisms</ItemID>
+    <Name>Complex Organisms</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Base Metals</ItemID>
+    <Name>Base Metals</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Felsic Magma</ItemID>
+    <Name>Felsic Magma</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Heavy Metals</ItemID>
+    <Name>Heavy Metals</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Aqueous Liquids</ItemID>
+    <Name>Aqueous Liquids</Name>
+    <Volume>0.01</Volume>
+  </Material>
+  <Material>
+    <ItemID>Bacteria</ItemID>
+    <Name>Bacteria</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Biofuels</ItemID>
+    <Name>Biofuels</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Biomass</ItemID>
+    <Name>Biomass</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Chiral Structures</ItemID>
+    <Name>Chiral Structures</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Electrolytes</ItemID>
+    <Name>Electrolytes</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Industrial Fibers</ItemID>
+    <Name>Industrial Fibers</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Oxidizing Compound</ItemID>
+    <Name>Oxidizing Compound</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Oxygen</ItemID>
+    <Name>Oxygen</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Plasmoids</ItemID>
+    <Name>Plasmoids</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Precious Metals</ItemID>
+    <Name>Precious Metals</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Proteins</ItemID>
+    <Name>Proteins</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Reactive Metals</ItemID>
+    <Name>Reactive Metals</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Silicon</ItemID>
+    <Name>Silicon</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Toxic Metals</ItemID>
+    <Name>Toxic Metals</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Water</ItemID>
+    <Name>Water</Name>
+    <Volume>0.38</Volume>
+  </Material>
+  <Material>
+    <ItemID>Biocells</ItemID>
+    <Name>Biocells</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Construction Blocks</ItemID>
+    <Name>Construction Blocks</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Consumer Electronics</ItemID>
+    <Name>Consumer Electronics</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Coolant</ItemID>
+    <Name>Coolant</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Enriched Uranium</ItemID>
+    <Name>Enriched Uranium</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Fertilizer</ItemID>
+    <Name>Fertilizer</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Genetically Enhanced Livestock</ItemID>
+    <Name>Genetically Enhanced Livestock</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Livestock</ItemID>
+    <Name>Livestock</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Mechanical Parts</ItemID>
+    <Name>Mechanical Parts</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Microfiber Shielding</ItemID>
+    <Name>Microfiber Shielding</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Miniature Electronics</ItemID>
+    <Name>Miniature Electronics</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Nanites</ItemID>
+    <Name>Nanites</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Oxides</ItemID>
+    <Name>Oxides</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Polyaramids</ItemID>
+    <Name>Polyaramids</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Polytextiles</ItemID>
+    <Name>Polytextiles</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Rocket Fuel</ItemID>
+    <Name>Rocket Fuel</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Silicate Glass</ItemID>
+    <Name>Silicate Glass</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Superconductors</ItemID>
+    <Name>Superconductors</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Supertensile Plastics</ItemID>
+    <Name>Supertensile Plastics</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Synthetic Oil</ItemID>
+    <Name>Synthetic Oil</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Test Cultures</ItemID>
+    <Name>Test Cultures</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Transmitter</ItemID>
+    <Name>Transmitter</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Viral Agent</ItemID>
+    <Name>Viral Agent</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Water-Cooled CPU</ItemID>
+    <Name>Water-Cooled CPU</Name>
+    <Volume>1.5</Volume>
+  </Material>
+  <Material>
+    <ItemID>Biotech Research Reports</ItemID>
+    <Name>Biotech Research Reports</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Camera Drones</ItemID>
+    <Name>Camera Drones</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Condensates</ItemID>
+    <Name>Condensates</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Cryoprotectant Solution</ItemID>
+    <Name>Cryoprotectant Solution</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Data Chips</ItemID>
+    <Name>Data Chips</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Gel-Matrix Biopaste</ItemID>
+    <Name>Gel-Matrix Biopaste</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Guidance Systems</ItemID>
+    <Name>Guidance Systems</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Hazmat Detection Systems</ItemID>
+    <Name>Hazmat Detection Systems</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Hermetic Membranes</ItemID>
+    <Name>Hermetic Membranes</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>High-Tech Transmitters</ItemID>
+    <Name>High-Tech Transmitters</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Industrial Explosives</ItemID>
+    <Name>Industrial Explosives</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Neocoms</ItemID>
+    <Name>Neocoms</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Nuclear Reactors</ItemID>
+    <Name>Nuclear Reactors</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Planetary Vehicles</ItemID>
+    <Name>Planetary Vehicles</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Robotics</ItemID>
+    <Name>Robotics</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Smartfab Units</ItemID>
+    <Name>Smartfab Units</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Supercomputers</ItemID>
+    <Name>Supercomputers</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Synthetic Synapses</ItemID>
+    <Name>Synthetic Synapses</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Transcranial Microcontrollers</ItemID>
+    <Name>Transcranial Microcontrollers</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Ukomi Super Conductors</ItemID>
+    <Name>Ukomi Super Conductors</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Vaccines</ItemID>
+    <Name>Vaccines</Name>
+    <Volume>6.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Broadcast Node</ItemID>
+    <Name>Broadcast Node</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Integrity Response Drones</ItemID>
+    <Name>Integrity Response Drones</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Nano-Factory</ItemID>
+    <Name>Nano-Factory</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Organic Mortar Applicators</ItemID>
+    <Name>Organic Mortar Applicators</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Recursive Computing Module</ItemID>
+    <Name>Recursive Computing Module</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Self-Harmonizing Power Core</ItemID>
+    <Name>Self-Harmonizing Power Core</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Sterile Conduits</ItemID>
+    <Name>Sterile Conduits</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Material>
+    <ItemID>Wetware Mainframe</ItemID>
+    <Name>Wetware Mainframe</Name>
+    <Volume>100.0</Volume>
+  </Material>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Micro Organisms</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Carbon Compounds</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Planktic Colonies</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Non-CS Crystals</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Ionic Solutions</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Autotrophs</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Reactive Gas</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Noble Gas</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Suspended Plasma</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Noble Metals</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Complex Organisms</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Base Metals</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Felsic Magma</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Heavy Metals</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>0</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Aqueous Liquids</Material>
+      <Units>-1</Units>
+    </Output>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Bacteria</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Micro Organisms</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Biofuels</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Carbon Compounds</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Biomass</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Planktic Colonies</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Chiral Structures</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Non-CS Crystals</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Electrolytes</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Ionic Solutions</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Industrial Fibers</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Autotrophs</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Oxidizing Compound</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Reactive Gas</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Oxygen</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Noble Gas</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Plasmoids</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Suspended Plasma</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Precious Metals</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Noble Metals</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Proteins</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Complex Organisms</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Reactive Metals</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Base Metals</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Silicon</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Felsic Magma</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Toxic Metals</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Heavy Metals</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>1</Tier>
+    <CycleTime>0.5</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Water</Material>
+      <Units>20</Units>
+    </Output>
+    <Input>
+      <Material>Aqueous Liquids</Material>
+      <Units>3000</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Biocells</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Precious Metals</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Biofuels</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Construction Blocks</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Toxic Metals</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Reactive Metals</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Consumer Electronics</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Chiral Structures</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Toxic Metals</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Coolant</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Water</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Electrolytes</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Enriched Uranium</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Toxic Metals</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Precious Metals</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Fertilizer</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Proteins</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Bacteria</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Genetically Enhanced Livestock</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Biomass</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Proteins</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Livestock</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Biofuels</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Proteins</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Mechanical Parts</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Precious Metals</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Reactive Metals</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Microfiber Shielding</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Silicon</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Industrial Fibers</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Miniature Electronics</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Silicon</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Chiral Structures</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Nanites</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Reactive Metals</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Bacteria</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Oxides</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Oxygen</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Oxidizing Compound</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Polyaramids</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Industrial Fibers</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Oxidizing Compound</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Polytextiles</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Industrial Fibers</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Biofuels</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Rocket Fuel</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Electrolytes</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Plasmoids</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Silicate Glass</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Silicon</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Oxidizing Compound</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Superconductors</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Water</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Plasmoids</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Supertensile Plastics</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Biomass</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Oxygen</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Synthetic Oil</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Oxygen</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Electrolytes</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Test Cultures</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Water</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Bacteria</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Transmitter</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Chiral Structures</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Plasmoids</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Viral Agent</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Biomass</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Bacteria</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>2</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Water-Cooled CPU</Material>
+      <Units>5</Units>
+    </Output>
+    <Input>
+      <Material>Water</Material>
+      <Units>40</Units>
+    </Input>
+    <Input>
+      <Material>Reactive Metals</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Biotech Research Reports</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Nanites</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Livestock</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Construction Blocks</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Camera Drones</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Silicate Glass</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Rocket Fuel</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Condensates</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Oxides</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Coolant</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Cryoprotectant Solution</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Test Cultures</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Synthetic Oil</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Fertilizer</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Data Chips</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Supertensile Plastics</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Microfiber Shielding</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Gel-Matrix Biopaste</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Oxides</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Biocells</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Superconductors</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Guidance Systems</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Water-Cooled CPU</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Transmitter</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Hazmat Detection Systems</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Polytextiles</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Viral Agent</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Transmitter</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Hermetic Membranes</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Polyaramids</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Genetically Enhanced Livestock</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>High-Tech Transmitters</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Polyaramids</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Transmitter</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Industrial Explosives</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Fertilizer</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Polytextiles</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Neocoms</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Biocells</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Silicate Glass</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Nuclear Reactors</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Microfiber Shielding</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Enriched Uranium</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Planetary Vehicles</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Supertensile Plastics</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Mechanical Parts</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Miniature Electronics</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Robotics</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Mechanical Parts</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Consumer Electronics</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Smartfab Units</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Construction Blocks</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Miniature Electronics</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Supercomputers</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Water-Cooled CPU</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Coolant</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Synthetic Synapses</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Supertensile Plastics</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Test Cultures</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Transcranial Microcontrollers</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Biocells</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Nanites</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Ukomi Super Conductors</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Synthetic Oil</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Superconductors</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>3</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Vaccines</Material>
+      <Units>3</Units>
+    </Output>
+    <Input>
+      <Material>Livestock</Material>
+      <Units>10</Units>
+    </Input>
+    <Input>
+      <Material>Viral Agent</Material>
+      <Units>10</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Broadcast Node</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Neocoms</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Data Chips</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>High-Tech Transmitters</Material>
+      <Units>6</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Integrity Response Drones</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Gel-Matrix Biopaste</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Hazmat Detection Systems</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Planetary Vehicles</Material>
+      <Units>6</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Nano-Factory</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Industrial Explosives</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Ukomi Super Conductors</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Reactive Metals</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Organic Mortar Applicators</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Condensates</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Robotics</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Bacteria</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Recursive Computing Module</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Synthetic Synapses</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Guidance Systems</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Transcranial Microcontrollers</Material>
+      <Units>6</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Self-Harmonizing Power Core</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Camera Drones</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Nuclear Reactors</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Hermetic Membranes</Material>
+      <Units>6</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Sterile Conduits</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Smartfab Units</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Vaccines</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Water</Material>
+      <Units>40</Units>
+    </Input>
+  </Process>
+  <Process>
+    <Tier>4</Tier>
+    <CycleTime>1.0</CycleTime>
+    <InstallCost>0.0</InstallCost>
+    <Output>
+      <Material>Wetware Mainframe</Material>
+      <Units>1</Units>
+    </Output>
+    <Input>
+      <Material>Supercomputers</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Biotech Research Reports</Material>
+      <Units>6</Units>
+    </Input>
+    <Input>
+      <Material>Cryoprotectant Solution</Material>
+      <Units>6</Units>
+    </Input>
+  </Process>
+</PIData>

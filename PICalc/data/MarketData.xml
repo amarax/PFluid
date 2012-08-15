@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MarketData>
+  <MarketItem>
+    <Name>Electrolytes</Name>
+    <Prices>
+      <HighestBuy>312.87</HighestBuy>
+      <LowestSell>336.66</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Integrity Response Drones</Name>
+    <Prices>
+      <HighestBuy>1070331.5</HighestBuy>
+      <LowestSell>1140599.5</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Aqueous Liquids</Name>
+    <Prices>
+      <HighestBuy>1.05</HighestBuy>
+      <LowestSell>1.29</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Transcranial Microcontrollers</Name>
+    <Prices>
+      <HighestBuy>26536.66</HighestBuy>
+      <LowestSell>39936.49</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Genetically Enhanced Livestock</Name>
+    <Prices>
+      <HighestBuy>4367.32</HighestBuy>
+      <LowestSell>5195.78</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Nano-Factory</Name>
+    <Prices>
+      <HighestBuy>550601.5</HighestBuy>
+      <LowestSell>581620.7</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Hazmat Detection Systems</Name>
+    <Prices>
+      <HighestBuy>59674.06</HighestBuy>
+      <LowestSell>63476.71</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Fertilizer</Name>
+    <Prices>
+      <HighestBuy>4789.52</HighestBuy>
+      <LowestSell>5052.39</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Data Chips</Name>
+    <Prices>
+      <HighestBuy>30792.01</HighestBuy>
+      <LowestSell>44282.38</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Oxides</Name>
+    <Prices>
+      <HighestBuy>3519.51</HighestBuy>
+      <LowestSell>3964.19</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Polyaramids</Name>
+    <Prices>
+      <HighestBuy>4996.19</HighestBuy>
+      <LowestSell>5923.32</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Broadcast Node</Name>
+    <Prices>
+      <HighestBuy>960181.6</HighestBuy>
+      <LowestSell>1009559.1</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Reactive Metals</Name>
+    <Prices>
+      <HighestBuy>165.12</HighestBuy>
+      <LowestSell>191.24</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Miniature Electronics</Name>
+    <Prices>
+      <HighestBuy>6300.17</HighestBuy>
+      <LowestSell>6722.65</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Biomass</Name>
+    <Prices>
+      <HighestBuy>306.64</HighestBuy>
+      <LowestSell>338.6</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Noble Metals</Name>
+    <Prices>
+      <HighestBuy>2.3</HighestBuy>
+      <LowestSell>2.44</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Recursive Computing Module</Name>
+    <Prices>
+      <HighestBuy>750010.75</HighestBuy>
+      <LowestSell>770268.2</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Toxic Metals</Name>
+    <Prices>
+      <HighestBuy>290.65</HighestBuy>
+      <LowestSell>291.43</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>High-Tech Transmitters</Name>
+    <Prices>
+      <HighestBuy>10330.12</HighestBuy>
+      <LowestSell>38397.32</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Planetary Vehicles</Name>
+    <Prices>
+      <HighestBuy>25540.73</HighestBuy>
+      <LowestSell>27713.67</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Wetware Mainframe</Name>
+    <Prices>
+      <HighestBuy>1075395.9</HighestBuy>
+      <LowestSell>1099451.5</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Hermetic Membranes</Name>
+    <Prices>
+      <HighestBuy>37763.54</HighestBuy>
+      <LowestSell>39574.33</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Noble Gas</Name>
+    <Prices>
+      <HighestBuy>1.27</HighestBuy>
+      <LowestSell>1.67</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Planktic Colonies</Name>
+    <Prices>
+      <HighestBuy>2.64</HighestBuy>
+      <LowestSell>2.65</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Livestock</Name>
+    <Prices>
+      <HighestBuy>4837.31</HighestBuy>
+      <LowestSell>5219.67</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Guidance Systems</Name>
+    <Prices>
+      <HighestBuy>18388.12</HighestBuy>
+      <LowestSell>21285.38</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Condensates</Name>
+    <Prices>
+      <HighestBuy>30158.24</HighestBuy>
+      <LowestSell>35318.98</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Chiral Structures</Name>
+    <Prices>
+      <HighestBuy>301.18</HighestBuy>
+      <LowestSell>325.35</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Ukomi Super Conductors</Name>
+    <Prices>
+      <HighestBuy>26808.28</HighestBuy>
+      <LowestSell>29433.92</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Biofuels</Name>
+    <Prices>
+      <HighestBuy>82.51</HighestBuy>
+      <LowestSell>87.4</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Polytextiles</Name>
+    <Prices>
+      <HighestBuy>4924.88</HighestBuy>
+      <LowestSell>4941.66</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Mechanical Parts</Name>
+    <Prices>
+      <HighestBuy>5920.64</HighestBuy>
+      <LowestSell>6185.59</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Camera Drones</Name>
+    <Prices>
+      <HighestBuy>42018.89</HighestBuy>
+      <LowestSell>48718.8</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Transmitter</Name>
+    <Prices>
+      <HighestBuy>5039.47</HighestBuy>
+      <LowestSell>5328.91</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Biotech Research Reports</Name>
+    <Prices>
+      <HighestBuy>54952.71</HighestBuy>
+      <LowestSell>61756.47</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Vaccines</Name>
+    <Prices>
+      <HighestBuy>37129.77</HighestBuy>
+      <LowestSell>40208.1</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Reactive Gas</Name>
+    <Prices>
+      <HighestBuy>2.83</HighestBuy>
+      <LowestSell>2.89</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Silicon</Name>
+    <Prices>
+      <HighestBuy>303.13</HighestBuy>
+      <LowestSell>326.13</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Smartfab Units</Name>
+    <Prices>
+      <HighestBuy>40027.02</HighestBuy>
+      <LowestSell>46183.7</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Synthetic Synapses</Name>
+    <Prices>
+      <HighestBuy>35952.76</HighestBuy>
+      <LowestSell>45278.31</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Organic Mortar Applicators</Name>
+    <Prices>
+      <HighestBuy>580354.6</HighestBuy>
+      <LowestSell>639860.9</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Rocket Fuel</Name>
+    <Prices>
+      <HighestBuy>6451.9</HighestBuy>
+      <LowestSell>6468.68</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Ionic Solutions</Name>
+    <Prices>
+      <HighestBuy>2.27</HighestBuy>
+      <LowestSell>2.28</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Sterile Conduits</Name>
+    <Prices>
+      <HighestBuy>685440.2</HighestBuy>
+      <LowestSell>731652.4</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Enriched Uranium</Name>
+    <Prices>
+      <HighestBuy>7155.39</HighestBuy>
+      <LowestSell>7171.33</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Industrial Explosives</Name>
+    <Prices>
+      <HighestBuy>35500.06</HighestBuy>
+      <LowestSell>42652.67</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Gel-Matrix Biopaste</Name>
+    <Prices>
+      <HighestBuy>56686.26</HighestBuy>
+      <LowestSell>60398.38</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Neocoms</Name>
+    <Prices>
+      <HighestBuy>40027.02</HighestBuy>
+      <LowestSell>52430.91</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Proteins</Name>
+    <Prices>
+      <HighestBuy>359.66</HighestBuy>
+      <LowestSell>393.57</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Cryoprotectant Solution</Name>
+    <Prices>
+      <HighestBuy>44282.38</HighestBuy>
+      <LowestSell>46726.94</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Oxygen</Name>
+    <Prices>
+      <HighestBuy>183.45</HighestBuy>
+      <LowestSell>194.36</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Plasmoids</Name>
+    <Prices>
+      <HighestBuy>235.3</HighestBuy>
+      <LowestSell>259.47</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Autotrophs</Name>
+    <Prices>
+      <HighestBuy>2.8</HighestBuy>
+      <LowestSell>3.08</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Water</Name>
+    <Prices>
+      <HighestBuy>225.5</HighestBuy>
+      <LowestSell>268.99</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Industrial Fibers</Name>
+    <Prices>
+      <HighestBuy>286.37</HighestBuy>
+      <LowestSell>296.11</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Nuclear Reactors</Name>
+    <Prices>
+      <HighestBuy>41204.04</HighestBuy>
+      <LowestSell>49624.19</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Supertensile Plastics</Name>
+    <Prices>
+      <HighestBuy>4060.68</HighestBuy>
+      <LowestSell>8907.85</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Felsic Magma</Name>
+    <Prices>
+      <HighestBuy>2.29</HighestBuy>
+      <LowestSell>3.18</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Robotics</Name>
+    <Prices>
+      <HighestBuy>55237.64</HighestBuy>
+      <LowestSell>57863.27</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Bacteria</Name>
+    <Prices>
+      <HighestBuy>120.1</HighestBuy>
+      <LowestSell>135.0</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Consumer Electronics</Name>
+    <Prices>
+      <HighestBuy>5506.45</HighestBuy>
+      <LowestSell>7609.45</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Suspended Plasma</Name>
+    <Prices>
+      <HighestBuy>1.61</HighestBuy>
+      <LowestSell>1.78</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Biocells</Name>
+    <Prices>
+      <HighestBuy>5201.34</HighestBuy>
+      <LowestSell>5587.74</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Nanites</Name>
+    <Prices>
+      <HighestBuy>3310.54</HighestBuy>
+      <LowestSell>3475.24</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Coolant</Name>
+    <Prices>
+      <HighestBuy>6661.51</HighestBuy>
+      <LowestSell>7195.22</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Construction Blocks</Name>
+    <Prices>
+      <HighestBuy>5503.74</HighestBuy>
+      <LowestSell>5990.93</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Heavy Metals</Name>
+    <Prices>
+      <HighestBuy>1.69</HighestBuy>
+      <LowestSell>1.75</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Oxidizing Compound</Name>
+    <Prices>
+      <HighestBuy>238.02</HighestBuy>
+      <LowestSell>253.23</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Supercomputers</Name>
+    <Prices>
+      <HighestBuy>45278.31</HighestBuy>
+      <LowestSell>54422.78</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Base Metals</Name>
+    <Prices>
+      <HighestBuy>1.08</HighestBuy>
+      <LowestSell>1.23</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Self-Harmonizing Power Core</Name>
+    <Prices>
+      <HighestBuy>996265.25</HighestBuy>
+      <LowestSell>1014623.5</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Microfiber Shielding</Name>
+    <Prices>
+      <HighestBuy>6156.95</HighestBuy>
+      <LowestSell>6547.21</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Non-CS Crystals</Name>
+    <Prices>
+      <HighestBuy>2.86</HighestBuy>
+      <LowestSell>3.48</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Superconductors</Name>
+    <Prices>
+      <HighestBuy>6287.11</HighestBuy>
+      <LowestSell>6287.11</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Carbon Compounds</Name>
+    <Prices>
+      <HighestBuy>1.64</HighestBuy>
+      <LowestSell>1.81</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Viral Agent</Name>
+    <Prices>
+      <HighestBuy>4930.94</HighestBuy>
+      <LowestSell>5449.51</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Synthetic Oil</Name>
+    <Prices>
+      <HighestBuy>3811.18</HighestBuy>
+      <LowestSell>4161.84</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Test Cultures</Name>
+    <Prices>
+      <HighestBuy>2284.78</HighestBuy>
+      <LowestSell>3326.44</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Micro Organisms</Name>
+    <Prices>
+      <HighestBuy>0.69</HighestBuy>
+      <LowestSell>0.7</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Precious Metals</Name>
+    <Prices>
+      <HighestBuy>303.52</HighestBuy>
+      <LowestSell>347.57</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Silicate Glass</Name>
+    <Prices>
+      <HighestBuy>4111.02</HighestBuy>
+      <LowestSell>5273.07</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Complex Organisms</Name>
+    <Prices>
+      <HighestBuy>2.04</HighestBuy>
+      <LowestSell>2.05</LowestSell>
+    </Prices>
+  </MarketItem>
+  <MarketItem>
+    <Name>Water-Cooled CPU</Name>
+    <Prices>
+      <HighestBuy>1544.56</HighestBuy>
+      <LowestSell>2250.31</LowestSell>
+    </Prices>
+  </MarketItem>
+</MarketData>
