@@ -16,8 +16,10 @@ ArrayList<UIControl> uiControls = new ArrayList();
 UIControl hoveredControl = null;
 UIControl activeControl = null;
 
-Global_Float outerRingSize = new Global_Float( 400 );
-Global_Float innerRingSize = new Global_Float( 180 );
+Global_Boolean global_lineMode = new Global_Boolean( false );
+
+Global_Float outerRingSize = new Global_Float( 360 );
+Global_Float innerRingSize = new Global_Float( 130 );
 Global_Float ringThickness = new Global_Float( 15 );
 Global_Float abilityRingThickness = new Global_Float( 30 );
 Global_Float gapSize = new Global_Float( 1 );
@@ -34,7 +36,7 @@ void setup()
 
 
 
-  size( 1600, 900 );
+  size( 1440, 810 );
   smooth();
   colorMode( HSB, 360.0, 1.0, 1.0, 1.0 );
 
@@ -45,7 +47,7 @@ void setup()
   font_TSW_Subtitle = loadFont( "Futura-Medium-18.vlw" );
   font_TSW_AbilityTree = loadFont( "Futura-Medium-12.vlw" );
 
-  int tSize = 200;
+  int tSize = 400;
   abilityTree = new TSW_UIControl_AbilityTree( new Rectangle( height / 2 - tSize + 100, height / 2 - tSize, tSize * 2, tSize * 2 ) );
   uiControls.add( abilityTree );
 
@@ -53,15 +55,15 @@ void setup()
   int tYPos = 50;
   int tOffset = 50;
 
-  tSize = 215;
-  UIControl_Slider tSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tSizeSlider.setLabel( "Outer Ring Size" );
-  uiControls.add( tSizeSlider );
-  tYPos += tOffset;
+  tSize = 40;
+  UIControl_Switch tModeSwitch = new UIControl_Switch( new Rectangle( width - tSize - 50, tYPos, tSize, 20 ) );
+  tModeSwitch.setLabel( "Circle / Line" );
+  uiControls.add( tModeSwitch );
+  tYPos += tOffset + 25;
 
   tSize = 215;
   UIControl_Slider tInnerSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tInnerSizeSlider.setLabel( "Inner Ring Size" );
+  tInnerSizeSlider.setLabel( "Inner Ring Distance from Outer Ring" );
   uiControls.add( tInnerSizeSlider );
   tYPos += tOffset;
 
@@ -95,12 +97,6 @@ void setup()
   uiControls.add( tSelectionSizeSlider );
   tYPos += tOffset;
 
-  tSize = 400;
-  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tAngleOffsetSlider.setLabel( "Angle Offset" );
-  uiControls.add( tAngleOffsetSlider );
-  tYPos += tOffset;
-
   tSize = 40;
   UIControl_Switch tShowAuxWheel = new UIControl_Switch( new Rectangle( width - tSize - 50, tYPos, tSize, 20 ) );
   tShowAuxWheel.setLabel( "Aux Wheel" );
@@ -112,6 +108,20 @@ void setup()
   tSizeByPoints.setLabel( "By AP" );
   uiControls.add( tSizeByPoints );
   tYPos += tOffset;
+
+  tSize = 215;
+  UIControl_Slider tSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tSizeSlider.setLabel( "Outer Ring Size" );
+  uiControls.add( tSizeSlider );
+  tYPos += tOffset;
+
+  tSize = 400;
+  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tAngleOffsetSlider.setLabel( "Angle Offset" );
+  uiControls.add( tAngleOffsetSlider );
+  tYPos += tOffset;
+
+  tModeSwitch.setup( global_lineMode );
 
   tSizeSlider.setup( outerRingSize );
   tInnerSizeSlider.setup( innerRingSize );
