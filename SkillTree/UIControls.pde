@@ -214,3 +214,25 @@ class UIControl_Switch extends UIControl
     label = aLabel;
   }
 }
+
+
+class UIOverlay
+{
+  PVector position;
+  
+  HashMap<UIControl, PVector> controls;
+  
+  public UIOverlay( PVector aPosition )
+  {
+    position = aPosition;
+    
+    controls = new HashMap<UIControl, PVector>(); 
+  }
+  
+  public void addControl( UIControl aControl )
+  {
+    controls.put( aControl, new PVector( aControl.rect.x - position.x, aControl.rect.y - position.y ) );
+  }
+  
+  
+}

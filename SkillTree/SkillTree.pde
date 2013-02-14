@@ -7,6 +7,7 @@ PFont font_value;
 PFont font_TSW_Title;
 PFont font_TSW_Subtitle;
 PFont font_TSW_AbilityTree;
+PFont font_TSW_AbilityName;
 
 
 TSW_UIControl_AbilityTree abilityTree;
@@ -23,7 +24,7 @@ Global_Float innerRingSize = new Global_Float( 130 );
 Global_Float ringThickness = new Global_Float( 15 );
 Global_Float abilityRingThickness = new Global_Float( 30 );
 Global_Float gapSize = new Global_Float( 1 );
-Global_Float abilityGapSize = new Global_Float( 0.3 );
+Global_Float abilityGapSize = new Global_Float( 0.5 );
 Global_Float angleOffset = new Global_Float( 0 );
 Global_Float selectedNodeRatio = new Global_Float( 0.8 );
 Global_Boolean showAuxWheel = new Global_Boolean( true );
@@ -40,12 +41,15 @@ void setup()
   smooth();
   colorMode( HSB, 360.0, 1.0, 1.0, 1.0 );
 
+  frameRate( 60 );
+
   font_label = loadFont( "HelveticaNeue-Bold-8.vlw" );
   font_value = loadFont( "HelveticaNeue-8.vlw" );
 
   font_TSW_Title = loadFont( "Futura-CondensedExtraBold-18.vlw" );
   font_TSW_Subtitle = loadFont( "Futura-Medium-18.vlw" );
   font_TSW_AbilityTree = loadFont( "Futura-Medium-12.vlw" );
+  font_TSW_AbilityName = loadFont( "Futura-Medium-10.vlw" );
 
   int tSize = 400;
   abilityTree = new TSW_UIControl_AbilityTree( new Rectangle( height / 2 - tSize + 100, height / 2 - tSize, tSize * 2, tSize * 2 ) );
@@ -105,8 +109,13 @@ void setup()
 
   tSize = 40;
   UIControl_Switch tSizeByPoints = new UIControl_Switch( new Rectangle( width - tSize - 50, tYPos, tSize, 20 ) );
-  tSizeByPoints.setLabel( "By AP" );
+  tSizeByPoints.setLabel( "AP Width" );
   uiControls.add( tSizeByPoints );
+
+//  tSize = 40;
+//  UIControl_Switch tLengthByPoints = new UIControl_Switch( new Rectangle( width - tSize - 100, tYPos, tSize, 20 ) );
+//  tLengthByPoints.setLabel( "AP Length" );
+//  uiControls.add( tLengthByPoints );
   tYPos += tOffset;
 
   tSize = 215;
