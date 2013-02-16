@@ -42,6 +42,10 @@ class TSW_WikiParser
     TSW_AbilityBranch tMainMagicBranch = null;
     TSW_AbilityBranch tMainRangedBranch = null;
 
+    TSW_AbilityBranch tAuxiliaryMeleeBranch = null;
+    TSW_AbilityBranch tAuxiliaryMagicBranch = null;
+    TSW_AbilityBranch tAuxiliaryRangedBranch = null;
+
 
     aAbilityTree.cLevels = 1;
 
@@ -89,8 +93,35 @@ class TSW_WikiParser
 
         if( tBranchName.equals( "Chainsaw" ) || tBranchName.equals( "Quantum" ) || tBranchName.equals( "Rocket Launcher" ) )
         {
-          tCurrentBranch = tAuxiliaryWheel;
           tColorSet = colorSet_auxiliary;
+          
+          if( tBranchName.equals( "Chainsaw" ) )
+          {
+            if( tAuxiliaryMeleeBranch == null )
+            {
+              tAuxiliaryMeleeBranch = aAbilityTree.addNewBranch( "Melee", tColorSet.branch, tAuxiliaryWheel );
+            }
+            
+            tCurrentBranch = tAuxiliaryMeleeBranch;
+          }
+          else if( tBranchName.equals( "Quantum" ) )
+          {
+            if( tAuxiliaryMagicBranch == null )
+            {
+              tAuxiliaryMagicBranch = aAbilityTree.addNewBranch( "Magic", tColorSet.branch, tAuxiliaryWheel );
+            }
+            
+            tCurrentBranch = tAuxiliaryMagicBranch;
+          }
+          else if( tBranchName.equals( "Rocket Launcher" ) )
+          {
+            if( tAuxiliaryRangedBranch == null )
+            {
+              tAuxiliaryRangedBranch = aAbilityTree.addNewBranch( "Ranged", tColorSet.branch, tAuxiliaryWheel );
+            }
+            
+            tCurrentBranch = tAuxiliaryRangedBranch;
+          }
         }
         else
         {

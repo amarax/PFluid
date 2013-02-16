@@ -2,6 +2,8 @@ class UIControl
 {
   protected Rectangle rect;
   
+  protected PVector mousePressedPos;
+  
   protected UIControl( Rectangle aRect )
   {
     rect = new Rectangle( aRect );
@@ -18,10 +20,12 @@ class UIControl
   
   public void onMousePressed()
   {
+    mousePressedPos = new PVector( mouseX, mouseY );
   }
   
   public void onMouseReleased()
   {
+    mousePressedPos = null;
   }
 }
 

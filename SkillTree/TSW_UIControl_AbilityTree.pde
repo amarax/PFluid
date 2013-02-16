@@ -13,7 +13,7 @@ class TSW_UIControl_AbilityTree extends UIControl
   
   boolean rotatingByDrag;
   float mouseDownAngleOffset;
-  float mouseDownAngle;
+  float mousePressedAngle;
   
   
   private EasingHelper_PVector easingHelper_centerPos;
@@ -35,7 +35,7 @@ class TSW_UIControl_AbilityTree extends UIControl
     
     rotatingByDrag = false;
     mouseDownAngleOffset = 0;
-    mouseDownAngle = 0;
+    mousePressedAngle = 0;
   }
   
   public void setup()
@@ -96,11 +96,22 @@ class TSW_UIControl_AbilityTree extends UIControl
 
     rect.setRect( tDampedCenterPos.x - tDampedSize, tDampedCenterPos.y - tDampedSize, tDampedSize * 2, tDampedSize * 2 );
     
+    if( mousePressedPos != null )
+    {
+      if( !rotatingByDrag )
+      {
+        if( mousePressedPos.x != mouseX && mousePressedPos.y != mouseY )
+        {
+          rotatingByDrag = true;
+        }
+      }
+    }
+    
     if( rotatingByDrag )
     {
       float tCurrentMouseDownAngle = atan2( mouseY - centerPos.y, mouseX - centerPos.x ) + TWO_PI;
       
-      float tNewAngleOffset = mouseDownAngleOffset + ( tCurrentMouseDownAngle - mouseDownAngle );
+      float tNewAngleOffset = mouseDownAngleOffset + ( tCurrentMouseDownAngle - mousePressedAngle );
       while( tNewAngleOffset > angleOffset.value + PI )
       {
         tNewAngleOffset -= TWO_PI;
@@ -109,7 +120,6 @@ class TSW_UIControl_AbilityTree extends UIControl
       {
         tNewAngleOffset += TWO_PI;
       }
-      print( angleOffset.value ); print( " : " ); println( tNewAngleOffset );
       angleOffset.value = tNewAngleOffset;
     }
     
@@ -119,8 +129,8 @@ class TSW_UIControl_AbilityTree extends UIControl
     
     if( global_lineMode.value )
     {
-      tWheelStartAngle = -tDampedCenterPos.x / size;
-      tWheelEndAngle = ( width - tDampedCenterPos.x ) / size;
+      tWheelStartAngle = -tDampedCenterPos.x / size - HALF_PI;
+      tWheelEndAngle = ( width - tDampedCenterPos.x ) / size - HALF_PI;
     }
     
     updateChildNodeDimensions( abilityTree.rootNode, 0, tWheelStartAngle, tWheelEndAngle );
@@ -187,14 +197,24 @@ class TSW_UIControl_AbilityTree extends UIControl
   
   public void onMousePressed()
   {
-    mouseDownAngle = atan2( mouseY - centerPos.y, mouseX - centerPos.x ) + TWO_PI;
-    mouseDownAngleOffset = angleOffset.value;
+    super.onMousePressed();
     
-    rotatingByDrag = true;
+    mousePressedAngle = atan2( mouseY - centerPos.y, mouseX - centerPos.x ) + TWO_PI;
+    mouseDownAngleOffset = angleOffset.value;
   }
   
   public void onMouseReleased()
   {
+    super.onMouseReleased();
+    
+    //angleOffset.value = Angle.normalize( angleOffset.value );
+    //normalizeAngles( abilityTree.rootNode );
+    
+    if( !rotatingByDrag )
+    {
+      selectedAbilityBranch = null;
+    }
+    
     rotatingByDrag = false;
   }
   
@@ -275,19 +295,24 @@ class TSW_UIControl_AbilityTree extends UIControl
       
       tControl.cDistanceFromCenter = ( aLevel * 1.0 / abilityTree.cLevels ) * ( tOuterRingRadius - tInnerRingRadius ) + tInnerRingRadius;
 
-      if( tControl instanceof TSW_UIControl_Ability ) { tControl.cDistanceFromCenter -= ( tOuterRingRadius - tInnerRingRadius ) / abilityTree.cLevels - ringThickness.value - gapSize.value * 2; }
+      if( tControl instanceof TSW_UIControl_Ability ) { tControl.cDistanceFromCenter -= ( tOuterRingRadius - tInnerRingRadius ) / abilityTree.cLevels - ringThickness.value - abilityGapSize.value; }
 
-      float tGapSize = gapSize.value;
-      if( tControl instanceof TSW_UIControl_Ability ) { tGapSize = abilityGapSize.value; }
-      else if( !showAuxWheel.value && iNode.name.equals( "Main" ) ) { tGapSize = 0; }
+      float tGapSize = branchGapSize.value;
+      if( aNode == abilityTree.rootNode ) { tGapSize = 0; }
+      if( !showAuxWheel.value && iNode.name.equals( "Main" ) ) { tGapSize = 0; }
+      tGapSize /= tControl.cDistanceFromCenter;
 
-      tControl.cStartAngle = tCurrentAngle + tGapSize / tControl.cDistanceFromCenter;
+//      tControl.cStartAngle = tCurrentAngle + tGapSize / tControl.cDistanceFromCenter;
+//      tCurrentAngle = tCurrentAngle + ( aEndAngle - aStartAngle ) * tNodeToRelativeSize.get( iNode ) / tTotalSize;
+//      tControl.cEndAngle = tCurrentAngle - tGapSize / tControl.cDistanceFromCenter;
+
+      tControl.cStartAngle = tCurrentAngle;
       tCurrentAngle = tCurrentAngle + ( aEndAngle - aStartAngle ) * tNodeToRelativeSize.get( iNode ) / tTotalSize;
-      tControl.cEndAngle = tCurrentAngle - tGapSize / tControl.cDistanceFromCenter;
+      tControl.cEndAngle = tCurrentAngle;
       
       if( iNode.getChildNodes().size() > 0 )
       {
-          updateChildNodeDimensions( iNode, aLevel + 1, tControl.cStartAngle, tControl.cEndAngle );
+          updateChildNodeDimensions( iNode, aLevel + 1, tControl.cStartAngle + tGapSize, tControl.cEndAngle - tGapSize );
       }
     }
   }
@@ -338,6 +363,25 @@ class TSW_UIControl_AbilityTree extends UIControl
   public float getSize()
   {
     return easingHelper_size.getValue();
+  }
+  
+  
+  
+  public void normalizeAngles( TSW_AbilityNode aNode )
+  {
+    TSW_UIControl_AbilityNode tControl = aNode.linkedControl;
+    if( tControl != null )
+    {
+      tControl.damper_startAngle.currentValue += Angle.normalize( tControl.cStartAngle ) - tControl.cStartAngle;
+      tControl.damper_endAngle.currentValue += Angle.normalize( tControl.cEndAngle ) - tControl.cEndAngle;
+      tControl.cStartAngle = Angle.normalize( tControl.cStartAngle );
+      tControl.cEndAngle = Angle.normalize( tControl.cEndAngle );
+    }
+    
+    for( TSW_AbilityNode iNode : aNode.getChildNodes() )
+    {
+      normalizeAngles( iNode );
+    }
   }
 }
 

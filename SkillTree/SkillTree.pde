@@ -24,10 +24,10 @@ UIControl activeControl = null;
 Global_Boolean global_lineMode = new Global_Boolean( false );
 
 Global_Float outerRingSize = new Global_Float( 360 );
-Global_Float innerRingSize = new Global_Float( 130 );
-Global_Float ringThickness = new Global_Float( 15 );
+Global_Float innerRingSize = new Global_Float( 100 );
+Global_Float ringThickness = new Global_Float( 10 );
 Global_Float abilityRingThickness = new Global_Float( 30 );
-Global_Float gapSize = new Global_Float( 1 );
+Global_Float branchGapSize = new Global_Float( 1 );
 Global_Float abilityGapSize = new Global_Float( 0.5 );
 Global_Float angleOffset = new Global_Float( 0 );
 Global_Float selectedNodeRatio = new Global_Float( 0.8 );
@@ -135,11 +135,11 @@ void setup()
   uiControls.add( tSizeSlider );
   tYPos += tOffset;
 
-  tSize = 400;
-  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tAngleOffsetSlider.setLabel( "Angle Offset" );
-  uiControls.add( tAngleOffsetSlider );
-  tYPos += tOffset;
+//  tSize = 400;
+//  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+//  tAngleOffsetSlider.setLabel( "Angle Offset" );
+//  uiControls.add( tAngleOffsetSlider );
+//  tYPos += tOffset;
 
   tModeSwitch.setup( global_lineMode );
 
@@ -147,12 +147,12 @@ void setup()
   tInnerSizeSlider.setup( innerRingSize );
   tArcThicknessSlider.setup( ringThickness );
   tAbilityArcThicknessSlider.setup( abilityRingThickness );
-  tGapSizeSlider.setup( gapSize );
+  tGapSizeSlider.setup( branchGapSize );
   tAbilityGapSizeSlider.setup( abilityGapSize );
   tSelectionSizeSlider.setup( selectedNodeRatio );
-  tAngleOffsetSlider.setup( angleOffset );
   tShowAuxWheel.setup( showAuxWheel );
   tSizeByPoints.setup( sizeByPoints );
+//  tAngleOffsetSlider.setup( angleOffset );
 
   abilityTreeWidget.setup();
 }
@@ -199,7 +199,7 @@ void mousePressed()
 
 void mouseReleased()
 {
-  if ( activeControl == hoveredControl && activeControl != null )
+  if( activeControl == hoveredControl && activeControl != null )
   {
     activeControl.onMouseReleased();
   }
