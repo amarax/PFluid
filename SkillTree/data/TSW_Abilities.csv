@@ -1,0 +1,864 @@
+Blades,,7/1/2012 Build 1.0@311569,cast time - refresh time,,,,
+Method,Technique,Wind through Grass,Tearing of Sky,Crossing River's Edge,Running of the Jagged,Sharpening the Senses,The Cutting Artist
+Delicate Strike,Immortal Spirit,Grass Cutter,Fatal Flourish,Bamboo Cutter,Brandish,Tipped Scales,Forked Paths
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+1 ap,1 ap,9 ap ,9 ap ,9 ap ,9 ap ,9 ap ,9 ap 
+"Instant Instant
+Builds 1 resource for each weapon equipped.
+A single target attack that deals 48 physical damage.","Whenever you penetrate, you gain a heal over time effect, which heals you 10 every second for 5 seconds.","Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 45 physical damage, or 55 physical damage if the target is Afflicted.","Whenever you apply an Afflicted you gain a 1 stack of the Penetration Rating effect, which increases your Penetration Rating by 30 per stack for 8 seconds. This effect can stack up to 10 times.","Instant Instant
+PBAoE: Applied to 5 enimies in a 5 metre radius around you.
+Builds 1 resource for each Equipped weapon.
+A PBAoE Frenzy attack that deals 32 physical damage.","2.5sec 10sec
+Channelled every 0.5 seconds for 2.5 seconds.
+Consumes all Blade Resources.
+A channelling Focus attack that deals 38 physical damage per hit. While you channel, you take 5% less damage per resource spent. This abiity generates additional hate.","Whenever you hit an Impaired target, you gain a heal over time effect that heals 22 every second for 6 seconds.","Instant Instant
+PBAoE: Affects up to 5 enemies within a 5 meter radius around you.
+Builds 1 Resource for Each equipped weapon.
+A PBAoE attack that deals 32 physical damage. For every affected that that is Afflicted, you are healed for 8."
+Delicate Precision,Blade Torrent,Twist the Knife,Spiral of Death,Sudden Return,Brandishing Support,Saving Grace,Enervate
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"Increases the Penetration Chance of ""Delicate Strike"" by 10%.","Instant Instant
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+Builds 1 resource for each equipped weapon.
+A PBAoE Frenzy attack that deals 32 physical damage. This attack generates a high amount of hate.","Whenever you penetrate you also gain 1 stack of a beneficial effect, which increases all damage dealt by 3% for 10 seconds. This effect can stack up to 3 times.","Instant 20sec
+You teleport to the target and hit up to 5 enemies in a 5 metre radius, dealing 81 physical damage. The target must be at least 3 metres away.","Whenever you penetrate, you also perform an additional hit for 18 physical damage.","""Brandish"" also increases your Defense Rating by 25 per resource spent while you channel. Its recharge time is reduced by 5 seconds.","Instant 20sec
+Charge: 15 metre charge to your defensive target.
+You charge to a defensive target and give it a beneficial effect causing the next attack against it to deal 50% less damage.","Whenver you are glanced, you cause the attacker to become Afflicted with a  damage over time effect that deals 12 physical damage every second for 5 seconds."
+Balanced Blade,Perfect Storm,Chop Shop,Incision,Five Petal Lotus,Matador,Stave Off,Crimson Theatre
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,16 ap,16 ap,16 ap
+"Instant Instant
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+Consumes all Blade Resources.
+A PBAoE attack that deals 60 physical damage.
+Builds 2 Blade Resources for if any affected target are Impaired.","""Blade Torrent"" also causes the target to become Afflicted with a damage over time effect that deals 7 physical damage every second for 8 seconds.","2.5sec Instant
+Channeled every 0.5 seconds for 2.5 seconds.
+PBAoE; Affects up to 5 enemies in a 5 meter area around you.
+Consumes all Blade Resources.
+A channelled PBAoE Focus attack that deals 26 physical damage.","Whenever you penetrate, you also cause the target to become Afflicted with a damage over time effect that deals 10 physical damage every second for 3 seconds.","Instant Instant
+TAoE: Applied to 5 enemies in a 5 metre radius.
+Consumes all Blade Resources.
+A TAoE attack that deals 60 physical damage.","Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 46 physical damage. Also gives you 1 stack of the Defense rating effect, which increases your Defense Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","Whenever you are glaced, there is a 10% chance that your attacker becomes Impaired and unable to act for 5 seconds.","Instant 10sec
+Consumes all Blade Resources.
+Places an area at your feet that lasts for 10 seconds. 
+Every second it will hit up to 5 enemies in a 5 metre radius, dealing 4 physical damage. This ability generates additional hate."
+Expose Weakness,Martial Discipline,Seven and a Half Samurai,Trial by Swords,Fortunate Strike,Exposed,Point of Harmony,Perseverance
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Whenever you apply Impaired, you gain the Minor Penetration Chance effect, which increases you Penetration Chance by 10% for 8 seconds.","Instant 45sec
+You gain the Major Defence effect, which increases the chance that attacks against you will glance by 50% for 6 seconds.",Focus abilities are 7.5% more effective.,"Instant 45sec
+A single target attack that deals 91 physical damage and causes the target to become Impaired and unable to act for 3 seconds.","Whenever you hit an Afflicted target, there is a 10% chance you will perform an additional hit that deals 21 physical damage.","Whenever you are glanced, you hit the attacker, dealing 49 physical damage.","3sec 80sec
+Channelled: Every 0.5 seconds for 3 seconds.
+A channelled heal that heals you for 5% of you maximum health each hit.","Whenever you activate a  Frenzy ability, you are healed for 8 health."
+Dancing Blade,Regeneration,Destiny,Double Dash,Clearing the Path,Binding Wounds,On Guard,Steel Palace
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"2.5sec Instant
+Channelled: Every 0.5 seconds for 2.5 seconds.
+Consumes all Blade Resources.
+A channelled Focus attack that deals 39 physical damage.","""Major Discipline"" also gives you a heal over time effect, which heals for 57 every second while it is active.","Instant Instant
+Consumes all Blade Resources.
+A single target attack that deals 55 physical damage. If the target is Afflicted, it also applies a damage over time effect that deals 13 physical damage every second for 4 seconds.",Reduces the recharge time of all Dash abilites by 25%.,"Instant Instant
+PBAoE: Applied to up to 5 enemies within a 5 meter radius around you.
+Consumes all Blade Resources.
+A PBAoE attack that deals 57 physical damage. This attack penetrates any Afflicted targets it hits.","Instant Instant
+Consumes all Blade Resources.
+A single target attack that deals 81 physical damage. If the target is Impaired, it becomes Afflicted with a damage over time effect that  deals 7 physical damage every second for 10 seconds. This ability generates additional hate.","Whenever you apply Impaired, you also gain 1 stack of the Defence Rating effect, which increases Defense Rating by 30 per stack for 8 seconds. This effect can stack up to 10 times.","Instant
+PBAoE: Affects 5 enemies in a 5 metre radius around you.
+Consumes all Blade Resources.
+A PBAoE attack that deals 59 physical damage. If any affected targets are Afflicted, you gain the Minor Ward effect, which reduces all damage received by 7.5% for 8 seconds."
+Sharp Blade,Surging Blades,Destiny Fulfilled,Steel Echo,Voracity,Finish the Movement,Sling Blade,Shadow Play
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,34 ap,34 ap
+Increases damage dealt by Blade abilites by 10%.,"Instant 15sec
+Column Dash: Dash forward 10 metres, affecting up to 5 enemies in a 6 metre wide column along the way.
+A column dash attack that deals 58 physical damage.","Whenever you hit a target that has the Damage over Time effect from ""Destiny"", the effect is removed, dealing 55 physical damage.","Instant 60sec
+You gain a beneficial effect that causes all you Blade attacks for 10 seconds to perform an additional hit dealing 31 physical damage. This additional hit is treated as a full hit.",Increased Penetration Chance of Frenzy abilites by 7.5%. ,"Whenever you finish channelling a Focus ability, you gain 1 resource for your primary weapon.","Instant 15sec
+Throws a blade at the target dealing 93 physical damage and causes the target to become Afflicted with a damage over time effect that deals 6 physical damage every second for 5 seconds.","""Crimson Theatre"" also grants you the Minor Defence effect, which increases the chance that attacks against you will glance by 10% for 8 seconds."
+Stunning Swirl,Fluid Defense,Four Seasons,Flight of Daggers,Master's House,Silver Streak,Sixth Sense,The Art of War
+Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite),Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 30sec
+PBAoE; Affects up to 5 enemies in a 5 metre area around you.
+A PBAoE attack that deals 92 physical damage.
+Affected targets also become Impaired and unable to act for 3 seconds.","Whenever you receive a glancing hit, you gain the Major Ward effect, which reduces the damage you take by 7.5% for 6 seconds.
+Whenever you penetrate, you gain a beneficial effect that increases all damage dealt by 5% for 10 seconds.","2.5sec 30sec
+Channelled every 0.5 seconds for 2.5 seconds.
+A channelled attack that deals 31 physical damage each hit. The damage dealt increases by 5% for each hit, and all hits will penetrate. The last hit will cause the target to become  Impaired and unable to act for 3 seconds. This ability has a 15 metre range.","Whenever you attack, you build a Flight of Daggers counter. When the counter reaches 5, you will hit up to 3 enemies in a 5 metre radius around you, dealing 46 physical damage. Affected targets also become Afflicted State with a damage over time effect that deals 10 physical damage every second for 5 seconds.","Instant 45sec
+Creates a 15 metre radius area at your feet, which lasts 10 seconds. While you are inside this area, your movement speed is increased by 25%, damage is increased by 20%, and you are immune to root and snare effects.","Instant 45sec
+Gives you a beneficial effect that lasts 8 seconds. You receive a 100% resistance to Hindered and Impaired. Silver Streak increases movement speed by 10%. Whenever you hit, you heal for 1.5% of your maximum health. Whenever you hit, you gain a Minor Defence effect, which increases the chance that attacks against you will glance by 10% for 8 seconds.","Whenever you are glanced, you build a Sixth Sense Counter. When there are 6 counters, your next attack will perform an additional hit that deals 248 and heals you for 10% of your maximum health.","Instant 30sec
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+A PBAoE attack that deals 92 physical damage and causes each target hit to be forced to attack you for 5 seconds. targets hit also become Impaired and unable to act for 1 second. For each affected target, the next 2 attacks against you will glance."
+,,,,,,,
+Hammer,,,,,,,
+Brawn,Grit,Industrial Action,Brute Force,Excessive Damage,Sledge Factory,Battering Works,Hammer Pit
+Smash,Brawler,First Blood,Punishment,Ground Pound,Grip Whip,Bully,Razor Shards
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+1 ap,1 ap,9 ap ,9 ap ,9 ap ,9 ap ,9 ap ,9 ap 
+"Instant Instant
+Builds 1 resource for each equipped weapon. 
+A Single target attack that deals 48 physical damage.",Increases Crit power by 15%,"Instant Instant
+Builds 1 resource for each equppied weapon.
+A single target Strike attack that deals 47 physical damage, or 55 physical damage if you have no Hammer Resources.","Whenever you hit a Weakened target, you gain a beneficial effect that increase your Critical Damage Rating by 30 per stack for 10 seconds.
+This effect can stack up to 5 times.","Instant Instant
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+Builds 1 resource for each equipped weapon. 
+A PBAoE attack that deals 31 physical damage, or 39 physical damage if you have no Hammer Resources.","Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 60 physical damage. Grants you a single stack of the Block Rating effect, which increases your Block Rating  by 30 for 8 seconds. This effect can stack up to 10 times.","Whenever you apply Impaired, you Build 2 Hammer Resources.","Instant Instant
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+Consumes all Hammer Resources.
+A PBAoE attack that deals 59 physical damage and increases all affected enemies' hate towards you. Grants a hate increasing effect for you next attack, this effect scales based on the amount of resources spent."
+Below the Belt,Grand Slam,Soft Target,Touchdown!,Sweetspot,You're Next,Trucker,Blindside
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"Whenever you hit with ""Smash"", the target also becomes Weakened by a single stack of the Debilitated effect, which reduces all damage dealt by 3% per stack for 10 seconds. The effect can stack up to 10 times.","Instant Instant
+Builds 1 resource for each equipped weapon. 
+A single target attack that deals 45 physical damage. If you hit a Weakened target, an AoE that deals 9 physical damage appears, effecting up to 5 enemies in a 5 meter radius around your target. This additional damage generates a large amount of hate towards you.","Whenever you critically hit an Impaired target, the next resource builder you activate builds 2 additional resource for your primary weapon.","Instant 20sec
+Charge: 15 metre leap to your target. The target must be at least 3 metres away.
+You charge your target dealing 74 physical damage to up to 5 enemies in a 5 metre radius as you land.","You gain 30 health each time you critically hit, ","Whenever you Block an attack, you gain a beneficial effect that increases the damage dealt by the next attack you activate within 10 seconds by 5% and generate twice as much hate.","Instant 25sec
+Charge: 15 metre charge to the target.
+You charge to the target and gain the Major Block Chance effect, which increases Block Chance by 40% for 6 seconds.","Whenever you block an attack, you deal 26 physical damage back to the attacker."
+Hell to Pay,Street Fighter,Molten Steel,Insult to Injury,No Mercy,Aftershock,Brick Wall,Rupture
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,16 ap,16 ap,16 ap
+"Instant Instant
+Column: Affects up to 5 enemies in a 4 meter wide by 5 meter long area in front of you. 
+Consumes all hammer resources. 
+A column Blast attack that deals 60 physical damage.","Whenever you apply Impaired, you gain a beneficial effect that increases all damage dealt by 10% for 8 seconds.","Instant Instant
+Consumes all Hammer Resources.
+A single target attack that deals 86 physical damage. Deals 30% additional critical damage.","Whenever you critical hit, your target becomes Weakened by a single stack of the Debilitated effect, which reduces all damage dealt by 3% per stack for 10 seconds. Debilitated can stack up to 10 times.","Instant Instant
+Column: Affects up to 5 enemies in a 4 metre wide by 5 metre long column in front of you.
+Consumes all Hammer Resources.
+A column Blast attack that deals 56 physical damage. Will critically hit if activated within 30 seconds of killing another enemy.","Instant 4sec
+Consumes all Hammer resources.
+A single target Strike that deals 76 physical damage. If the target is still within 5 metres of you after 3 seconds, this attack hits a second time dealing 35 physical damage and you gain the Minor Ward effect, which decreases all damage received by 7.5% for 8 seconds.","Whenever you block an attack, your attacker becomes Impaired and knocked to the ground for 2 seconds. This effect has a recharge time of 30 seconds.","Instant Instant
+Column: Affects up to 5 enemies in a 4 metre wide by 5 metre long column in front of you.
+Builds 1 resource for each equipped weapon.
+A column Blast attack that deals 31 physical damage, or 39 physical damage if you have no Hammer resources."
+Righteous Fury,Stonewalled,Wrecking Crew,Beatdown,Improved Blasts,Improved Strikes,Stones Throw,Bullheaded
+Passive,Active Melee ,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Increases the critical chance of your ""Hell to Pay"" ability by 15%","Instant 45sec
+You gain the Major Block Chance Effect, which increases your Block Chance by 40% for 6 seconds.",Increase thje Crit Power of Strike attacks by 20%.,"Instant 45sec
+A single target attack that deals 23 physical damage. If you hit, your target becomes Impaired and knocked to the ground for 3 seconds.","Whenever you hit a Blast ability, your target becomes Weakened by a single stack of the Exposed effect, which increases all damage received by 3% per stack for 10 seconds. This effect can stack up to 10 times.",Increases the damage and healing of Strike abilities by 7.5%.,"Instant 15sec
+A single target ranged attack that deals 114 physical damage. If hit, your target becomes Weakened by 2 stacks of the Debilitated effect, which reduces all damage dealt by 3% per stack for 10 seconds. This effect can stack up to 10 times. Generates a large amount of hate.","Whenever you hit with a Blast ability, you gain a single stack of the Protection effect, which increases you Physical and Magical Protection Rating by 30 per stack for 8 seconds."
+Haymaker,Stone Cold,Bone Breaker,Tenderising,Piledriver,Obsidian Aegis,No Pain No Gain,Blowout
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"Instant Instant
+Consumes all Hammer Resources. 
+A single target Strike attack that deals 86 physical damage physical damage, or 103 physical damage if the target is Impaired.","Reduces the recharge time of ""Stonewalled"" by 15 seconds.","Instant Instant
+Consumes all Hammer Resources.
+A single target attack that deals 86 physical damage, or 95 physical damage if the target is Weakened. ","Whenever you hit a Weakened target, you perform an additional hit dealing 4 physical damage.","Instant Instant
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+Consumes all Hammer resources.
+You smash your hammer into the ground, creating a PBAoE that deals 57 physical damage. If the attack hits an  Impaired enemy receive a single stack of the Critical Rating effect for each Hammer Resource spent. Each stack increases your Critical Rating by 30 for 8 seconds. The Critical Rating effect can stack up to 5 times.","Instant Instant
+Consumes all Hammer Resources.
+A single target attack that deals 85 physical damage. If you hit an Impaired target, you gain the Major Ward effect, which reduces all damage received by 25% for 6 seconds.","Whenever you hit an Impaired target, you heal for 46.","Instant 15sec
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you, pulsing every second for 10 seconds.
+Consumes all Hammer Resources.
+A pulsing PBAoE attack that deals 8 physical damage per pulse. If you hit an Weakened target, you gain a stacking effect increasing you health by 5%. This effect stacks a maximun of 5 times."
+Hard Impact,Backhanded,Metal Worker,Full Momentum,Knuckle Down,Immovable Object,Furnace,Faultline
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,34 ap,34 ap
+Increases the damage you do with your Hammer abilities by 10%,"Instant 5sec
+Builds 2 Hammer Resources if you have no Hammer Resources. 
+A single target attack that deals 55 physical damage.","Increase the Critical Chance of ""Molten Steel"" by 10%.","Instant 30sec
+You gain a beneficial effect that causes the next Hammer Resource builder you activate to build 5 Hammer Resources.",Increases damage dealt by resource builders by 10%.,"Whenever an enemy deals damage to you, you deal 7 physical damage back to your attacker.","Instant 30sec
+PBAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+A PBAoE attack that deals 75 physical damage. Affected targets become Weakened by 3 stacks of the Debilitated effect, which reduces all damage dealt by 3% per stack for 10 seconds. This effect can stack up to 10 times. For each target affected, you gain a single stack of the Protection effect, which increases Physical and Magical Protection by 30 per stack for 8 seconds.
+Protection can stack up to 5 times.","Increase the duration of ""Blowout"" by 5 seconds."
+Shockwave,"Cool, Calm & Collected",Epicentre,Thunderstruck,Eruption,Unstoppable Force,Forged in Fire,Raging Volcano
+Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite),Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 30sec
+Column: Affects up to 5 enemies in a 4 meter wide by 8 meter long area in front of you. 
+A Column attack that deals 92 physical damage. Affected targets also become Impaired and knocked to the ground for 3 seconds.","Whenever you block an attack, your attacker generates additional hate towards you and you gain the Minor Ward effect, which reduces all damage received by 7.5% for 8 seconds. Whenever you critically hit, you gain a beneficial effect that increases all damage dealt by 5% for 10 seconds.","Instant 30sec
+You gain 4 stacks of the Epicentre effect. Each attack you perform will expend a stack and cause a 5 metre radius area to appear around you, which lasts 5 seconds.  Enemies inside the area are dealt 26 physical damage every second and their movement speed is reduced by 20%. Recharge time does not begin until all stacks of the Epicentre effect have been expended.",Increase the duration of Impaired effects you apply by 25%.,"Instant 30sec
+Column: Affects up to 5 enemies in a 6 metre wide by 9 metre area in front of you.
+You smash your hammer into the ground, creating a column of molten spikes in front of you that deals 127 physical damage. If you hit, your target becomes Impaired and knock the target up in the air for 3.5 seconds.","Instant 45sec
+You grow in size by 25% and gain 15% more health for 6 seconds. While this buff is active you are immune to crowd control effects and have a movement speed of 80%. You also receive the Major Block Chance effect, which increases you Block Chance by 40% for 6 seconds. You heal for 228.",Whenever you drop below 50% health you will regenerate 40% of your health over 10 seconds. This effect can apply once every 30 seconds.,"6sec 60sec
+Channelled: Every second for 6 seconds.
+PBAoE: Affects up to 5 enemies in a 10 metre radius around you.
+A channelled PBAoE attack that causes enemies within 10 metres to attack you and deal 49 physical damage per hit. While channelling this ability, you have a Block Chance of 100%."
+,,,,,,,
+Fists,,,,,,,
+Feral,Primal,The Wilderness,The Outback,The Streets,Warming Up,Heat of Battle,Play with Fire
+Claw,Lick Your Wounds,Bear Knuckle,Salt in the Wounds,Head On,Surgical Steel,Renewal,Shelter
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+1 ap,1 ap,9 ap ,9 ap ,9 ap ,9 ap ,9 ap ,9 ap 
+"Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 48 physical damage.","Whenever you attack, you gain a single stack of a heal over time effect that heals 1 every second per stack for 3 seconds. This effect can stack up to 5 times.","Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 46 physical damage, or 54 physical damage if the target is Impaired.","Whenever you apply Afflicted, you deal 10 physical damage to the target.","Instant 5sec
+Column Dash: Dash forward 3 metres, affecting 5 enemies in a 6 metre wide column along the way.
+Builds 1 Resource for each equipped weapon.
+A coulumn dash Blast attack which deals 32 physical damage. This attack can not be evaded and will not glance.","Instant Instant
+Consumes all Fist Resources.
+A Burst heal that heals the defensive target 3 times for 19 per application and gives a heal over time effect that heals for 9 every second for 5 seconds. Gives you the Savage Sweep effect, causing your next Fist resource consumer you activate to deal 3 damage in an area around you.","Whenever you hit an Impaired target, your attacks have a 10% chance to apply a detrimental effect on the target causing anyone attacking it to gain a heal over time effect that heals for 6 every second for 5 seconds.","Instant Instant
+PBAoE: Affects up to 5 friends in a 5 metre radius around you.
+Builds 1 Fist Resource.
+A PBAoE heal that heals for 18. Affected targets are also given a heal over time effect that heals for 7 every second for 3 seconds."
+Sharp Claws,Nurture,Thrill of the Chase,Reckless,Hardheaded,Hot Iron,Empathy,Trespass
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"""Claw"" also causes the target to become Afflicted with a damage over time effect that deals 7 physical damage every second for 10 seconds.","Instant Instant
+Builds 1 Fist resource.
+Heals your defensive target for 32 and gives them a heal over time effect that heals 5 every second for 5 seconds.","Whenever you hit a target from behind, the recharge time of all movement abilites currently recharging is reduced by 2 seconds.
+Additionally, ""Thrill of the Chace"" increases the damage dealt by movement abilites by 15%.","Instant 40sec
+Gives you a beneficial effect that lasts 10 seconds, which increases all damage dealt by 20% and all damage received by 10%.","Improves ""Head On"" to dash 6 metres, affect up to 7 enemies and deal 25% more damage.","Whenever you heal, you build a Hot Iron counter. When there are 7 counters, your next direct healing ability will heal for an additional 50%.","Instant 25sec
+Heals the defensive target for 126, or 145 if the target has a heal over time effect active.","""Shelter"" deals 8 physical damage to up to 5 targets in a 5 metre radius around you."
+Hog Wild,Nurturing Gift,One-Two,Bloodsport,Berserk,Cauterise,Restraint,Blast of Light
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,16 ap,16 ap,16 ap
+"Instant
+Cone: Affects up to 5 enemies in a 5 metre long 60 degree cone in front of you.
+Consumes all Fist Resources.
+A cone Blast attack that deals 59 physical damage. Gives you the Savage Sweep effect, causing the next Fist resource consumer you activate to deal 3 physical damage in an area around you.","Increases the duration of ""Nurture"" by 5 seconds.","Instant
+Consumes all Fist Resources.
+A Burst attack with two consecutive hits that deal 22 and 63 physical damage. Gives you the Savage Sweep effect, causing the next fist resource consumer you activate to deal 3 physical damage in an area around you.
+","Whenever you hit a target, it becomes Afflicted with a damage over time effect that deals 2 physical damage per stack for 3 seconds. If you do a glancing hit against the target, this effect is removed.","Instant Instant
+Consumes all Fist resources
+Each resource consumed will give you a counter. Your next hits will cause an additional PBAoE attack dealing 27 physical damage. Each additional attack will subtract one counter until you run out of counters. ""Berserk"" also gives you the Feral Regrowth effect, causing your next Fist resource consumer to heal you for 6.","Instant Instant
+Builds 1 Fist Resource.
+Heals the defensive target for 40 and gives a heal over time effect that heals 3 every second for 3 seconds. This effect can stack up to 3 times.","Whenever you attack, you build a Restraint counter. When you have 6 counters, your next attack causes the target to become Impaired and unable to acttivate abilities for 3 seconds. If you perform a glancing hit, the counter will be reset.","Instant Instant
+Cone: Affects up to 5 friends in a 5 metre long 120 degree cone in front of you.
+Consumes all Fist Resources.
+A cone Blast heal that heals for 18. Affected targets also gain a heal over time effect that heals for 7 every second for 6 seconds. You gain a heal over time effect that heals for 4 every second for 6 seconds."
+Killer Instinct,Pack Leader,Follow Through,Cage Fight,Bruising Blast,Healing Sparks,Vigour,Positive Reaction
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Whenever you attack, you build a Killer Instinct counter. When there are 4 counters, your next attack cannot be evaded and will reset the counter. Also increases damage dealt by 1% per counter.","Instant 90sec
+Gives all group members a beneficial effect that reduces the chance of performing glancing hits by 80% for 10 seconds.","Increases damage dealt by ""One-Two's"" second hit by 25%.","Instant 20sec
+PBAoE: Applied to 5 enemies in a 5 metre radius.
+A PBAoE attack that deals 49 physical damage. Affected targets also become Afflicted with a damage over time effect that deals 13 physical damage every second for 3 seconds.",Blast attacks are 7.5% more effective.,"Whenever you activate a Burst ability, you give the defensive target a heal over time effect that heals for 8 every second for 4 seconds.","Instant 20sec
+Places a healing area at the targeted point that lasts 5 seconds. Every second it heals up to 5 friends in a 5 metre radius for 22.","Whenever hit or heal with a Blast ability, you gain a reactive heal effect that heals for 11 the next time you are attacked."
+Prey on the Weak,Alpha Wolf,Tear 'Em Up,Animal Instinct,Savage,Creature Comfort,Making Amends,Inner Spark
+Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Active Melee Ability,Passive Ability,Active Melee Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target Burst attack that hits 3 times, dealing 15 physical damage per hit. If the target is Impaired, this attack builds 1 additional Fist Resource.","Reduces the recharge time of ""Pack Leader"" by 30 seconds.","Instant Instant
+Consumes all Fist Resources.
+A single target ability that deals 82 physical damage. If the target is Afflicted you also gain a beneficial effect that increases damage by 10% for 4 seconds. ""Tear 'Em Up"" gives you the Feral Regrowth effect, causing your next Fist resource consumer to heal you for 6.","The Savage Sweep effect deals 50% additional damage, and hits up to 5 targets instead of the normal 3.","Instant
+Cone: Affects up to 5 enemies in a 5 metre long 60 degree cone in front of you.
+Consumes all Fist Resources.
+A cone attack that deals 57 physical damage. Gives the Savage Sweep effect, causing your next Fist resource consumer you activate to deal 3 physical damage in an area around you. If any target is Impaired it also gives you the Feral Regrowth effect, causing your next Fist resource consumer to heal you for 6.","Instant Instant
+Consumes all Fist resources.
+Your defensive target gains a  heal over time effect that heals for 17 every second for 6 seconds. Gives the Feral growth effect, causing your next fist resource consumer to heal you for 6.",Your heal over time effects are 10% more effective.,"Instant Instant
+Consumes all Fist Resources.
+You give your defensive target a reactive heal effect that heals for 6 whenever it is attacked. This effect has a duration of 10 seconds."
+Predator,Wild at Heart,Ferocity,Bushwack,Concussion,Glimmer of Hope,Muzzle,Kindle
+Passive Ability,Active Melee Ability,Passive Ability,Active Melee Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,34 ap,34 ap
+Increases damage dealt by Fist abilities by 10%.,"Instant Instant
+Consumes all Fist Resources.
+A single target attack that deals 90 physical damage. Gives you the Feral Regrowth effect, causing your next Fist resource consumer to heal you for 6.","If at least 2 hits of a Burst ability do not glance, you gain one stack of a beneficial effect, which increases damage by 3% per stack for 5 seconds. This effect can stack up to 3 times.","Instant 45sec
+Charge: 15 metre charge to the target. The target must be at least 3 metres away.
+You charge your target dealing 91 physical damage. The target also becomes Impaired and unable to activate abilities for 5 seconds.",Whenever you apply Impaired you deal an additional hit for 41 physical damage.,Your heal over time effects have a 15% chance to heal you for 20 when they apply their effect.,"Instant 45sec
+A single target attack that deals 91 physical damage. The target also becomes Impaired and unable to activate abilites for 5 seconds. This ability has a 15 metre range.","""Inner Spark"" instead heals for 7 whenever your defensive target is attacked."
+Go for the Throat,Out of the Woods,See Red,Adrenalise,Gore,Radiance,Empowerment,Fired Up
+Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite),Active Melee Ability (Elite),Passive Ability (Elite),Active Melee Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 30sec
+A single target attack that deals 124 physical damage. The target also becomes Impaired and unable to activate abilites for 5 seconds.","Whenever you heal a target above 80% of their maximum health, you gain a beneficial effect that increases all direct healing done by 27.5% for 8 seconds.","4sec 35sec
+Channeled: Every 0.4 seconds for 4 seconds.
+A channelled attack that deals 33 physical damage. While channeling, you and your target are rooted in place, this effect can not be broken out of.","Whenever you activate a Fist builder, you gain a beneficial effect that causes the next Fist builder to build an additional Fist resource. This effect is removed when you use a Fist consumer or glance.","Instant 25sec
+Charge: 15 metre charge to your target.
+You charge to your target dealing 69 physical damage to up to 5 enemies in a 5 metre radius. Affected targets also become Afflicted with a damage over time effect that deals 13 physical damage every second for 5 seconds. This effect will be refreshed by hits from anyone, while glancing hits will remove it.","Instant 40sec
+For the next 6 seconds, all your heal over time effects are guaranteed to critically heal and heal for 50% more..","Whenever a heal over time effect critically hits, the target is healed for 40.","Instant 25sec
+Heals all group members for 103. Also applies a heal over time effect that heals for 15 every second for 4 seconds."
+,,,,,,,
+Blood,,,,,,,
+Profane,Sacred,Malediction,Transmission,Possession,Wetwork,Chirurgia,Venamancy
+Boiling Blood,Unholy Knowledge,Bloodline,Vital Fluids,Open Vein,Ruby Curtain,Omen,Hematic Rites
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+1 ap,1 ap,9 ap,9 ap,9 ap,9 ap,9 ap,9 ap
+"1sec Instant
+Builds 1 resource for each equipped weapon. 
+A single target attack that deals 48 magical damage.",Increase damage dealt by damage over time effects by 10%.,"1sec Instant
+Channelled: Every 0.25 seconds for 1 second.
+Builds 1 resource for each equipped weapon.
+A channelled Focus attack that deals 12 magical damage per hit.","Whenever you apply Afflicted, you have a 10% cahnce of building 1 resource for your primary weapon.","0.5sec Instant
+Chain: Jumps up to 5 metres 4 times, hitting up to 5 enemies.
+Builds 1 resource for each equipped weapon.
+A Chain attack that deals 32 magical damage.","Instant Instant
+Builds 1 Blood Resource.
+A single target heal that heals for 11 and places an absorb barrier on your defensive target. This barrier absorbs 100% of incoming damage and dissipates after absorbing 42 damage.","Whenever you apply Impaired, you gain a beneficial effect that increase that amount of damage you next barrier can absorb by 100.","Instant Instant
+TAoE: Affects up to 5 friends within a 5 metre radius around the defensive target.
+Consumes 2 Blood resources. Can be powered by your own health.
+Places an absorb barrier on all affected targets, which absorbs 100% of incoming damage and dissipates after absorbing 82 damage."
+Corrupted Blood,Blood Shield,Iron Maiden,Anaesthesia,Doom,Donor,Transfuse and Abuse,Arterial Pulse
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"Whenever you hit with ""Boiling Blood"", the target also becomes Afflicted with a damage over time effect that deals 2 magical damage every second for 8 seconds. This effect can stack up to 5 times.","Instant Instant
+Builds 1 Blood Resource.
+Heals 27 and places an absorb barrier on your defensive target. This barrier absorbs 100% of incoming damage and dissipates after absorbing 26 damage.","Whenever you penetrate a target that is Afflicted, you gain a Minor Penetration Chance effect, which increases Penetration Chance by 10% for 8 seconds.","Instant 60sec
+A single target attack that deals 91 magical damage and causes the target to become Impaired and unable to act for 5 seconds. This ability has a 3 metre range.","Whenever you penetrate, you gain a Doom counter. When this counter reaches 4, your next hit will penetrate.","Whenever you penetrate, you place a barrier on your defensive target. This barrier absorbs 100% of incoming damage and dissipates after absorbing 15 damage.","Instant 60sec
+Cleanses up to 3 damage over time effects active on you, and causes the target to become Afflicted with a damage over time effect that deals 8 magical damage every second per effect you cleansed for 7 seconds. This ability can only be activated when you are Afflicted.","Whenever you penetrate, you perform an additional hit on the target and enemies around it that deal 9 magical damage."
+Blood Spike,Rapid Shields,Left Hand of Darkness,Third Degree,There Will Be Blood,The Scarlet Arts,Five Times a Charm,Linked Veins
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,17 ap,16 ap,16 ap
+"1.5sec Instant
+Consumes 2 Blood Resources. Can be powered by your own health.
+A single target attack that deals 73 magical damage and also causes the target to become Afflicted with a damage over time effect that deals 7 magical damage every 0.5 seconds for 8 seconds.
+If your target has the ""Blood Spike"" damage over time effect already, this ability instead deals 160 magical damage.","Increases the heal and barrier of ""Blood Shield"" by 7.5%.","Instant 30sec
+Consumes 3 Blood Resources.
+Causes the target to become Afflicted with a damage over time effect that deals 44 magical damage every second for 3 seconds. If you hit the target with this ability again while the effect is active, the target becomes Impaired and unable to act for 1 second.","Whenever you penetrate, you build a Third Degree counter. When this counter reaches 3, you also cause the target to become Afflicted with a damage over time effect that deals 16 magical damage every second for 4 seconds.","Instant 10sec
+GTAoE: Affects 3 enemies in a 5 metre radius around the targeted point.
+Consumes 5 Blood Resources. Can be powered by your own health.
+A GTAoE attack that deals 71 magical damage. Also places an area on the ground lasting 6 seconds. This area deals 7 magical damage every second to enemies inside it, scaling with the number of targets originally hit.","2sec
+Channelling: Every 0.4 seconds for 2 seconds.
+Consumes 5 Blood Resources. Can be powered by your own health.
+The first channelling places an absorb barrier on you defensive target, which absorbs 100% of incoming damage and disipates after absorbing 54. the next 3 channelling hits heal the defensive target for 54. the last channelling hit places the same barrier as the first hit.","Whenever you penetrate, you build a Five Times a Charm counter. When this counter reaches 5, it will cause the target to become Impaired and unable to act for 3 seconds. This effect has a recharge time of 45 seconds.","Instant Instsnt
+Chain: Jumps up to 5 metres 2 times, hitting up to 3 friends.
+Builds 1 Blood resource.
+A Chain that heals for 18 and places a barrier that absorbs 100% of incoming damage and dissipates after absorbing 17 damage. This effect does not apply to self."
+Dark Potency,Angelic Aegis,Prolonged Darkness,Contaminate,Splatter,Culmination,Liquidation,Last Rites
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Whenever you apply Afflicted, you gain a single stack of the Penetration Rating effect, which increases Penetration Rating by 30 for for 8 seconds. This effect can stack up to 5 times.","1.5sec Instant
+Consumes 3 Blood resources. Can be powered by your own health.
+Heals 92 and places an absorb barrier on your defensive target. This barrier absorbs 100% of incoming damage and dissipates after absorbing 92 damage.","The ""Left Hand of Darkness"" damage over time effect lasts 2 seconds longer.","2sec 60sec
+A single target attack that causes the target to become Afflicted by a damage over time effect that deals 20 magical damage every second for 6 seconds. If the target is healed while this damage over time effect is active, it will performa hit on the healer that deals 60 magical damage.",All your Chain attacks can jump to 2 additional targets.,"Whenever you finish channelling a Focus ability, you heal your defensive target for 9.","Instant 30sec
+Places an area around the targeted point that will last 10 seconds. Enemies inside the area become Afflicted with a damage over time effect that deals 12 magical damage and heals you for 6 every second for 4 seconds.","Improves ""Hematic Rites"" to deal 14 magical damage to nearby enemies if the barrier expires. This does not occur if the barrier is depleted."
+Infection,Angels Touch,Bloodshot,Blood Bank,Guts and Gory,Exquisite Corpse,Ebb and Flow,Blood Pact
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"1.5sec Instant
+Chain: Jumps up to 3 metres 4 times, hitting up to 5 enemies.
+Consumes 3 Blood Resources. Can be powered by your own health. 
+A Chain attack that deals 62 magical damage. Affected targets also become Afflicted with a damage over time effect dealing 7 magical damage every 2 seconds for 12 seconds. If an enemy dies while affected by this effect, it explodes, dealing 44 magical damage to nearby targets.","""Angelic Aegis"" heals for an additional 46 to friends below 50% health.","Instant Instant
+Consumes 2 Blood Resources. Can be powered by your own health.
+A single target attack that deals 107 magical damage, or 118 magical damage if the target is Afflicted.","Whenever you apply Afflicted, you gain a stack of Blood Bank effect, which increases the damage dealt by your damage over time effects by 1% per stack for 10 seconds. This effect can stack up to 10 times.","Instant Instant
+TAoE: Affects up to 5 enemies in a 5 metre radius around the target.
+Consumes 3 Blood resources. Can be powered by your own health.
+A TAoE attack that deals 80 magical damage. If any target is Impaired, you gain the Major Penetration Chance effect, which increases your Penetration Chance by 40% for 6 seconds.","Instant Instant
+Consumes 2 Blood Resources. Can be powered by your own health.
+Places a reflect barrier on your defensive target, which reflects 50% of incoming damage back to the attacker and dissipates after reflecting 61 damage. Also heals the defensive target for 55.","Increases the power of you barriers by 20%, but reduces the power of your direct heals by 10%.","Instant 30sec
+PBAoE: Affects up to 5 friends in a 5 metre radius around you.
+Consumes 5 Blood Resources. Can be powered by your own health.
+Places an absorb barrier on affected targets that absorbs 100% of incoming damage and dissipates avter absorbing 104 damage. Affected targets are also given a beneficial effect that causes the first enemy to hit them to become Impaired and unable to act for 3 seconds."
+Thicker than Water,Exsanguinate,Torture,Cannibalise,Circulation,Sanguineous,Infusion,Vessel Walls
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,35 ap,34 ap
+Increases the damage you do with blood abilities by 10%,"2.5sec Instant
+Channelled: Every 0.5 seconds for 2.5 seconds.
+Consumes 5 Blood Resources. Can be powered by your own health. 
+A channeled Focus attack that deals 51 magical damage. If the target is Impaired, it also becomes Afflicted with a damage over time effect that deals 6 magical damage every second for 10 seconds.","Whenever you finish channelling a Focus attack, you perform an extra hit that deals 10 magical damage to the target.","Instant 35sec
+Builds 3 Blood Resources.
+Deals 10% of your maximum health as magical damage to you and grants a beneficial effect that causes you next Blood resource consumer to deal 20% more damage. This ability does not trigger global recharge time.","Whenever you apply Afflicted, you gain a heal over time effect that heals for 7 every second for 10 seconds. If the target is Impaired, the effect will also give you a barrier that absorbs 100% of incoming damage and dissipates after absorbing 15 damage.","Whenever you place a barrier, you are healed for 11.","Instant 30sec
+Builds 3 Blood Resources.
+You remove your own barrier and gain a beneficial effect that will cause your next barrier to absorb 30% more damage. This ability can only be activated when you have a barrier.","Whenever you activate a Chain ability, you gain an absorb barrier that absorbs 100% of incoming damage and dissipates after absorbing 26 daamge."
+Cardiact Arrest,Coagulation,Plague,Gross Anatomy,Expulsion,My Bloody Valentine,Clotting,Cold Blooded
+Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability (Elite),Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 30sec
+A single target attack that deals 138 magical damage. The target also becomes Impaired and unable to act for 3 seconds.",Increases the effectiveness of barrier effects by 25%.,"1.5sec 30sec
+A single target attack that causes the target to become Afflicted with a damage over time effect that deals 68 magical damage every 2 seconds for 6 seconds. If the target dies while the Plague damage over time effect is active, nearby enemies will become Afflicted with a damage over time effect that deals 17 magical damage every 2 seconds for 6 seconds.","Whenever one of your damage over time effects expire, it will perform an additional hit that deals 16 magical damage.","Instant 60sec
+Places an absorb barrier on you that absorbs 100% of incoming damage and dissipates after absorbing 143 damage. This barrier scales with Attack Rating and not with Healing Rating. When the barrier either expires or is spent, it will deal 132 magical damage to all enemies near you.","1sec 20sec
+Places an absorb barrier on yourself, which absorbs 100% of incoming damage and dissipates after absorbing 91 damage. While this barrier is active, you are healed for 23 every second. When the barrier is removed it deals 37 damage in an area around you. If any enemies are hit by this, you gain a barrier that absorbs 100% of incoming damage and dissipates after absorbing 53 damage.","Whenever you apply a barrier, you also give yourself a beneficial effect that increases the amount of damage your current barrier can absorb by 19 every second for 5 seconds, and 1 stack of the Protection effect, which increases Physical and Magical Protection by 30 for 8 seconds. This Protection effect can stack up to 5 times.","2sec 35sec
+Channelled: Every 0.5 seconds for 2 seconds. 
+You deal 3% of your maximum health as magical damage to yourself. Each team member is healed 67 and receives an abosrb barrier. This barrier absorbs 100% of incoming damage and dissipates after absorbing 66 damage. While you channel, you take 40% less damage."
+,,,,,,,
+Chaos,,,,,,,
+Theory,Chance,Teorema,The Value of x,Collapse,Building Blocks,Shell Game,The Fourth Wall
+Hand Of Change,Gnosis,Deconstruct,Breakdown,Wheel of Knives,Run Rampant,Fixation,Shaken Foundations
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+1 ap,1 ap,9 ap,9 ap,9 ap,9 ap,9 ap,9 ap
+"Instant Instant
+Builds 1 resource for each equipped weapon. 
+A single target attack that deals 48 magical damage.","Whenever you hit a Weakened target, there is a 33% chance to perform an additional hit dealing 10 magical damage.","Instant Instant
+Builds 1 resource for each equiped weapon.
+A single target attack that deals 46 magical damage. Builds 2 resources if the target is below 35% health.","Whenever you hit an Impaired target, your target becomes Weakened by a single stack of the Exposed effect, which increase all damage received by 2% per stack for 10 seconds. Exposed can stack up to 10 times.","Instant Instant
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+Builds 1 Resource for each equipped weapon.
+A Frenzy attack dealing 32 magical damage.","Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target Burst that hits 3 times, dealing 15 magical damage. Gives you a single stack of the Evade Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","Whenever you hit a Weakened target, you have a 33% chance to gain a single stack of the Hit Rating effect, which increases Hit Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","Instant Instant
+TAoE: Affects 5 enemies in a 5 metre radius around you.
+Builds 1 resource for each equipped weapon.
+A TAoE that deals 32 magical damage."
+Entropy,Escalation,Cutting Thoughts,Armor Fati,Wheel of Misfortune,Inevitabilty,Chaotic Pull,Backlash
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"Whenever you critically hit or penetrate with ""Hand of Change"" it Builds 1 additional Chaos Resource.","Instant
+PBAoE: Affects up to 5 enemies in a 5 metre area around you.
+Builds 1 resource for each equipped weapon. 
+A PBAoE Frenzy ability that deals 25 magical damage. Generates a high amount of hate. Affected targets also become Weakened by a single stack of the Exposed effect, which increases all damage received by 3% per stack for 10 seconds. Exposed can stack up to 10 times.","Whenever you hit, you build a Cutting Thoughts counter. When there are 5 counters, your next hit performs an additional 3 hits, dealing 14 magical damage per hit. If you perform a glancing hit, the counter will be reset.","Instant 60sec
+Gives you a beneficial effect that increases all damage delt by 10%. Your attacks cannot glance or be evaded. This effect lasts 10 seconds.","""Wheel of Knives"" performs an  additional hit to Weakened  and Impaired targets, dealing 4 magical damage.","Whenever a Weakened target attacks you, you have a 15% chance to gain the Minor Evade chance effect, which increases the Evade Chance by 10% for 8 seconds.","Instant 45sec
+A single attack that deals 91 magical damage and pulls the target to you. This ability has a 15 metre range.","Whenever you evade, you build a Backlash counter. When there are 7 counters, you deal 108 magical damage in an area around you and reset the counter. Up to a maximum of 5 targets."
+Call for Eris,Intensity,Four Horsemen,Pressure Point,Maelstrom,Consequence,Contradiction,Karma
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,17 ap,16 ap,16 ap
+"Instant Instant
+Consumes all Chaos Resources. 
+A Burst attack that deals 69 magical damage. Also performs an additional hit per resource consumed, dealing 22 magical damage per hit.","Whenever you hit a Weakened target with ""Escalation"", you gain the Minor Ward effect, which reduces the damage you take by 7.5% for 8 seconds.","Instant Instant
+Consumes all Chaos Resources.
+A single target Burst that hits 4 times, dealing 21 magical damage per hit. Each hit causes the next hit to deal more damage, this bonus stops if a hit glances.","Whenever you attack, you build a Pressure Point counter. When there are 6 counters, your next attack will cause your target to become Impaired and knocked to the ground for 3 seconds. The counter is the reset. This effect has an internal recharge time of 30 seconds.","Instant Instant
+PBAoE: Which affects up to 5 enemies in a 5 metre radius around the area around you.
+Consumes all Chaos resources.
+A PBAoE attack that deals 60 magical damage.","Instant Instant
+Consumes all Chaos resources
+Gives you a beneficial effect that reduces all damage received by 7.5% for 8 seconds. Also gives you another beneficial effect that causes the next hit against you to deal 20 magical damage back to the attacker, who becomes Weakened by 1 stack of the Exposed effect. Exposed increases all damage received by 3% per stack for 10 seconds and can stack up to 10 times.","Whenever you evade, your attacker becomes Weakened by a single stack of the Exposed effect, which increases all damage received by 3% per stack for 10 seconds. This effect can stack up to 10 times.","Instant 4sec
+PBAoE: Affects 5 enemies in a 5 metre radius around you.
+Consumes all Chaos Resources.
+A PBAoE Frenzy attack that deals 54 magical damage. Also applies a detrimental effect to affected targets that causes them to heal the next target they hit for a percentage of their target's maximum health."
+Paradigm Shift,Illusion,Ripple Effect,Helter Skelter,Hysteria,Burst of Energy,Uneven Ground,Turbulence
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Whenever you apply Weakened, you gain a single stack of the Hit Rating effect, which increases Hit Rating by 30 for 8 seconds. This effect can stack up to 5 times.","Instant 45sec
+You gain the Major Evade Chance effect, which increases your Evade Chance by 35% for 6 seconds.","Whenever 2 hits in a row of a Burst attack do not glance, your next attack will perform an additional hit dealing 8 magical damage.","Instant 45sec
+Column Dash: Dash forward 10 metres, affecting up to 5 enemies in a 6 metre wide column along the way.
+A column Dash attack the deals 60 physical damage. Affected targets become Impaired and unable to act for 3 seconds.","Whenver you hit with a Frenzy attack, you gain a single stack of the Hit Rating effect. Which increases Hit Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","Burst abilities give you the Minor Ward effect if no hits glance, which reduces all damage received by 7.5% for 8 seconds.","Instant 45sec
+PBAoE: Affects up to 5 enemies in a 5 metre radius around you.
+A PBAoE attack that deals 69 magical damage. Affected targets also become  Weakened by 3 stacks for the Exposed effect, which increases all damage received by 3% per stack for 10 seconds. this effect can stack up to 10 times. For each taget affected, you gain a single stack of the Evade Rating effect, which increases your Evade rating by 30% per stack for 8 seconds. This effect can stack up to 5 times.","Whenever you acrtivate a Frenzy ability, you gain a single stack of the Evade rating effect, which increases your Evade Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times."
+Schism,Master of Illusion,Pulling the Strings,Pattern Recognition,Cry Havoc,Suffering and Solace,Cause and Effect,Reality Fracture
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"Instant
+Consumes all Chaos Resources. 
+A single target attack that deals 83 magical damage, or 103 magical damage if the target has below 35% remaining health.","""Illusion"" instead gives you a beneficial effect that increases your Evade Chance by 45% for 8 seconds.","Instant 4sec
+Consumes all Chaos Resources
+A single target attack with a 7 metre range that deals 86 magical damage. If the target is Weakened, you gain the Minor Hit Chance effect, which reduces the cahnce of glancing hits by 10% for 10 seconds.","Whenever you hit an Impaired target, you perform an additional hit for 42 magical damage. This has a 15% chance of performing an additional hit for the same damage.","Instant Instant
+TAoE: Which affects up to 5 enemies in a 5 metre radius around your target.
+Consumes all Chaos Resources.
+A TAoE attack that deals 60 magic damage. If any target in the affected area is Impaired, itcreate a Persistent Ground Effect at their feet which deals 46 magical damage every second for 5 seconds.","Instant Instant
+Consumes all Chaos Resources.
+A single target attack that deals 89 magical damage. If the target is Impaired, you also gain a beneficial effect causing the next 3 hits against you to reflect 2% per resouce of the damage dealt back at the attacker.","Whenever you apply Impaired, your next gain a beneficial effect that causes your next attack to deal 10% additional damage and generate additional hate.","Instant 10sec
+GTAoE: Affects up to 3 enemies in a 5 metre radius around the target point, pulsing every second for 6 seconds.
+Consumes all Chaos Resources.
+A GTAoE that deals 14 magical damage, or 17 physical damage if the target is Weakened. This attack generates a high amount of hate."
+Chaos Adept,Paradox,Pale Horse,Discord Rising,Sick Society,Fever Pitch,Smoke and Mirrors,Extended Fracture
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,35 ap,34 ap
+Increases the damage dealt by Chaos abilities by 10%.,"Instant 10sec
+A single target attack that deals 63 magical damage, or 86 magical damage if the target is Impaired.","Improves ""Pulling the Strings"" to deal 30% more damage to targets with less than 35% health remaining.","Instant 30sec
+Creates a 10 metre radius area at your feet, which will move 10 metres forward over 1.5 seconds. The area will deal 73 magical damage to all enemies it touches on its way, and also causes them to become Weakened by 3 stacks of the Exposed effect. This effect increases all damage received by 3% per stack for 8 seconds, and can stack up to 10 times. Each target will only be hit once by the area.","Whenever you attack a target below 35% health, you perform an additional hit that deals 20 magical damage.","Whenever you hit a Weakened target, you have a 10% chance to gain the Major Hit Chance effect, which reduces the chance of  glancing by 50% for 12 seconds.","Instant 90sec
+Gives you a beneficial effect that increases Evade Chance by 40% for 8 seconds.","""Reality Fracture"" deals 15% more damage and affects 2 more targets."
+Domino Effect,Probability,Prisoner of Fate,From the Abyss,Black Hole,Immutable,Prodigal,Strange Attractor
+Active Magic Ability (Elite),Passive Ability(Elite),Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability (Elite),Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 30sec
+PBAoE: Affects up to 5 enemies in a 5 metre area around you.
+A PBAoE attack that deals 88 magical damage. Affected targets are also pulled towards you and become Impaired and knocked to the ground for a 3 seconds.","Whenever you evade, gain the Minor Ward effect, which reduces all damage received by 7.5% for 8 seconds.
+Whenever you hit 3 times in a row, you gain a beneficial effect that increases damage dealt by 5% for 10 seconds.","5sec 45sec
+Channeled: Every second 5 seconds.
+A channelled attack that deals 75 magical damage per hit, or 90 magical damage if the target's health is below 35%. The target also becomes Impaired and unable to act for the duration of the channel.","Whenever you attack, you build a From the Abyss counter. When there are 6 counters, you deal 75 magical damage to up to 5 enemies in a 5 metre radius around you, or 100 magical damage to targets that have less than 35% health remaining.","Instant 60sec
+A single target attack that deals 52 magical damage and couses the target to become Hindered and rooted to the ground for 4 seconds. For the next 4 seconds, all enemies between 1 and 5 metres of the target will be dealt 104 magical damage each second and become Impaired as they are knocked into the air.","Instant 120sec
+Gives you a beneficial effect that causes you to be immune to death for 6 seconds. If you have less than 30% health remaining when this effect expires, you heal for 20% of your maximum helath.",Increases maximum health by 7.5%. Base duration of crowd control effects applied to you are reduced by 15%.,"3sec 30sec
+Channelled Every second for 3 seconds.
+PBAoE: Affects up to 2 enemies in a 7 metre radius.
+A channelled PBAoE attack that deals 73 magical damage. Affected targets are pulled towards you."
+,,,,,,,
+Elementalism,,,,,,,
+Spark,React,Zero Crossing,Altered States,Mortality Curve,Resonance,Disturbance,Tempest
+Shock,Mind Over Matter,Electrical Bolt,Molecular Explosion,Arc Flash,Ignition,Critical Control,Wildfire
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+1 ap,1 ap,9 ap,9 ap,9 ap,9 ap,9 ap,9 ap
+"1sec
+Builds 1 resorce for each equipped weapon. 
+A single target attack that deals 48 magical damage","Whenever you critically hit, the target also becomes Afflicted with a damage over time effect that deals 9 magical damage every second for 5 seconds.","1sec Instant
+Buils 1 resource for each equipped weapon.
+A single target attack that deals 43 magical damage. If the target is Hindered this attack generates an additional Elemantal Resource.","Whenever you hit an Afflicted target, you perform an additional hit that deals 7 magic damage.","1sec
+Chain: Jumps up to 5 metres 4 times, hitting up to 5 enemies. 
+Builds 1 resource for each equipped weapon.
+A Chain attack which deals 32 magical damage.","
+0.5sec Instant
+Builds 1 Resource for each equipped Weapon.
+A Strike attack that deals 48 magical damage.","Whenever you hit an Impaired target, all group members gains a single stack of the Hit Rating effect, which increases their Hit Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","1sec
+TAoE: Affects up to 5 enemies in a 5 metre radius around the target.
+Build 1 resource for each equipped weapon.
+A TAoE attack that deals 32 magical damage."
+Volatile Current,Ignite,High Boltage,Coldwave,Death Density,Dial Down,Electromagnetic,Phantom Purge
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"Whenever you hit with ""Shock"", the target also becomes Afflicted with a damage over time effect that deals 7 magical damage every second for 10 seconds.","Instant 5sec
+Builds 1 resource for each equipped weapon. 
+A single target attack that deals 46 magical damage, or 53 magical damage if you have no Elemental Resources.","Increases the critical chance of ""Electrical Bolt"" by 10%.","1sec 45sec
+PBAoE: Affects up to 5 enemies in a 5 metre range around you.
+A PBAoE attack that deals 73 magic damage, Affected targets are also Hindered and unable to move for 4 seconds.","Whenever you kill an enemy, you gain the Minor Critical Chance effect, which increases your Critical Chance by 10% for 8 seconds.",Whenever you apply Hindered you also purge 1 beneficial effect from the target.,"1sec 90sec
+Places a manifestation at the targeted point that lasts 20 seconds. Every second it will hit up to 3 enemies in a 10 metre radius, dealing 8 magical damage. Affected targets will also be purged of 1 beneficial effect.",Chain attacks have a 33% to Purge 1 beneficial effect from the target.
+Combust,Elemental Force,Flame Strike,Criticality,Inferno,Fire Manifestation,Damage Control,Lightning Manifestation
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive Ability,Active Magic Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,16 ap,16 ap,16 ap
+"1.5sec Instant
+Consumes 2 Elemental Resources. 
+A single target attack that deals 138 magical damage. The Elemental Resource cost is reduced by 1 when attacking Hindered targets.","Whenever you attack, you build an Elemental Force counter. When there are 7 counters, your next attack will critically hit and reset the count.","1sec Instant
+Consumes 2 Elemental Resources.
+A single target Strike attack that deals 111 magical damage.","Whenever you critical hit an Afflicted target, you trigger a Chain which affects up to 5 enemies and jumps up to 5 metres, dealing 18 magical damage","1.5sec 5sec
+GTAoE: Affects up to 5 enemies in a 7 metre radius around the targeted point.
+Consumes 5 Elemental Resources.
+A GTAoE attack that deals 142 magical damage.","1sec 10sec
+Consumes 2 Elemental Resources.
+Places a manifestation at the targeted point that lasts 10 seconds. Every 2.5 seconds it will deal 32 magical damage to the closest enemy within a 5 metre radius.","Whenever you critically hit a Hindered target, you hit an additional time which deals 29 magical damage.","1sec 15sec
+Consumes 2 Elemental Resources.
+Places a manifestation at the targeted point that lasts 10 seconds. Every second, it performs a Chain attack that deals 25 magical damage or 29 magical damage if the target is Hindered."
+Rapid Combustion,Anima Charge,Violent Strikes,Flicker,Purgatory,Social Dynamo,Short Fuse,Grounded
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Reduces the activation time of ""Combust"" 0.5 seconds","Instant 45sec
+You receive a beneficial effect that causes the next Elemental resource consumer you activate within 20 seconds to cost no resources.",Increases the critical chance of your Strike abilities by 7.5%.,"Instant 20sec
+You teleport 10 metres forward, cleansing all root and snare effects from you.","Improves ""Inferno"" to also leave a 5 metre radius area for 10 seconds. Every second up to 5 enemies in the area are dealt 5 magical damage.","Whenever you critically hit with Strike abilities, all group members gain a single stack of the Critical Rating effect, which increases Critical Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times..","1sec 90sec
+Gives all group members the Short Fuse effect, which increase all damage dealt by 15% for 8 seconds. This effect can only affect a target once every 180 seconds.","Your Purges perform an additional hit, dealing 21 magical damage."
+Electrical Storm,High Voltage,Blaze,Highly Strung,Conditional Force,Magnetic Wipe,Final Fuse,Burnout
+Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Active Magic Ability,Passive,Active Magic Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"1.5sec Instant
+Chain: Jumps up to 3 metres 4 times, hitting up to 5 enemies.
+Consumes 3 Elemental Resources. 
+A Chain attack that deals 112 magical damage.","Improves ""Anima Charge"" to also causes the next Elemental resource consumer you activate to critically hit.","1.5sec Instant
+GTAoE: Affects up to 5 enemies in a 5 metre radius around the targeted point.
+Consumes 3 Elemental Resources.
+A GTAoE attack that deals 161 magical damage, or 177 magical damage to Afflicted targets.","Whenever you reach 0 Elemntal Resources after using an Elemental resource consuming, you gain the a beneficial effect, which causes you to deal 10% more damage for 6 seconds.","1sec 5sec
+Chain: Jumps up to 5 metres 4 times, hitting up to 5 enemies.
+Consumes 2 Elemental Resources.
+A Chain attack that deals 64 magical damage. If any of the affected targets  are Hindered, the Elemental Resource cost is refunded.","1sec Instant
+Consumes 3 Elemental Resources.
+A single target attack that deals 126 magical damage. Also Purges 1 beneficial effect from the target, or 2 beneficial effects it the target is Afflicted.","Upgrades the damage increase effect by ""Short Fuse"" to 25% damage increase for 10 seconds.","2sec Instant
+GTAoE: Affects up to 5 enemies in a 5 metre range around the targeted point.
+Consumes 5 Elemental Resources.
+A GTAoE attack that deals 160 magical damage. Affected targets that are Hindered are Purged of 2 beneficial effects."
+Elemental Precision,Thor's Hammer,Aidelon,Flashpoint,Chain Reaction,Magnetic Variance,Ice Manifestation,Lightning in a Bottle
+Passive Ability,Active Magic Ability,Passive Ability,Active Magic Ability,Passive Ability,Passive Ability,Active Magic Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,34 ap,34 ap
+Increases damage dealt by Elementalism abilities by 10%.,"2sec 15sec
+Consumes 5 Elemental Resources. 
+A single target Strike attack that deals 247 magical damage.","""Blaze"" has a 100% chance to critically hit Afflicted targets.","2sec 10sec
+A single target attack that deals 35 magical damage. The target also becomes Afflicted with a damage over time effect that deals 19 magical damage each second for 5 seconds.
+If the target is already Afflicted, it causes 5 enemies in a 5 metre radius around them to become Afflicted with a damage over time effect that deals 19 magical damage each second for 5 seconds.","Whenever you hit with Chain abilites, your targer becomes Afflicted with a damage over time effect that deals 7 magical damage every second for 10 seconds.",Your critical hits have a 33% chance to also Purge 1 beneficial effect from the target,"1sec 45sec
+Places a menifestation at the targeted point that lasts 9 seconds. Every 3 seconds it will hit up to 5 enemies in a 5 metre radius, dealing 40 magical damage. Affected targets will also be rooted to the ground for 2 second.","Improves ""Lightning Manifestation"" to also Purge 1 beneficial effect from each affected target."
+Molten Earth,Toxic Earth,Power Line,Live Wire,Whiteout,Hard Reset,Big Bang,Overload
+Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability,Active Magic Ability (Elite),Passive Ability (Elite),Active Magic Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 20sec
+A single target attack that deals 138 magical damage. The target also becomes Hindered and unable to move for 6 seconds.","Whenever you apply Hindered, the target also becomes Afflicted with a damage over time effect that deals 21 magical damage every seconds for 4 seconds.","1.5sec 30sec
+Attaches a leash to the target that lasts for 5 seconds. Every second it will deal 30 magical damage, or if the target is closer than 3 metres, it will deal 190 magical damage and cause the target to become Hindered and rooted in place for 3 seconds.","Whenever you critically hit, you gain a Live Wire counter. Once this counter reaches 4, the attack triggers an additional hit, dealing 197 magical damage.","1sec 30sec
+Places a manifestation at the targeted point that lasts 8 seconds. Every 0.5 seconds it will deal 14 magical damage to up to 5 enemies in a 5 metre radius. Targets that are hit by the manifestation 5 times become Hindered and rooted in place for 4 seconds.","2sec 60sec
+A single target attack that deals 166 magical damage and Purges all beneficial effects from the target. The target also receives a detrimental effect that purges all beneficial effects every second for 10 seconds.","Whenever you summon a Manifestation, Turret, or Drone, it will perfom an additional hit, dealing 12 magical damage.","3sec 45sec
+Channelled: Every second for 3 seconds.
+PBAoE: Affects up to 3 enemies in a 10 metre radius around you.
+A channelled PBAoE attack that deals 46 magical damage. The last hit will cause affected targets to become Hindered and unable to move for 3 seconds."
+,,,,,,,
+Shotguns,,,,,,,
+Enforce,Control,Crackdown,Restricted Access,Close Encounters,Securing the Perimeter,Hunkering Down,Tactical Surprise
+Pump Action,Hit & Run,Fire and Forget,Beanbag Rounds,Single Barrel,Scattershot,Crap Shoot,Striker
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability
+1 ap,1 ap,9 ap ,9 ap ,9 ap ,9 ap ,9 ap ,9 ap 
+"Instant
+Cone: Affects up to 5 enemies in a 60 degree 7 metre cone in front of you.
+Builds 1 resource for each equipped weapon.
+A Cone attack that deals 32 physical damage.","Whenever an enemy dies with your Shotgun resources remaining, an explosion occures around that enemy, dealing 46 physical damage to up to 5 enemies in a 3 metre radius.","Instant
+Column: Affects up to 5 enemies in a 4 metre wide by 10 metre long area in front fo you.
+Builds 1 resource for each equipped weapon.
+A column Blast attack that deals 32 physical damage.","Whenever you apply Hindered, you gain the Minor Penetration effect, which increases your Penetration Chance by 10% for 8 seconds.","0.5sec
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 46 physical damage, or 51 physical damage if the target is Weakened.","Instant Instant
+TAoE: Applied to 5 enemies in a 5 metre radius around the target.
+Builds 1 resource for each equipped weapon.
+A TAoE attack that deals 32 phsical damage.","Whenever you hit a Weakened target, you have a 10% chance to Purge 1 effect.","Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target Strike attack that deals 48 physical damage."
+Sawed Off,Powder Burn,12 Gauge,Kickback,Strike force,Collateral Damage,Smart Bomb,Impact Striker
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"""Pump Action"" will also casue affected targets to become Weakened by a single stack of the Debilitated effect, which reduces all damage dealt by 3% per stack for 10 seconds. This effect can stack up to 10 times.","1sec
+Builds 1 resource for each equipped weapons.
+A single target Strike attack that deals 46 physical damage, or 53 physical damage if the target is Hindered.","Whenever you Penetrate, your target becomes Weakened by a single stack Debilitating effect, which reduces all damage dealt by 3% per stack for 10 seconds. This effect can stack up to 10 times.","Instant 25sec
+Column Dash: Dash backwards 10 metres, affecting up to 4 enemies in a 6 metre wide column along the way.
+A single target attack that deals 60 physical damage. Also performs a backward column Dash attack that deals 40 physical damage.",Increases the Penetration Chance of Strike attacks by 7.5%.,Blast attacks have a 33% chance of Purging one beneficial effect from the target.,"Instant 60sec
+Places a mine at the targeted point that lasts 60 seconds. If an enemy comes within 5 metres of the mine, it explodes dealing 120 physical damage to up to 5 enemies in a 5 metre radius around it. Affected targets also have 2 beneficial effects purged from them.","Increased damage dealt by ""Striker"" to Hindered targets by 25%."
+Out for a Kill,Gunsmoke,Riot Act,Pinned Down,Raging Bullet,Shotgun Turret,Hardcase,Defensive Turret
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,16 ap,16 ap,16 ap
+"Instant 4sec
+Consumes all Shotgun Resources.
+A single target attack that deals 90 physical damage.","Whenever you apply Weakened, the target takes 7 physical damage.","Instant 4sec
+TAoE: Affects 5 enemies in a 5 metre radius around your target.
+Consumes all Shotgun Rsources.
+A TAoE attack that deals 60 physical damage.","Whenever you Penetrate, you also cause the target to become Hindered and its movement speed to be reduced by 70 for 4 seconds.  This effect can only happen once every 30 seconds.","Instant 4sec
+Consumes all Shotgun Resources.
+A single target Strike attack that deals 77 physical damage.If the target is between 3 and 9 metres from you it will instead deal 85 physical damge, or if the target is closer than 3 metres it will deal 91 physical damage.","Instant 15sec
+Consumes all Shotgun Resources.
+A Blast attack which places a Turret at your feet. The turret will fire every second for 5 seconds, affecting up to 3 enemies in a 7 metre long 120 degree cone in fron of you, dealing 17 physical damage. This ability has a 7 metre range.","Whenever you apply Weakened, you gain a single stack of the Protection effect, which increases your Physical and Magical Protection by 30 per stack for 8 seconds. This effect can stack up to 5 times.","Instant 4sec
+Consumes all Shotgun resources.
+Places a Turret at your feet, lasting 5 seconds. Friends staying within 5 a metre radius of the turret gain a beneficial effect that reduces all damage received by 3% per resource consumed."
+Dead on Target,Breaching Shot,Riot Control,Takedown,Body Piercing,High-Gauge Turret,Flak Jacket,Punisher
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Melee Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+Increases damage dealt by Shotgun abilities by 10%.,"Instant 90sec
+Gives all group members a beneficial effect that increase Penetration Chance by 40% for 8 seconds.","""Riot Act"" leaves a ground area lasting 5 seconds that reduces the movement speed of enemies inside it by 15%.","Instant 25sec
+A single target attack that deals 117 physical damage. The target becomes Hindered and its movement speed is reduced by 70 for 4 seconds. If you have 5 Shotgun Resources on the target, the movement reducting effect will last 2 seconds longer.","Whenever you Penetrate, you gain a single stack of the Penetration Rating effect, which increases your Penetration Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","Increases damge dealt by ""Shotgun Turret"" by 15%.","Instant 60sec
+Grants all group members a beneficial effect that reduces all damage received by 15% for 5 seconds.","Stike attacks also cause your target become Weakened by a single stack of the Debilitated effect, which reduces all damage dealt by 3% per stack for 10 seconds. This effect can stack up to 10 times."
+Buckshot,Breach Party,Stopping Power,Overpenetration,Heavy Recoil,Tear Gas,Full Flak Jacket,Sure Shot
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Melee Ability,Passive Ability,Active Ranged Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"1.5sec 6sec
+A single target attack that deals 99 physical damage, or 119 physical damage if you have 5 Shotgun Resources on the target.","Reduces the recharge time of ""Breaching Shot"" by 30 seconds.","Instant 4sec
+Cone: Affects up to 5 enemies in a 7 metre long 60 degree cone in front of you.
+Consumes all Shotgun Rsources.
+A Cone attack that deals 60 physical damage. This attack will penetrate any targets that are Hindered.","Whever you Penetrate, you build a counter. Once you reach 4 counters, you gain the Minor Penetration Chance effect, which increases Penetration Chance by 10% for 8 seconds.","Instant 10sec
+Consumes all Shotgun Resources.
+A single target attack that deals 76 physical damage. If the target is Weakened you also dash 10 metres backwards, dealing 14 physical damage to up to 5 enemies in a 6 metre wide area on your way.","Instant Instant
+TAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+Consumes all Shotgun Resources.
+A TAoE attack that deals 58 physical damage, or 68 physical damage to Hindered targets.","Increases the duration of ""Flak Jacket"" by 5 seconds.","Instant 4sec
+Consumes all Shotgun resources.
+A single target attack that deals 86 physical damage. If the target is Hindered you also Cleanse 1 detrimental effect from your defensive target and Purge 1 effect from the target."
+Rapid Reload,Both Barrels,Blast Corps,"Lock, Stock & Barrel",Invasive Measures,Mitigating Factor,Bomb Squad,Perjury
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,34 ap,34 ap
+"Reduces the activation time of ""Buckshot"" by 0.5 second.","Instant 4sec
+Cone: Affects up to 5 enemies in a 60 degree 7 metre cone in front of you.
+Consumes all Shotgun Resources.
+A Cone Blast attack that deals 60 physical damage.",Blast abilites also apply a detrimental effect which makes the target take 14 physical damage the next time they are hit.,"Instant 30sec
+Gives you a beneficial effect that causes your next Shotgun resource consumer to build 5 Shotgun resources at the end of activation.","Whenever you hit a Weakened target, you have a 25% chance to build 1 resource for your primary weapon.","Whenever you Penetrate, you gain a single stack of the Protection effect, which increase your Physical and Magical Protection rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","Instant 60sec
+Places a mine at the targeted point that last 60 seconds. If an enemy comes within 5 metres of the mine, it explodes dealing 120 physical damage to up to 5 enemies in a 5 metre radius around it. Affected targets also become Impaired and their movement speed is reduced by 70% for 8 seconds.","Whenever you apply Hindered, you Purge 1 beneficial effect from the target."
+Kneecapper,Authority,Shotgun Wedding,Close Quarters,Point Blank,Cleanup,Shield Formation,Rail Turret
+Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite),Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 20sec
+Cone: Affects up to 5 enemies in a 60 degree 7 metre cone in front of you.
+A Cone attack that deals 127 physical damage. Affected targets also become Hindered and their movement speed is reduced by 70% for 8 seconds.",Your group-wide effects are 15% more effective.,"2.5sec 15sec
+Channeled: Every 0.5 seconds for 2.5 seconds.
+Cone: Affects up to 5 enemies in a 5 metre long 60 degree cone in front of you.
+A channelled Cone attack that deals 41 physical damage. Each non-glancing hit from this ability increases the damage of the remaining hits by 5%.","Whenver you hit a target within 3 metres, your target becomes Hindered and their movement speed is reduced by 70% for 4 seconds.","1sec 30sec
+A single target attack that deals 138 physical damage. If the target is between 3 and 9 metres from you it will instead deal 166 physical damage, or if the target is closer that 3 metres it will deal 193 physical damage and cause the target to become Impaired and knocked 3 metres back.","Instant 50sec
+Gives all group members a beneficial effect that lasts 9 seconds. While this effect is active it Cleanses 1 detrimental effect every 1.5 seconds. Their targets will be Purged of 1 beneficial effect with each hit.","Whenever you gain the Minor Ward, Major Ward of stacks of the Protection effect, there is a 50% chance all friends near  you will receive the same effect.","Instant 20sec
+Places a Turret at your feet. The turret will fire at the closet enemy within 7 metres once evey second for 5 seconds, dealing 53 physical damage."
+,,,,,,,
+Pistols,,,,,,,
+Armed,Dangerous,Bullet Hell,Crossfire,Last One Standing,Troubleshooting,Trajectionist,Positive Reinforcement
+The Business,Hothead,Hair Trigger,Bad Break,Killer Flow,Collaboration,Exploitation,Greater Good
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability
+1 ap,1 ap,9 ap ,9 ap ,9 ap ,9 ap ,9 ap ,9 ap 
+"Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that hits 3 times, dealing 16 physical damage per hit..","Whenever you apply Hindered you gain the Minor Critical effect, which increase your Critical Chance by 10% for 8 seconds.","1sec Instant
+Channeled every 0.25 seconds for 1 seconds.
+Builds 1 Resource for each equipped weapon.
+A channelled Focus attack dealing 12 physical damage.","Whenever you hit a Hindered target, the target also becomes Weakened by 2 stacks of the Corrupted effect, which reduces the power of all outgoing heal, barrier and leech effects by 5% per stack for 10 seconds. This effect can stack up to 10 times.","1sec
+PBAoE: Affects up to 5 targets in a 5 meter radius around you.
+Builds 1 rsource for each equipped wepaon.
+A PBAoE attack that deals 32 physical damage.","1sec 5sec
+Builds 1 resource for each equipped weapon.
+A single target attack which deals 48 physical damage. Also Cleanses 1 detrimental effect.","Whenever you Hindered, you also Cleanse 1 detrimental effect from yourself.","1sec 90sec
+Gives all group members a beneficial effect, which increases the effectiveness of  all healing, barriers and leeches done by 15% for 10 seconds."
+Magnum,Above the Law,Increased Focus,Shake and Bake,Running Circles,Ready for More,Backup Drone,Utilitarianism
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"""The Business"" also causes the target to become Weakened by a single stack of the Corrupted effect, which reduces the effectiveness of heal, barrier and leech effects by 5% per stack for 10 seconds. This effect can stack up to 10 times.","Instant 15sec
+Persistent GTAoE: Places an area of effect that affects up to 5 enemies in a 5 metre radius around the targeted point every second for 10 seconds.
+Builds 1 resource for each equipped weapon on each target in the area placed.
+A persistent GTAoE attack that creates an area on the ground that deals 6 physical damage, or 7 physical damage to targets that are Hindered.",Focus attacks have a 7.5% increased chance to critically hit.,"1sec 45sec
+Column Dash: Dash forward 7 metres, affecting up to 5 enemies in a 6 metre wide column along the way.
+A column Dash attack that deals 73 physical damage. Affected targets also become Hindered and unable to move for 4 seconds.","Whenever you critically hit,  you gain a beneficial effect that increases your movement speed by 10% for 5 seconds.","Whenever you finish channelling a Focus ability, you also perform a PBAoE that removes 1 detrimental effect from up to 3 friends around you. This cannot happen more than once every 10 seconds.","1sec 90sec
+Summons a Drone that will follow the defensive target for 15 seconds. Gives the target a beneficial effect that increases the effectiveness of healing, leech and barrier effects received by 30%. Every second the drone will heal the defensive target for 9.","Increases the duration of ""Greater Good"" by 5 seconds."
+Shootout,Vigilante,Start & Finish,Fear and Wonder,Semi-Auto,"Bond, Strong Bond",Advantage Me,Health Drone
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Melee Ability,Passive Ability,Active Ranged Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,16 ap,16 ap,16 ap
+"2.5sec 4sec
+Channelled: Every 0.5 seconds for 2.5 seconds.
+Consumes all Pistol Resources.
+A channelled Focus attack that deals 39 physical damage.","Increases the duration of ""Above the Law"" by 5 seconds.","1sec 4sec
+Consumes all Pistol resources.
+A single target attack that performs 2 hits. The first hit deals 22 physical damage. The second hit deals 62 physical damge or 69 physical damage if the target is Weakened.","Whenever you critically hit, the target also becomes Weakened by 2 stacks of the Corrupted effect, which reduces the power of all outgoing heal, barrier and leech effects by 5% per stack for 10 seconds. Corrupted can stack up to 10 times.","2sec 4sec
+Channelled: Every 0.4 seconds for 2 seconds. 
+Chain: Jumps up to 5 meters 2 times, hitting up to 5 enemies.
+Consumes all Pistol Resources.
+A Chain attack that deals 21 physical damage.","1sec 4sec
+Channeled: Every 0.3 seconds for 1.5 seconds.
+Consumes all Pistol resources.
+A channelled attack that deals 16 physical damage.","Whenever you critically hit you also gain a heal over time effect, healing for 10 every second for 3 seconds.","1sec 20sec
+Consumes all Pistol resources.
+Summons a Drone that will follow you for 7 seconds. Every second it will heal you for 21 with a Chain heal that can jump up to 3 nearby friends."
+Coup de Grace,Deadly Aim,Mad Skills,Gun-Fu,Chain Misery,Critical Help,Sticky Drone,Chain Feed
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Whenever an enemy dies with your Pistol resources remaining, up to 3 friends in a 5 metre radius around that enemy are healed by 51.","Instant 90sec
+Gives all group members a beneficial effect that increases Critical Chance by 40% for 8 seconds.","Whenever you critically hit, you gain a single stack of the Critical Rating effect, which increases your Critical Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","1sec 30sec
+PBAoE: Affects up to 5 enemies within a 5 meter radius around you.
+Applies 3 Pistol Resources to each target.","Whenever you activate a Chain attack, the target also becomes Weakened by 1 stack of the Corrupted effect, which reduces the power of all outgoing heal, barrier and leech effects by 5% per stack for 10 seconds. Corrupted can stack up to 10 times.","Whenever you deploy a Manifestation, Turret or Drone, you also gain 1 stack of the Critical Rating effect, which increases Critical Rating by 30 per stack for 8 seconds. This effect can stack up to 5 times.","1sec 40sec
+Summons a Drone that will follow you around for 60 seconds. You gain a beneficial effect that causes the next 2 attacks against you to backfire, causing the attacker to become Hindered and unable to move for 4 seconds.",Chain abilities are 7.5% more effective
+Drone Kit,Calling the Shots,Big Forty Five,One in the Chamber,Set 'Em Up,Area Drone,Tough Luck,Cleansing Drone
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Melee Ability,Passive Ability,Active Ranged Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"Instant 4sec
+Consumes all Pistol resources.
+Summons a Drone that will follow you around for 20 seconds. Every 2 seconds it will fire at the closet enemy within 5 metres and deal 11 physical damage.","Reduces the recharge time of ""Deadly Aim"" by 30 seconds.","1.5sec 4sec
+Consumes all Pistol resources.
+A single target attack dealing 118 physical damage.","Whenever you critical hit, you also perform an additional hit dealing 28 physical damage to the target.","1sec 4sec
+Resources.
+TAoE: Affects up to 3 enemies in a 5 meter radius around the target.
+Consumes all Pistol 
+A TAoE attack that deals 55 physical damage. If any affected target is Hindered you gain resource for your secondary weapon.","1sec 15sec
+Consumes all Pistol Resources.
+Summons a Drone that will follow the target around for 5 seconds. Every second it will attack up to 3 enemies around the target, dealing 19 physical damage, or 22 physical damage to targets that are Weakened.","Whenever you critically hit, you also cause the target to become Hindered and rooted to the ground for 4 seconds. This can only happen once every 30 seconds.","1sec 10sec
+Consumes all Pistol resources.
+Summons a Drone that will follow the target for 5 seconds. Every second it will attack the target dealing 16 physical damage and Cleanse 1 detrimental effect from up to 1 friends in an area around the target. If the target is Hindered the drone is summoned, it will Cleanse 2 detrimental effects."
+Straight Shooter,Wanted,Quick Forty Five,Marked,Closer,Shot in the Arm,Win-Win,Drone Support
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,34 ap,34 ap
+Increases damage dealt by Pistol abilities by 10%.,"Instant 4sec
+Chain: Jumps up to 3 metres 4 times, hitting up to 5 enemies.
+Consumes all Pistol resources.
+A Chain attack that deals 60 physical damage.","Reduces the activation time of ""Big Forty Five"" by 0.5 seconds.","1.5sec 30sec
+A single target attack deals 136 physical damage. The target also becomes Weakened by 5 stacks of the Corrupted effect, which reduces the effectiveness of heal, barrier and leech effects by 5% per stack for 10 seconds. This effect can stack up to 10 times.",Resource consumers deal 7.5% more damage.,"Whenever you Cleanse a detrimental effect, the target is also healed for 15.","1sec 45sec
+PBAoE: Affects up to 3 friends in a 5 metre radius around you.
+A PBAoE that heals for 73 and Cleanses 2 detrimental effects.","Friends who get Cleansed by ""Cleansing Drone"" also get healed for 15."
+Dirty Tricks,Rapid Getaway,Gun Crazy,Seal the Deal,Bullet Ballet,Pistol Love,Contortionist,Born Leader
+Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite),Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 20sec
+GTAoE: Affects up to 5 enemies in a 5 metre radius around the targeted point.
+A GTAoE attack that deals 127 physical damage. Affected targets also become Hindered and unable to move for 4 seconds.",Whenever you activate any Pistol resource consumer you gain a beneficial effect that increases your movement speed by 15% for 5 seconds.,"3sec 60sec
+Channelled: Every 0.3 seconds for 3 seconds. 
+A channelled attack dealing 14 physical damage for the first 3 hits. The next 3 hits deal 23 physical damage. The next 3 hits deal 26 physical damage in an area around the target. The final hit deals 112 physical damage to the target.","Whenever you activate a resource consumer, you gain a beneficial effect that will cause your next resource consumer to deal 20% more damage.","2sec 30sec
+Channeled: Every 0.2 seconds for 2 seconds.
+PBAoE: Affects 5 enemies in a 5 meter radius around you.
+A PBAoE attack that deals 18 physical damage, or 20 physical damage to targets with your pistol resources. While channelling you are rooted in place.","1sec 30sec
+Cleanses the defensive target of all detrimental effects. After cleansing, the target cannot be Weakened, Hindered or Impaired for 5 seconds, and gains a loser Drone that attacks the nearest enemy dealing 34 physical damage every 2.5 seconds for 10 seconds.","Increases all your direct healing by 10%. Also, whenever you are Hindered or Impaired, you will immediately remove the effect. This can only happen every 25 seconds.","Instant 20sec
+Places a damage area where you are standing that lasts 5 seconds. The damage area will affect up to 3 enemies in a 5 metre radius every second dealing 22 physical damage. Affected targets also become Weakened by a single stack of the Corrupted effect, which reduces the effectiveness of heal, barrier and leech effects by 5% per stack for 10 seconds. This effect can stack up to 10 times."
+,,,,,,,
+Assault Rifles,,,,,,,
+Engage,Support,Take Point,Heavy Fire,Bombardment,Squad Duty,Support Team,Ground Control
+Safety Off,Military Code,Three Round Burst,Lucky Bullet,Suppressing Fire,Shot of Anima,Leech Therapy,Groundwork
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability
+1 ap,1 ap,9 ap ,9 ap ,9 ap ,9 ap ,9 ap ,9 ap 
+"1sec
+Builds 1 resource foe each equipped weapon.
+A single target Burst attack that hits 3 times, dealing 16 physical damage per hit.","Whenever an enemy dies with your Assault Rifle Resources remaining, you gain a beneficial effect that causes your next Assault Rifle resource builder to build 1 additional Assault Rifle Resource.","Instant
+Consumes all Assault Rifle Resources.
+A single target Burst attack that hits 3 times, dealing 30 physical damage per hit.","Whenever you attack, you build a counter. Once that counter reaches 7, your next attack causes the target to become Hindered and their movement speed is reduced by 70% for 8 seconds. This effect has an internal recharge time of 30 seconds.","1sec
+Channelled: Every 0.25 seconds for 1 second.
+TAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+Builds 1 Resource on affected enemy and one on self for secondary weapons.
+A TAoE Frenzy attack that deals 8 physical damage each hit.","Instant 4sec
+Consumes all Assault Rifle Resources.
+A single target heal that heals for 79 and gives a 1.6% leech effect to your defensive target for 5 seconds.","Your leech effects also trigger a PBAoE heal if the target is  Afflicted. This affects up to 3 friends in a 5 metre area around you, healing for 10.","1sec Instant
+TAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+Builds 1 Assault Rifle Resource.
+A TAoE attack that deals 24 physical damage. All friends in the target area receive a 0.4% leech effect for 10 seconds."
+Extra Bullet,Anima Shot,Call your Shots,Tactical Retreat,Sharp Shooter,Increased Dosage,Energise,Improved Groundwork
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+1 ap,1 ap,12 ap,12 ap,12 ap,12 ap,12 ap,12 ap
+"""Safety Off"" performs an additional hit.","Instant Instant
+Builds 1 Assault Rifle Resource.
+A single target attack that deals 35 physical damage. Your heal your defensive target for 27 and 7.1% of the damage dealt.","Whenever you hit, you gain a single stack of the Hit Rating effect, which increases your Hit Rating by 30 for 8 seconds per stack. The Hit Rating effect can stack up to 5 times. Whenever you glance, this effect is removed.","Instant 25sec
+Column Dash: Dash backward 10 metres, affecting all enemies in a 6 metre wide colmn along the way.
+A column Dash attack causing affected targets to become Hindering and reducing their movement speed by 70% for 4 seconds. A grenade is also left at the start location, exploding 1.5 seconds after the dash, dealing 84 physical damage in an area around it.","Whenever you penetrate or critically hit, you gain a single stack of the Hit Rating effect, which increases your Hit Rating by 30 per stack for 8 seconds. The Hit Rating effect can stack up to 5 times.","Improves ""Shot of Anima"" to  heal for 117, but no longer grant a leech effect.","Instant 60sec
+Gives your defensive target a 40% leech effect for 10 seconds.","Improves ""Groundwork"" to also heal friendly targets that have an active leech effect for 7."
+Fire at Will,Anima Boost,Hip Fire,Lethality,Frag Grenade,Anima Burst,Anticoagulant,Anima Outbreak
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability
+1 ap,1 ap,16 ap,16 ap,16 ap,16 ap,16 ap,16 ap
+"Instant 4sec
+TAoE: Affects uo to 5 enemies in a 5 metre radius around the target.
+Consumes all Assault Rifle Resources.
+A TAoE Frenzy ability that deals 46 physical damage. An additional hit is performed for each Assault Rifle Resource consumed, dealing 15 physical damage per hit.","Increases the damage dealt, leech and heal of ""Anima Shot"" by 7.5%.","Instant Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 48 physical damage. This ability has a 10 metre range.","Whenever you hit, you gain a single stack of a beneficial effect that increases all damage dealt by 1% per stack for 10 seconds. This effect can stack up to 10 times.","Instant 4sec
+TAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+Consumes all Assault Rifle Resources.
+A TAoE attack that deals 55 physical damage. If you hit a Hindered targeted, an explosion centered around that target is triggered, dealing 12 physical damage.","1sec Instant
+Builds 1 Assault Rifle resource.
+A Burst attack that hits 3 times, dealing 10 physical damage per hit. Heals the  defensive target for 34 and 10.1% of the damage dealt.",Your leech abilities also cause your target to become Afflicted with a damage over time effect that deals 12 physical damage every second for 5 seconds.,"Instant 4sec
+TAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+Consumes all Assault Rifle resources.
+A TAoE Frenzy ability that deals 46 physical damage. For each enemy hit, you are  healed for 50. "
+No Contest,Lock & Load,Steady Hip Fire,Razor Wire,Shoot 'Em Up,Improved Bursts,Platoon,Outbreak Alert
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+2 ap,2 ap,21 ap,21 ap,21 ap,21 ap,21 ap,21 ap
+"Whenever you apply Hindered, your next hit cannot be evaded.","Instant 25sec
+Builds 3 Assault Rifle Resources.
+Reduces the recharge time of all Assault Rfile resource consumers currently recharging by 4 seconds.","Increases the range of ""Hip Fire"" by 10 metres.","Instant 60sec
+You place a 10 metre wide by 2 metre long area in front of you that lasts 10 seconds and Dash backwards 3 metres. Any enemies passing through the area have their movement speed reduced by 30%.","Whenever you hit with a Frenzy ability, your target becomes Afflicted with a damage over time effect that deals 10 physical damage every second for 5 seconds.",All your Burst abilites are 7.5% more effectivve.,"Instant 30sec
+Heals all group members for 68.","Friendly targets within the area of ""Anima Outbreak"",  with more than 90% health remaining, will gain the Major Hit Chance effect, which reduces the likelihood of glancing hits by 50% for 12 seconds."
+Trigger Happy,Extra Clip,Where it Hurts,Explosives Expert,High Explosive Grenade,Transfuse Anima,Post-op,Anima Vessel
+Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Melee Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability
+3 ap,3 ap,27 ap,27 ap,27 ap,27 ap,27 ap,27 ap
+"1sec Instant
+Builds 1 resource for each equipped weapon.
+A single target attack that deals 44 physical damage. If the target is Hindered, it also becomes Afflicted with a damage over time effect that deals 3 physical damage every second for 5 seconds.","""Lock & Load"" builds 2 additional Assault Rifle Resources.","1sec 12sec
+A single target attack that deals 87 physical damage. If you hit an Afflicted target, your target becomes Hindered and their movement speed is reduced by 70% for 4 seconds. This effect scales based on the amount of resources spent.","Whenever you hit, you apply an explosive charge to the target. This charge explodes after 3 seconds, dealing 23 physical damage.","1sec 4sec
+TAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+Consumes all Assault Rifle Resources.
+A TAoE attack that deals 56 physical damage, or 68 physical damage to targets that are Afflicted.","1sec 4sec
+Consumes all Assault Rifle resources.
+A single target attack that deals 76 physical damage. Heals the defensive target for 7.1% of the damage dealt. If the target is Hindered, the defensive target gains a 2% leech effect for 10 seconds.",All your leech effects also heal for 19 when they expire.,"1sec 10sec
+Consumes all Assault Rifle Resources.
+A single target attack that deals 54 physical damage. An effect is placed on the target that returns health to everyone who attacks them. If the target is Afflicted, the amount of health gained is increased."
+Eagle Eye,Fire in the Hole,Short Controlled Bursts,Incendiary Grenade,Accuracy,Shadow Medic,Mortar Support,Leeching Frenzy
+Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Passive Ability,Active Ranged Ability,Passive Ability
+4 ap,4 ap,34 ap,34 ap,34 ap,34 ap,34 ap,34 ap
+Increases damage dealt by Assault Rifle abilites by 10%.,"Instant 4sec
+Consumes all Assault Rifle Resources.
+Sticks a spiked grenade to the target which detonates 2 seconds later dealing 91 physical damage.",Reduces the chance that your Burst attacks will glance by 10%.,"1sec 25sec
+TAoE: Affects up to 5 enemies in a 5 metre radius around your target.
+A TAoE attack that deals 40 physical damage. Affected targets become Afflicted with a damage over time effect that deals 4 damage every second for 10 seconds.",Increase the damage dealt by non-glancing hits by 5%.,All you direct healing abilities are 7.5% more effective.,"2sec20sec
+TAoE: Affects up to 5 friends in a 5 metre radius around the target.
+A TAoE heal that heals for 140.",Frenzy abilities also place a detrimental effect on the target that causes anyone attacking them to heal for 2.0% of the damage dealt.
+Slow the Advance,Experience,Red Mist,Demolition Man,Shellshocker,Re-Animator,Veteran,Reap and Sew
+Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite),Active Ranged Ability (Elite),Passive Ability (Elite),Active Ranged Ability (Elite)
+7 ap,7 ap,50 ap,50 ap,50 ap,50 ap,50 ap,50 ap
+"Instant 20sec
+GTAoE: Affects up to 5 enemies in a 5 metre radius around the targeted point.
+A GTAoE that deals 127 physical damage. Affected targets also become Hindered and their movement speed is reduced by 70% for 8 seconds.",Increases the effectiveness of leech effects by 25%.,"2sec 30sec
+A single target attack that deals 259 physical damage. This attack cannot be evaded and will not glance.","Whenever you apply Hindered, you will also apply a small explosive charge that goes off after 3 seconds, dealing 62 physical damage.","2sec 30sec
+Channelled: Every 0.2 seconds for 2 second.
+Column: Affects up to 5 enemies in a 4 metre wide by 12 metre long column in front of you.
+A channelled column attack that deals 22 physical damage. Affected targets become Hindered and their movement speed is reduced by 70% for 8 seconds.","1.5sec 30sec
+Channelled: Every second for 5 seconds.
+A channelled heal that heals for 53.","Whenever you use a leech ability, you gain a counter. When the counter reaches 7, all group members are healed for 53 and gain a 2.7% leech effect for 4 seconds.","Instant 90sec
+Gives all group members a 15.2% leech effect that lasts 8 seconds."
+,,,,,,,
+Survivalism,Subversion,Turbulence,,,,,
+Sleight of Hand,Confuse,Provoke,,,,,
+Active Ability,Active Ability,Active Ability,,,,,
+9 ap ,9 ap ,9 ap ,,,,,
+"Instant 40sec
+Removes all active crowd control effects from you and makes you immune to further crowd control effects for 7 seconds.","Instant 30sec
+Reduces the amount of hate the target has towards you, making it more likely to attack others instead of you. The target's hate towards you is reduced by 50%.","Instant 40sec
+Taunts the target, causing it to gain enough hate towards you to start attacking you.",,,,,
+Unfair Advantage,Subtlety,Agitator,,,,,
+Passive Ability,Passive Ability,Passive Ability,,,,,
+12 ap,12 ap,12 ap,,,,,
+Increases the effectiveness of healing received by 5%.,"Reduces the amount of hate enemies will gain towards you, making them more likely to attack others insteead of you. Enemies will gain hate towards you at a 75% rate.","Increases the amount of hate enemies will gain towards you, making them more likely to attack you instead of others. Enemies will gain hate towards you at a 300% rate.",,,,,
+Turn the Tables,Mass Confusion,Mass Provocation,,,,,
+Active Ability,Active Ability,Active Ability,,,,,
+16 ap,16 ap,16 ap,,,,,
+"Instant 35sec
+A self heal that heals for 642. This value is not affected by your healing power.","Instant 30sec
+TAoE: Affects up to 3 enemies in a 5 metre radius around the target.
+A TAoE detaunt that reduces the amount of hate affected targets have towards you, making them more likely to attack others instead of you. The targets' hate towards you is reduces by 33%.","Instant 50sec
+TAoE: Affects up to 3 enemies in a 5 metre radius around the target. 
+A TAoE taunt that forces affected targets to attack you for 5 seconds.",,,,,
+Cannonball,Under the Radar,Fuel to the Fire,,,,,
+Passive Ability,Passive Ability,Passive Ability,,,,,
+21 ap,21 ap,21 ap,,,,,
+"Whenever you use a movement ability, you also gain the Minor Ward effect, which reduces all damage received by 7.5% for 8 seconds.","Whenever you critically hit or penetrate, you also make the target more likely to attack others instead of you by reducing its hate towards you by 250.","Whenever you hit, the target generates 200 extra hate towrds you.",,,,,
+Speed Freak,Misdirection,Mockingbird,,,,,
+Active Ability,Active Ability,Active Ability,,,,,
+27 ap,27 ap,27 ap,,,,,
+"Instant 45sec
+Increases your movement speed by 25% for 6 seconds.","Instant 60sec
+For the next 8 seconds, 50% of the hate enemies gain towards you is instead transferred as hote towards your defensive target.","Instant 20sec
+You gain a beneficial effect, which causes all hits against you during the next 10 seconds to also heal you for 9 and cause attackers to gain 200 extra hate towards you.",,,,,
+Tenacity,Kill Streak,Resilient Defender,,,,,
+Passive Ability,Passive Ability,Passive Ability,,,,,
+34 ap,34 ap,34 ap,,,,,
+"Whenever you become Impaired or Hindered, you gain a heal over time effect that heals you for 14 every second for 5 seconds.","Whenever you kill an enemy, you gain 1 stack of a beneficial effect that increases the damage you deal by 3% per stack for 10 seconds. This effect can stack up to 5 times.","Whenever you evade or block or an attack glances, you are healed for 22.",,,,,
+Last Resort,Do or Die,Stoicism,,,,,
+Active Ability (Elite),Active Ability (Elite),Active Ability (Elite),,,,,
+50 ap,50 ap,50 ap,,,,,
+"Instant 80sec
+You become unable to act for 5 seconds. During this period you will not take any damage.","Instant 40sec
+Increases the damage you deal by 25% for 10 seconds.","Instant 30sec
+You gain a beneficial effect that reduces the damage you take by 30% for 10 seconds, and another beneficial effect that causes enemies to gain hate against you at a 500% rate for 10 seconds.",,,,,
+,,,,,,,

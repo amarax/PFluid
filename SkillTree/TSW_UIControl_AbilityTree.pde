@@ -1,27 +1,41 @@
-
-
 class TSW_UIControl_AbilityTree extends UIControl
 {
   TSW_AbilityTree abilityTree;
   
-  TSW_AbilityNode selectedAbilityNode = null;
+  TSW_UIControl_AbilityBranch selectedAbilityBranch;
+  private ArrayList<TSW_UIControl_Ability> selectedAbilities;  
   
   private PVector centerPos;
   float size;
+
+  int tGrandTotalSize = 1;
+
+  
+  boolean rotatingByDrag;
+  float mouseDownAngleOffset;
+  float mouseDownAngle;
+  
   
   private EasingHelper_PVector easingHelper_centerPos;
   private EasingHelper_Float easingHelper_size;
   
   private boolean cLineModeSwitch_PrevValue;
   
-  public TSW_UIControl_AbilityTree( Rectangle aRect )
+  public TSW_UIControl_AbilityTree( TSW_AbilityTree aAbilityTree, Rectangle aRect )
   {
     super( aRect );
     
-    loadAbilityTree();
-
+    abilityTree = aAbilityTree;
+    
+    selectedAbilityBranch = null;
+    selectedAbilities = new ArrayList<TSW_UIControl_Ability>();
+    
     centerPos = new PVector( rect.x + rect.width / 2.0, rect.y + rect.height / 2.0 );
     size = 1;
+    
+    rotatingByDrag = false;
+    mouseDownAngleOffset = 0;
+    mouseDownAngle = 0;
   }
   
   public void setup()
@@ -82,9 +96,27 @@ class TSW_UIControl_AbilityTree extends UIControl
 
     rect.setRect( tDampedCenterPos.x - tDampedSize, tDampedCenterPos.y - tDampedSize, tDampedSize * 2, tDampedSize * 2 );
     
+    if( rotatingByDrag )
+    {
+      float tCurrentMouseDownAngle = atan2( mouseY - centerPos.y, mouseX - centerPos.x ) + TWO_PI;
+      
+      float tNewAngleOffset = mouseDownAngleOffset + ( tCurrentMouseDownAngle - mouseDownAngle );
+      while( tNewAngleOffset > angleOffset.value + PI )
+      {
+        tNewAngleOffset -= TWO_PI;
+      }
+      while( tNewAngleOffset < angleOffset.value - PI )
+      {
+        tNewAngleOffset += TWO_PI;
+      }
+      print( angleOffset.value ); print( " : " ); println( tNewAngleOffset );
+      angleOffset.value = tNewAngleOffset;
+    }
+    
     float tAngleOffset = angleOffset.value;
     float tWheelStartAngle = 0 + tAngleOffset;
     float tWheelEndAngle = TWO_PI + tAngleOffset;
+    
     if( global_lineMode.value )
     {
       tWheelStartAngle = -tDampedCenterPos.x / size;
@@ -115,8 +147,7 @@ class TSW_UIControl_AbilityTree extends UIControl
     textFont( font_TSW_Subtitle );
     text( "Visualisation Test", tCenter.x, tCenter.y + 5 );
 
-    boolean tDebug = false;
-    if( tDebug )
+    if( global_debug )
     {
       noFill();
       stroke( 0, 0, 0.3 );
@@ -124,8 +155,7 @@ class TSW_UIControl_AbilityTree extends UIControl
       strokeWeight( 1 );
       
       float tCrossSize = 10;
-      line( tCenter.x, tCenter.y - tCrossSize, tCenter.x, tCenter.y + tCrossSize ); 
-      line( tCenter.x - tCrossSize, tCenter.y, tCenter.x + tCrossSize, tCenter.y ); 
+      pointcross( tCenter.x, tCenter.y, tCrossSize );
       
       //if( this == hoveredControl ) { stroke( 0, 0, 0.4 ); }
       
@@ -133,7 +163,7 @@ class TSW_UIControl_AbilityTree extends UIControl
       ellipse( tCenter.x, tCenter.y, rect.width / 2.0, rect.height / 2.0 );    
     }
 
-    if( selectedAbilityNode != null )
+    if( selectedAbilityBranch != null )
     {
 //      float tGlowRadius = outerRingSize.value - ringThickness.value * 6;
 //      strokeWeight( ringThickness.value * 15 );
@@ -155,20 +185,24 @@ class TSW_UIControl_AbilityTree extends UIControl
     return false;
   }
   
+  public void onMousePressed()
+  {
+    mouseDownAngle = atan2( mouseY - centerPos.y, mouseX - centerPos.x ) + TWO_PI;
+    mouseDownAngleOffset = angleOffset.value;
+    
+    rotatingByDrag = true;
+  }
+  
   public void onMouseReleased()
   {
-    selectedAbilityNode = null;
+    rotatingByDrag = false;
   }
   
   
   
-  private void loadAbilityTree()
+  private void loadAbilityTree( TSW_AbilityTree aAbilityTree )
   {
-    // HACK Create an ability tree
-    // HACK should load from XML
-    TSW_AbilityTree_Generated tGeneratedTree = new TSW_AbilityTree_Generated(); 
-    tGeneratedTree.populate();
-    abilityTree = tGeneratedTree;
+    abilityTree = aAbilityTree;
   }
   
   
@@ -188,7 +222,32 @@ class TSW_UIControl_AbilityTree extends UIControl
     }
   }
   
-  int tGrandTotalSize = 1;
+  
+  
+  public void selectAbility( TSW_UIControl_Ability aAbility )
+  {
+    if( !isAbilitySelected( aAbility ) )
+    {
+      selectedAbilities.add( aAbility );
+    }
+  }
+  
+  public void unselectAbility( TSW_UIControl_Ability aAbility )
+  {
+    selectedAbilities.remove( aAbility );
+  } 
+  
+  public boolean isAbilitySelected( TSW_UIControl_Ability aAbility )
+  {
+    if( selectedAbilities.indexOf( aAbility ) > -1 )
+    {
+      return true;
+    }
+    
+    return false;
+  }
+  
+  
   private void updateChildNodeDimensions( TSW_AbilityNode aNode, int aLevel, float aStartAngle, float aEndAngle )
   {
     HashMap<TSW_AbilityNode, Integer> tNodeToRelativeSize = new HashMap<TSW_AbilityNode, Integer>(); 
@@ -196,7 +255,7 @@ class TSW_UIControl_AbilityTree extends UIControl
     
     for( TSW_AbilityNode iNode : aNode.getChildNodes() )
     {
-      int tRelativeSize = getNodeRelativeSize( iNode );
+      int tRelativeSize = getNodeRelativeSize( iNode.linkedControl );
       tNodeToRelativeSize.put( iNode, tRelativeSize );
       tTotalSize += tRelativeSize;
     }
@@ -233,28 +292,35 @@ class TSW_UIControl_AbilityTree extends UIControl
     }
   }
   
-  private int getNodeRelativeSize( TSW_AbilityNode aNode )
+  private int getNodeRelativeSize( TSW_UIControl_AbilityNode aNode )
   {
     int tRelativeSize = 0;
 
-    if( aNode.getChildNodes().size() > 0 )
+    if( aNode.linkedNode.getChildNodes().size() > 0 )
     {
-      for( TSW_AbilityNode iNode : aNode.getChildNodes() )
+      for( TSW_AbilityNode iNode : aNode.linkedNode.getChildNodes() )
       {
-        tRelativeSize += getNodeRelativeSize( iNode );
+        tRelativeSize += getNodeRelativeSize( iNode.linkedControl );
       }
     }
     else
     {
-      tRelativeSize = aNode.getRelativeSize();
+      tRelativeSize = 1;
+      if( aNode instanceof TSW_UIControl_AbilityNode )
+      {
+        if( sizeByPoints.value )
+        {
+          tRelativeSize = ( (TSW_Ability)( aNode.linkedNode ) ).points;
+        }
+      }
     }
     
-    if( selectedAbilityNode == aNode )
+    if( selectedAbilityBranch == aNode )
     {
       tRelativeSize = sizeByPoints.value ? round( 11025 / ( 1 - selectedNodeRatio.value ) ) : round( ( 525 + 6 ) / ( 1 - selectedNodeRatio.value ) );
     }
     
-    if( aNode.name.equals( "Auxiliary" ) && !showAuxWheel.value )
+    if( aNode.linkedNode.name.equals( "Auxiliary" ) && !showAuxWheel.value )
     {
       tRelativeSize = 0;
     }
@@ -273,6 +339,21 @@ class TSW_UIControl_AbilityTree extends UIControl
   {
     return easingHelper_size.getValue();
   }
+}
+
+
+class TSW_AbilityTree_ColorSet
+{
+  color branch;
+  color ability_locked;
+  color ability_unlocked;
+  
+  public TSW_AbilityTree_ColorSet( color aBranch, color aAbility_Locked, color aAbility_Unlocked )
+ {
+   branch = aBranch;
+   ability_locked = aAbility_Locked;
+   ability_unlocked = aAbility_Unlocked;
+ } 
 }
 
 

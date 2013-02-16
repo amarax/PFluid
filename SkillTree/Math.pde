@@ -27,3 +27,25 @@ class Vector2
 class Angle
 {
 }
+
+
+public float min_abs( float aValue1, float aValue2 )
+{
+  if( abs( aValue1 ) <= abs( aValue2 ) )
+  {
+    return aValue1;
+  }
+  
+  return aValue2;
+}
+
+
+public int signof( float aValue1 )
+{
+  if( aValue1 < 0 )
+  {
+    return -1;
+  }
+  
+  return 1;
+}

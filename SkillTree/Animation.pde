@@ -88,7 +88,7 @@ class EasingHelper_Float
     
     float tFactor = sin( -HALF_PI + PI * ( tCurrentTime / transitionTime ) );
     tFactor = 0.5 * tFactor + 0.5;
-    tFactor = pow( tFactor, 0.7 );
+    tFactor = pow( tFactor, 1 );
    
     if( tCurrentTime < transitionTime )
     {

@@ -8,9 +8,13 @@ PFont font_TSW_Title;
 PFont font_TSW_Subtitle;
 PFont font_TSW_AbilityTree;
 PFont font_TSW_AbilityName;
+PFont font_TSW_AbilityDescription;
 
 
-TSW_UIControl_AbilityTree abilityTree;
+TSW_AbilityTree abilityTreeData;
+TSW_WikiParser wikiParser;
+
+TSW_UIControl_AbilityTree abilityTreeWidget;
 
 
 ArrayList<UIControl> uiControls = new ArrayList();
@@ -30,9 +34,11 @@ Global_Float selectedNodeRatio = new Global_Float( 0.8 );
 Global_Boolean showAuxWheel = new Global_Boolean( true );
 Global_Boolean sizeByPoints = new Global_Boolean( false );
 
+boolean global_debug = false;
+
+
 void setup()
 {
-
 
 
 
@@ -50,10 +56,15 @@ void setup()
   font_TSW_Subtitle = loadFont( "Futura-Medium-18.vlw" );
   font_TSW_AbilityTree = loadFont( "Futura-Medium-12.vlw" );
   font_TSW_AbilityName = loadFont( "Futura-Medium-10.vlw" );
+  font_TSW_AbilityDescription = loadFont( "CenturyGothic-9.vlw" );
+
+  abilityTreeData = new TSW_AbilityTree();
+  wikiParser = new TSW_WikiParser();
+  wikiParser.populate( abilityTreeData ); 
 
   int tSize = 400;
-  abilityTree = new TSW_UIControl_AbilityTree( new Rectangle( height / 2 - tSize + 100, height / 2 - tSize, tSize * 2, tSize * 2 ) );
-  uiControls.add( abilityTree );
+  abilityTreeWidget = new TSW_UIControl_AbilityTree( abilityTreeData, new Rectangle( height / 2 - tSize + 100, height / 2 - tSize, tSize * 2, tSize * 2 ) );
+  uiControls.add( abilityTreeWidget );
 
 
   int tYPos = 50;
@@ -143,7 +154,7 @@ void setup()
   tShowAuxWheel.setup( showAuxWheel );
   tSizeByPoints.setup( sizeByPoints );
 
-  abilityTree.setup();
+  abilityTreeWidget.setup();
 }
 
 
@@ -179,6 +190,11 @@ void draw()
 void mousePressed()
 {
   activeControl = hoveredControl;
+  
+  if( activeControl != null )
+  {
+    activeControl.onMousePressed();
+  }
 }
 
 void mouseReleased()

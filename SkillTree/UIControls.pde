@@ -16,6 +16,10 @@ class UIControl
     return false;
   }
   
+  public void onMousePressed()
+  {
+  }
+  
   public void onMouseReleased()
   {
   }

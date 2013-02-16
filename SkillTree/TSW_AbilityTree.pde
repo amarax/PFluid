@@ -2,27 +2,6 @@
 
 class TSW_AbilityTree
 {
-  final color WHEEL_BRANCH_COLOR = color( 0, 0.0, 0.3, 0.5 );
-
-  final color MELEE_BRANCH_COLOR = color( 30, 0.6, 0.6, 0.5 );
-  final color MELEE_ABILITY_LOCKED_COLOR = color( 30, 0.7, 0.4, 0.5 );
-  final color MELEE_ABILITY_UNLOCKED_COLOR = color( 30, 0.7, 0.8, 0.5 );
-  
-  final color MAGIC_BRANCH_COLOR = color( 210, 0.5, 0.75, 0.5 );
-  final color MAGIC_ABILITY_LOCKED_COLOR = color( 210, 0.6, 0.5, 0.5 );
-  final color MAGIC_ABILITY_UNLOCKED_COLOR = color( 210, 0.6, 0.8, 0.5 );
-  
-  final color RANGED_BRANCH_COLOR = color( 5, 0.45, 0.7, 0.5 );
-  final color RANGED_ABILITY_LOCKED_COLOR = color( 5, 0.55, 0.5, 0.5 );
-  final color RANGED_ABILITY_UNLOCKED_COLOR = color( 5, 0.55, 0.8, 0.5 );
-  
-  final color MISC_BRANCH_COLOR = color( 120, 0.35, 0.5, 0.5 );
-  final color MISC_ABILITY_COLOR_LOCKED = color( 120, 0.35, 0.5, 0.5 );
-  final color MISC_ABILITY_COLOR_UNLOCKED = color( 120, 0.35, 0.8, 0.5 );
-  
-  final color AUX_BRANCH_COLOR = color( 180, 0.3, 0.6, 0.5 );
-  final color AUX_ABILITY_COLOR_LOCKED = color( 180, 0.3, 0.33, 0.5 );
-  final color AUX_ABILITY_COLOR_UNLOCKED = color( 180, 0.3, 0.8, 0.5 );
   
 
 
@@ -54,6 +33,26 @@ class TSW_AbilityTree
     
     aAbility.setParentNode( aParentBranch );
     aParentBranch.addChildNode( aAbility );
+  }
+
+  public TSW_AbilityBranch addNewBranch( String aName, color aColor, TSW_AbilityBranch aParentBranch )
+  {
+    TSW_AbilityBranch tNewBranch = new TSW_AbilityBranch( aName );
+    tNewBranch.nodeColor = aColor;
+    this.attachBranch( tNewBranch, aParentBranch );
+    
+    return tNewBranch;
+  }
+  
+  public TSW_Ability addNewAbility( String aName, int aPoints, color aLockedColor, color aUnlockedColor, TSW_AbilityBranch aParentBranch )
+  {
+    TSW_Ability tNewAbility = new TSW_Ability( aName, aPoints );
+    tNewAbility.nodeLockedColor = aLockedColor;
+    tNewAbility.nodeUnlockedColor = aUnlockedColor;
+    tNewAbility.nodeColor = aLockedColor;
+    this.attachAbility( tNewAbility, aParentBranch );
+    
+    return tNewAbility;
   }
 }
 
@@ -92,11 +91,6 @@ class TSW_AbilityNode
   {
     return null;
   }
-  
-  public int getRelativeSize()
-  {
-    return 1;
-  }
 }
 
 
@@ -125,8 +119,7 @@ class TSW_AbilityBranch extends TSW_AbilityNode
 class TSW_Ability extends TSW_AbilityNode
 {
   int points;
-  
-  private boolean unlocked;
+  String description;
   
   public color nodeLockedColor;
   public color nodeUnlockedColor;
@@ -137,8 +130,6 @@ class TSW_Ability extends TSW_AbilityNode
     
     name = aName;
     points = aPoints;
-    
-    unlocked = false;
   }
 
   public TSW_UIControl_AbilityNode createAssociatedUIControl()
@@ -147,34 +138,5 @@ class TSW_Ability extends TSW_AbilityNode
     linkedControl = tControl;
     
     return tControl;
-  }
-
-  public int getRelativeSize()
-  {
-    if( sizeByPoints.value )
-    {
-      return points;
-    }
-    //else
-    return 1;
-  }
-  
-  public void setUnlocked( boolean aUnlocked )
-  {
-    unlocked = aUnlocked;
-    
-    if( unlocked )
-    {
-      this.nodeColor = nodeUnlockedColor;
-    }
-    else
-    {
-      this.nodeColor = nodeLockedColor;
-    }
-  }
-  
-  public boolean getUnlocked()
-  {
-    return unlocked;
   }
 }
