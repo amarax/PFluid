@@ -23,8 +23,10 @@ UIControl activeControl = null;
 
 Global_Boolean global_lineMode = new Global_Boolean( false );
 
-Global_Float outerRingSize = new Global_Float( 360 );
-Global_Float innerRingSize = new Global_Float( 100 );
+Global_Boolean global_adjustSizeMode = new Global_Boolean( false );
+
+Global_Float outerRingSize = new Global_Float( 250 );
+Global_Float innerRingSize = new Global_Float( 80 );
 Global_Float ringThickness = new Global_Float( 10 );
 Global_Float abilityRingThickness = new Global_Float( 30 );
 Global_Float branchGapSize = new Global_Float( 1 );

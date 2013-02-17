@@ -58,7 +58,7 @@ class TSW_UIControl_AbilityTree extends UIControl
     
     if( global_lineMode.value != cLineModeSwitch_PrevValue )
     {
-      float tTransitionTime = 1;
+      float tTransitionTime = 2;
       easingHelper_centerPos.start( easingHelper_centerPos.getValue(), tTransitionTime );
       easingHelper_size.start( easingHelper_size.getValue(), tTransitionTime );
     } 
@@ -129,8 +129,8 @@ class TSW_UIControl_AbilityTree extends UIControl
     
     if( global_lineMode.value )
     {
-      tWheelStartAngle = -tDampedCenterPos.x / size - HALF_PI;
-      tWheelEndAngle = ( width - tDampedCenterPos.x ) / size - HALF_PI;
+      tWheelStartAngle = -tDampedCenterPos.x / tDampedSize - HALF_PI;
+      tWheelEndAngle = ( width - tDampedCenterPos.x ) / tDampedSize - HALF_PI;
     }
     
     updateChildNodeDimensions( abilityTree.rootNode, 0, tWheelStartAngle, tWheelEndAngle );

@@ -354,18 +354,6 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
       fill( 0, 0, 1, tAlpha );
       text( ( (TSW_Ability)linkedNode ).name, tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
 
-//      textAlign( LEFT, TOP );
-//      textFont( font_TSW_AbilityDescription );
-//      fill( 0, 0, 1, 1.0 );
-//      text( ( (TSW_Ability)linkedNode ).description, tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
-
-      PVector tDescriptionTopLeft = new PVector( tTextCenter.x, tTextCenter.y );
-      tDescriptionTopLeft.x += 0.5 * tTextDimensions.x + 10;
-      tDescriptionTopLeft.y -= 0.5 * tTextDimensions.y;
-      rectMode( CORNER );
-      textFont( font_TSW_AbilityDescription );
-      text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, 200, 100 );
-
       if( global_debug )
       {
         noFill();
@@ -374,6 +362,69 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
         strokeWeight( 1 );
         rect( tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
       }
+
+      //if( tArcLength > 30 )
+      {
+//        PVector tDescriptionTopLeft = new PVector( tTextCenter.x, tTextCenter.y );
+//        tDescriptionTopLeft.x += 0.5 * tTextDimensions.x + 10;
+//        tDescriptionTopLeft.y -= 0.5 * tTextDimensions.y;
+//        rectMode( CORNER );
+//        textFont( font_TSW_AbilityDescription );
+//        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, 200, 100 );
+
+        float tMargin = 3;
+        PVector tDescriptionAttachPoint = new PVector( tTextAttachPoint.x, tTextAttachPoint.y );
+        tDescriptionAttachPoint.x += tTextDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) ) + signof( cos( tMidAngle ) ) * tMargin;
+        tDescriptionAttachPoint.y += tTextDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) ) + signof( sin( tMidAngle ) ) * tMargin;
+        
+        // DEBUG DescriptionAttachPoint
+//        noFill();
+//        stroke( 0, 0, 0.3 );
+//        strokeCap( SQUARE );
+//        strokeWeight( 1 );
+//        pointcross( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y, 10 );
+        
+        PVector tDescriptionDimensions = new PVector( 200, 100 );
+        PVector tDescriptionCenter = new PVector( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y );
+        tDescriptionCenter.x += 0.5 * tDescriptionDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) );
+        tDescriptionCenter.y += 0.5 * tDescriptionDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) );
+
+        PVector tTextHalfDimensions = new PVector(); PVector.mult( tTextDimensions, 0.5, tTextHalfDimensions );
+        PVector tTextTopLeft = new PVector(); PVector.sub( tTextCenter, tTextHalfDimensions, tTextTopLeft );
+        PVector tTextBottomRight = new PVector(); PVector.add( tTextCenter, tTextHalfDimensions, tTextBottomRight );
+
+        PVector tDescriptionHalfDimensions = new PVector(); PVector.mult( tDescriptionDimensions, 0.5, tDescriptionHalfDimensions );
+        PVector tDescriptionTopLeft = new PVector(); PVector.sub( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionTopLeft );
+        PVector tDescriptionBottomRight = new PVector(); PVector.add( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionBottomRight );
+
+        int tTextHAlign = LEFT;
+        int tTextVAlign = TOP;
+        if( tDescriptionCenter.x < tTextCenter.x && !global_lineMode.value )
+        {
+          tTextHAlign = RIGHT;  
+        }
+        if( tDescriptionTopLeft.y < tTextTopLeft.y && tDescriptionBottomRight.y > tTextBottomRight.y )
+        {
+          tTextVAlign = CENTER;
+        }
+        else if( tDescriptionTopLeft.y < tTextTopLeft.y )
+        {
+          tTextVAlign = BOTTOM;
+        }
+
+        rectMode( CORNER );
+        textAlign( tTextHAlign, tTextVAlign );
+        textFont( font_TSW_AbilityDescription );
+        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y + ( textAscent() + textDescent() ) + textDescent() );
+
+        // DEBUG Box around description
+//        noFill();
+//        stroke( 0, 0, 0.3 );
+//        strokeCap( SQUARE );
+//        strokeWeight( 1 );
+//        rect( tDescriptionCenter.x, tDescriptionCenter.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
+      }
+
 
 
       rectMode( CORNER );
