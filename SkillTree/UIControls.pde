@@ -1,5 +1,7 @@
 class UIControl
 {
+  protected boolean visible;
+  
   protected Rectangle rect;
   
   protected PVector mousePressedPos;
@@ -7,6 +9,8 @@ class UIControl
   protected UIControl( Rectangle aRect )
   {
     rect = new Rectangle( aRect );
+    
+    visible = true;
   }
   
   public void setup() {};
@@ -224,23 +228,103 @@ class UIControl_Switch extends UIControl
 }
 
 
-class UIOverlay
+
+class UIControl_RadiusGizmo extends UIControl
 {
-  PVector position;
+  boolean adjusting;
   
-  HashMap<UIControl, PVector> controls;
+  float mouseDownDistOffset;
   
-  public UIOverlay( PVector aPosition )
+  protected PVector centerPos;
+  
+  Global_Float radius;
+  
+  public UIControl_RadiusGizmo( PVector aCenterPos )
   {
-    position = aPosition;
+    super( new Rectangle( floor( aCenterPos.x - 1 ), floor( aCenterPos.y - 1 ), ceil( 1 * 2 ), ceil( 1 * 2 ) ) );
     
-    controls = new HashMap<UIControl, PVector>(); 
+    adjusting = false;
+    mouseDownDistOffset = 0;
+
+    centerPos = new PVector( aCenterPos.x, aCenterPos.y );
   }
   
-  public void addControl( UIControl aControl )
+  public void setup( Global_Float aRadius )
   {
-    controls.put( aControl, new PVector( aControl.rect.x - position.x, aControl.rect.y - position.y ) );
+    super.setup();
+    
+    radius = aRadius;
   }
   
+  public void update()
+  {
+    super.update();
+    
+    if( mousePressedPos != null )
+    {
+      if( !adjusting )
+      {
+        if( mousePressedPos.x != mouseX && mousePressedPos.y != mouseY )
+        {
+          adjusting = true;
+        }
+      }
+    }
+    
+    if( adjusting )
+    {
+      setRadius( centerPos.dist( new PVector( mouseX, mouseY ) ) - mouseDownDistOffset );
+      rect = new Rectangle( floor( centerPos.x - getRadius() ), floor( centerPos.y - getRadius() ), ceil( getRadius() * 2 ), ceil( getRadius() * 2 ) );
+    }
+  }
   
+  public void draw()
+  {
+    super.draw();
+    
+    float tAlpha = hoveredControl == this ? 1.0 : 0.5;
+    
+    noFill();
+    stroke( 0, 0, 0.8, tAlpha );
+    strokeWeight( 2 );
+    ellipseMode( RADIUS );
+    float tRadius = getRadius();
+    ellipse( centerPos.x, centerPos.y, tRadius, tRadius );
+  }
+  
+  public boolean isMouseIn()
+  {
+    float tMouseDistance = centerPos.dist( new PVector( mouseX, mouseY ) );
+    float tTolerance = 5; 
+    if( tMouseDistance > getRadius() - tTolerance && tMouseDistance < getRadius() + tTolerance )
+    {
+      return true;
+    } 
+    
+    return false;
+  }
+  
+  public void onMousePressed()
+  {
+    super.onMousePressed();
+    
+    mouseDownDistOffset = centerPos.dist( new PVector( mouseX, mouseY ) ) - getRadius();
+  }
+  
+  public void onMouseReleased()
+  {
+    super.onMouseReleased();
+    
+    adjusting = false;
+  }
+
+  public void setRadius( float aRadius )
+  {
+    radius.value = aRadius;
+  }
+  
+  public float getRadius()
+  {
+    return radius.value;
+  }
 }

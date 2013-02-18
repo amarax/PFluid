@@ -94,6 +94,10 @@ class EasingHelper_Float
     {
       currentValue = ( 1 - tFactor ) * startValue + tFactor * aActualValue;
     }
+    else
+    {
+      currentValue = aActualValue;
+    }
   }
   
   float getValue()
@@ -128,5 +132,10 @@ class EasingHelper_PVector
   PVector getValue()
   {
     return new PVector( xEaser.getValue(), yEaser.getValue() );
+  }
+  
+  boolean getCompleted()
+  {
+    return ( ( millis() - xEaser.startTime ) / 1000.0 ) < xEaser.transitionTime && ( ( millis() - yEaser.startTime ) / 1000.0 ) < yEaser.transitionTime; 
   }
 }

@@ -25,8 +25,8 @@ Global_Boolean global_lineMode = new Global_Boolean( false );
 
 Global_Boolean global_adjustSizeMode = new Global_Boolean( false );
 
-Global_Float outerRingSize = new Global_Float( 250 );
-Global_Float innerRingSize = new Global_Float( 80 );
+Global_Float global_outerRingSize = new Global_Float( 250 );
+Global_Float global_innerRingSize = new Global_Float( 80 );
 Global_Float ringThickness = new Global_Float( 10 );
 Global_Float abilityRingThickness = new Global_Float( 30 );
 Global_Float branchGapSize = new Global_Float( 1 );
@@ -38,6 +38,8 @@ Global_Boolean sizeByPoints = new Global_Boolean( false );
 
 boolean global_debug = false;
 
+TSW_Filter_Ability_Description nameFilter;
+
 
 void setup()
 {
@@ -45,7 +47,8 @@ void setup()
 
 
 
-  size( 1440, 810 );
+  //size( 1440, 810 );
+  size( 1600, 900 );
   smooth();
   colorMode( HSB, 360.0, 1.0, 1.0, 1.0 );
 
@@ -78,36 +81,6 @@ void setup()
   uiControls.add( tModeSwitch );
   tYPos += tOffset + 25;
 
-  tSize = 215;
-  UIControl_Slider tInnerSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tInnerSizeSlider.setLabel( "Inner Ring Distance from Outer Ring" );
-  uiControls.add( tInnerSizeSlider );
-  tYPos += tOffset;
-
-  tSize = 200;
-  UIControl_Slider tArcThicknessSlider = new UIControl_Slider( 0, tSize/2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tArcThicknessSlider.setLabel( "Branch Ring Thickness" );
-  uiControls.add( tArcThicknessSlider );
-  tYPos += tOffset;
-
-  tSize = 200;
-  UIControl_Slider tAbilityArcThicknessSlider = new UIControl_Slider( 0, tSize/2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tAbilityArcThicknessSlider.setLabel( "Ability Ring Thickness" );
-  uiControls.add( tAbilityArcThicknessSlider );
-  tYPos += tOffset;
-
-  tSize = 200;
-  UIControl_Slider tGapSizeSlider = new UIControl_Slider( 0, 5, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tGapSizeSlider.setLabel( "Gap between Branches" );
-  uiControls.add( tGapSizeSlider );
-  tYPos += tOffset;
-
-  tSize = 200;
-  UIControl_Slider tAbilityGapSizeSlider = new UIControl_Slider( 0, 2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tAbilityGapSizeSlider.setLabel( "Gap between Abilities" );
-  uiControls.add( tAbilityGapSizeSlider );
-  tYPos += tOffset;
-
   tSize = 200;
   UIControl_Slider tSelectionSizeSlider = new UIControl_Slider( 0, 0.9999, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tSelectionSizeSlider.setLabel( "Selected Node Ratio (Size)" );
@@ -124,18 +97,13 @@ void setup()
   UIControl_Switch tSizeByPoints = new UIControl_Switch( new Rectangle( width - tSize - 50, tYPos, tSize, 20 ) );
   tSizeByPoints.setLabel( "AP Width" );
   uiControls.add( tSizeByPoints );
+  tYPos += tOffset;
+
 
 //  tSize = 40;
 //  UIControl_Switch tLengthByPoints = new UIControl_Switch( new Rectangle( width - tSize - 100, tYPos, tSize, 20 ) );
 //  tLengthByPoints.setLabel( "AP Length" );
 //  uiControls.add( tLengthByPoints );
-  tYPos += tOffset;
-
-  tSize = 215;
-  UIControl_Slider tSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-  tSizeSlider.setLabel( "Outer Ring Size" );
-  uiControls.add( tSizeSlider );
-  tYPos += tOffset;
 
 //  tSize = 400;
 //  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
@@ -145,18 +113,84 @@ void setup()
 
   tModeSwitch.setup( global_lineMode );
 
-  tSizeSlider.setup( outerRingSize );
-  tInnerSizeSlider.setup( innerRingSize );
+  tShowAuxWheel.setup( showAuxWheel );
+  tSizeByPoints.setup( sizeByPoints );
+  tSelectionSizeSlider.setup( selectedNodeRatio );
+
+  abilityTreeWidget.setup();
+
+
+  nameFilter = new TSW_Filter_Ability_Description( "glanc" );
+  nameFilter.active = false;
+  abilityTreeWidget.addFilter( nameFilter );
+
+
+
+
+  TSW_UIOverlay_SizeAdjust_AbilityTree tAdjustSizeOverlay = new TSW_UIOverlay_SizeAdjust_AbilityTree( global_adjustSizeMode );
+  uiControls.add( tAdjustSizeOverlay );
+  tAdjustSizeOverlay.setup( abilityTreeWidget );
+
+  tSize = 215;
+  UIControl_Slider tSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tSizeSlider.setLabel( "Outer Ring Size" );
+  uiControls.add( tSizeSlider );
+  tAdjustSizeOverlay.addControl( tSizeSlider );
+  tYPos += tOffset;
+
+  UIControl_RadiusGizmo tOuterRingSizeRadius = new UIControl_RadiusGizmo( abilityTreeWidget.centerPos );
+  tOuterRingSizeRadius.setup( global_outerRingSize );
+  uiControls.add( tOuterRingSizeRadius );
+  tAdjustSizeOverlay.addControl( tOuterRingSizeRadius );
+
+  tSize = 215;
+  UIControl_Slider tInnerSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tInnerSizeSlider.setLabel( "Inner Ring Distance from Outer Ring" );
+  uiControls.add( tInnerSizeSlider );
+  tAdjustSizeOverlay.addControl( tInnerSizeSlider );
+  tYPos += tOffset;
+
+  TSW_UIControl_RadiusGizmo_InnerRing tInnerRingSizeRadius = new TSW_UIControl_RadiusGizmo_InnerRing( abilityTreeWidget.centerPos );
+  tInnerRingSizeRadius.setup( global_innerRingSize, global_outerRingSize );
+  uiControls.add( tInnerRingSizeRadius );
+  tAdjustSizeOverlay.addControl( tInnerRingSizeRadius );
+
+  tSize = 200;
+  UIControl_Slider tArcThicknessSlider = new UIControl_Slider( 0, tSize/2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tArcThicknessSlider.setLabel( "Branch Ring Thickness" );
+  uiControls.add( tArcThicknessSlider );
+  tAdjustSizeOverlay.addControl( tArcThicknessSlider );
+  tYPos += tOffset;
+
+  tSize = 200;
+  UIControl_Slider tAbilityArcThicknessSlider = new UIControl_Slider( 0, tSize/2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tAbilityArcThicknessSlider.setLabel( "Ability Ring Thickness" );
+  uiControls.add( tAbilityArcThicknessSlider );
+  tAdjustSizeOverlay.addControl( tAbilityArcThicknessSlider );
+  tYPos += tOffset;
+
+  tSize = 200;
+  UIControl_Slider tGapSizeSlider = new UIControl_Slider( 0, 5, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tGapSizeSlider.setLabel( "Gap between Branches" );
+  uiControls.add( tGapSizeSlider );
+  tAdjustSizeOverlay.addControl( tGapSizeSlider );
+  tYPos += tOffset;
+
+  tSize = 200;
+  UIControl_Slider tAbilityGapSizeSlider = new UIControl_Slider( 0, 2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  tAbilityGapSizeSlider.setLabel( "Gap between Abilities" );
+  uiControls.add( tAbilityGapSizeSlider );
+  tAdjustSizeOverlay.addControl( tAbilityGapSizeSlider );
+  tYPos += tOffset;
+
+  tSizeSlider.setup( global_outerRingSize );
+  tInnerSizeSlider.setup( global_innerRingSize );
   tArcThicknessSlider.setup( ringThickness );
   tAbilityArcThicknessSlider.setup( abilityRingThickness );
   tGapSizeSlider.setup( branchGapSize );
   tAbilityGapSizeSlider.setup( abilityGapSize );
-  tSelectionSizeSlider.setup( selectedNodeRatio );
-  tShowAuxWheel.setup( showAuxWheel );
-  tSizeByPoints.setup( sizeByPoints );
 //  tAngleOffsetSlider.setup( angleOffset );
 
-  abilityTreeWidget.setup();
 }
 
 
@@ -169,9 +203,12 @@ void draw()
   hoveredControl = null;
   for ( UIControl iUIControl : uiControls )
   {
-    if ( iUIControl.isMouseIn() )
+    if( iUIControl.visible )
     {
-      hoveredControl = iUIControl;
+      if ( iUIControl.isMouseIn() )
+      {
+        hoveredControl = iUIControl;
+      }
     }
   }
 
@@ -185,7 +222,8 @@ void draw()
   // DRAW LOOP
   for ( UIControl iUIControl : uiControls )
   {
-    iUIControl.draw();
+    if( iUIControl.visible )
+      iUIControl.draw();
   }
 }
 
@@ -209,3 +247,16 @@ void mouseReleased()
   activeControl = null;
 }
 
+void keyPressed()
+{
+  switch( key )
+  {
+    case 32:
+      global_adjustSizeMode.value = !global_adjustSizeMode.value;
+      break;
+    case 'n':
+      nameFilter.active = !nameFilter.active;
+      break;
+    default:
+  }
+}

@@ -5,8 +5,14 @@ class TSW_UIControl_AbilityTree extends UIControl
   TSW_UIControl_AbilityBranch selectedAbilityBranch;
   private ArrayList<TSW_UIControl_Ability> selectedAbilities;  
   
+  ArrayList<TSW_Filter_Ability> abilityFilters;
+  
   private PVector centerPos;
   float size;
+
+  Global_Float outerRingSize;
+  Global_Float innerRingSize;
+
 
   int tGrandTotalSize = 1;
 
@@ -16,7 +22,7 @@ class TSW_UIControl_AbilityTree extends UIControl
   float mousePressedAngle;
   
   
-  private EasingHelper_PVector easingHelper_centerPos;
+  private EasingHelper_PVector easingHelper_topPos;
   private EasingHelper_Float easingHelper_size;
   
   private boolean cLineModeSwitch_PrevValue;
@@ -42,14 +48,19 @@ class TSW_UIControl_AbilityTree extends UIControl
   {
     super.setup();
     
+    outerRingSize = global_outerRingSize;
+    innerRingSize = global_innerRingSize;
+    
     size = outerRingSize.value;
 
     createControlsForChildAbilityNodes( abilityTree.rootNode ); 
     
+    abilityFilters = new ArrayList<TSW_Filter_Ability>();
+    
     float tDampingFactor = 0;
 
-    easingHelper_centerPos = new EasingHelper_PVector( centerPos );
-    easingHelper_size = new EasingHelper_Float( size );
+    easingHelper_topPos = new EasingHelper_PVector( new PVector( centerPos.x, centerPos.y - size ) );
+    easingHelper_size = new EasingHelper_Float( pow( size, 2 ) );
   }
   
   public void update()
@@ -59,7 +70,7 @@ class TSW_UIControl_AbilityTree extends UIControl
     if( global_lineMode.value != cLineModeSwitch_PrevValue )
     {
       float tTransitionTime = 2;
-      easingHelper_centerPos.start( easingHelper_centerPos.getValue(), tTransitionTime );
+      easingHelper_topPos.start( easingHelper_topPos.getValue(), tTransitionTime );
       easingHelper_size.start( easingHelper_size.getValue(), tTransitionTime );
     } 
     cLineModeSwitch_PrevValue = global_lineMode.value;
@@ -77,19 +88,13 @@ class TSW_UIControl_AbilityTree extends UIControl
       centerPos.x = height / 2 + 100;
       centerPos.y = height / 2;
       
-      if( outerRingSize != null )
-      {
-        size = outerRingSize.value;
-      }
-      else
-      {
-        size = 100;
-      }
-      easingHelper_size.currentValue = size;
+      size = outerRingSize.value;
+
+      easingHelper_size.currentValue = pow( size, 2 );
     }
     
-    easingHelper_centerPos.update( centerPos );
-    easingHelper_size.update( size );
+    easingHelper_size.update( pow( size, 2 ) );
+    easingHelper_topPos.update( new PVector( centerPos.x, centerPos.y - size ) );
 
     PVector tDampedCenterPos = getCenterPos();
     float tDampedSize = getSize();
@@ -331,11 +336,22 @@ class TSW_UIControl_AbilityTree extends UIControl
     else
     {
       tRelativeSize = 1;
-      if( aNode instanceof TSW_UIControl_AbilityNode )
+      if( aNode instanceof TSW_UIControl_Ability )
       {
+        TSW_Ability tLinkedAbility = (TSW_Ability)( aNode.linkedNode );
         if( sizeByPoints.value )
         {
-          tRelativeSize = ( (TSW_Ability)( aNode.linkedNode ) ).points;
+          tRelativeSize = tLinkedAbility.points;
+        }
+        
+        // check filters
+        for( TSW_Filter_Ability iFilter : abilityFilters )
+        {
+          if( iFilter.doesAbilityPass( tLinkedAbility ) )
+          {
+            tRelativeSize = 100;
+            break;
+          }
         }
       }
     }
@@ -349,20 +365,21 @@ class TSW_UIControl_AbilityTree extends UIControl
     {
       tRelativeSize = 0;
     }
-
+    
     return tRelativeSize;
   }
   
   
   public PVector getCenterPos()
   {
-    PVector tCenterPos = easingHelper_centerPos.getValue();
+    PVector tCenterPos = easingHelper_topPos.getValue();
+    tCenterPos.y += getSize(); 
     return tCenterPos;
   }
   
   public float getSize()
   {
-    return easingHelper_size.getValue();
+    return sqrt( easingHelper_size.getValue() );
   }
   
   
@@ -382,6 +399,12 @@ class TSW_UIControl_AbilityTree extends UIControl
     {
       normalizeAngles( iNode );
     }
+  }
+  
+  
+  public void addFilter( TSW_Filter_Ability aFilter )
+  {
+    abilityFilters.add( aFilter );
   }
 }
 
