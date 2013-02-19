@@ -87,6 +87,12 @@ class TSW_AbilityNode
   }
   
   
+  public color getNodeColor()
+  {
+    return nodeColor;
+  }
+  
+  
   protected TSW_UIControl_AbilityNode createAssociatedUIControl()
   {
     return null;
@@ -138,5 +144,16 @@ class TSW_Ability extends TSW_AbilityNode
     linkedControl = tControl;
     
     return tControl;
+  }
+
+  public color getNodeColor() 
+  {
+    if( linkedControl != null )
+    {
+      TSW_UIControl_Ability tControl = (TSW_UIControl_Ability)linkedControl;
+      nodeColor = tControl.unlocked ? nodeUnlockedColor : nodeLockedColor; 
+    }
+    
+    return nodeColor;
   }
 }

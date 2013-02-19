@@ -27,12 +27,7 @@ class TSW_Filter_Ability_Name extends TSW_Filter_Ability
 
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
-    if( active )
-    {
-      return aAbility.name.contains( searchString );
-    }
-    
-    return true;
+    return aAbility.name.contains( searchString );
   }
 }
 
@@ -48,11 +43,46 @@ class TSW_Filter_Ability_Description extends TSW_Filter_Ability
 
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
-    if( active )
+    return aAbility.description.contains( searchString );
+  }
+}
+
+class TSW_Filter_Ability_Unlocked extends TSW_Filter_Ability
+{
+  boolean unlocked;
+  
+  public TSW_Filter_Ability_Unlocked( boolean aUnlocked )
+  {
+    unlocked = aUnlocked;
+  }
+
+  public boolean doesAbilityPass( TSW_Ability aAbility )
+  {
+    if( aAbility.linkedControl != null )
     {
-      return aAbility.description.contains( searchString );
+      return ( (TSW_UIControl_Ability)aAbility.linkedControl ).unlocked == unlocked;
     }
     
-    return true;
+    return false;
+  }
+}
+
+class TSW_Filter_Ability_Selected extends TSW_Filter_Ability
+{
+  boolean selected;
+  
+  public TSW_Filter_Ability_Selected( boolean aSelected )
+  {
+    selected = aSelected;
+  }
+
+  public boolean doesAbilityPass( TSW_Ability aAbility )
+  {
+    if( aAbility.linkedControl != null )
+    {
+      return abilityTreeWidget.isAbilitySelected( (TSW_UIControl_Ability)aAbility.linkedControl ) == selected;
+    }
+
+    return false;
   }
 }

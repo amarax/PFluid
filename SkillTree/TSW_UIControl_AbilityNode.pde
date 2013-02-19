@@ -19,7 +19,7 @@ class TSW_UIControl_AbilityNode extends UIControl
     super( new Rectangle() );
 
     linkedNode = aNode;
-    nodeColor = linkedNode.nodeColor;
+    nodeColor = linkedNode.getNodeColor();
 
     hoveredInPrevFrame = false;
   }
@@ -44,6 +44,9 @@ class TSW_UIControl_AbilityNode extends UIControl
   public void update()
   {
     super.update();
+
+    nodeColor = linkedNode.getNodeColor();
+
 
     float tDampingFactor = 0.05;
     if( parentTreeControl.rotatingByDrag )
@@ -363,7 +366,7 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
         rect( tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
       }
 
-      //if( tArcLength > 30 )
+      if( tArcLength > 5 )
       {
 //        PVector tDescriptionTopLeft = new PVector( tTextCenter.x, tTextCenter.y );
 //        tDescriptionTopLeft.x += 0.5 * tTextDimensions.x + 10;
@@ -441,11 +444,6 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
     {
       parentTreeControl.unselectAbility( this );
     }
-
-    unlocked = !unlocked;
-
-    TSW_Ability tLinkedAbilityNode = ( (TSW_Ability)linkedNode ); 
-    nodeColor = unlocked ? tLinkedAbilityNode.nodeUnlockedColor : tLinkedAbilityNode.nodeLockedColor;
   }
 }
 

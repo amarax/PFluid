@@ -38,7 +38,8 @@ Global_Boolean sizeByPoints = new Global_Boolean( false );
 
 boolean global_debug = false;
 
-TSW_Filter_Ability_Description nameFilter;
+TSW_Filter_Ability firstFilter;
+TSW_Filter_Ability secondFilter;
 
 
 void setup()
@@ -47,8 +48,8 @@ void setup()
 
 
 
-  //size( 1440, 810 );
-  size( 1600, 900 );
+  size( 1440, 810 );
+  //size( 1600, 900 );
   smooth();
   colorMode( HSB, 360.0, 1.0, 1.0, 1.0 );
 
@@ -103,7 +104,7 @@ void setup()
 //  tSize = 40;
 //  UIControl_Switch tLengthByPoints = new UIControl_Switch( new Rectangle( width - tSize - 100, tYPos, tSize, 20 ) );
 //  tLengthByPoints.setLabel( "AP Length" );
-//  uiControls.add( tLengthByPoints );
+//  uiControls.add( tLengthByPoints );n
 
 //  tSize = 400;
 //  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
@@ -120,10 +121,17 @@ void setup()
   abilityTreeWidget.setup();
 
 
-  nameFilter = new TSW_Filter_Ability_Description( "glanc" );
-  nameFilter.active = false;
-  abilityTreeWidget.addFilter( nameFilter );
+  //firstFilter = new TSW_Filter_Ability_Selected( true );
+  firstFilter = new TSW_Filter_Ability_Description( "penet" );
+  //firstFilter = new TSW_Filter_Ability_Name( "(Ability)" );
+  firstFilter.active = false;
+  abilityTreeWidget.addFilter( firstFilter );
 
+  secondFilter = new TSW_Filter_Ability_Unlocked( true );
+  //firstFilter = new TSW_Filter_Ability_Description( "penet" );
+  //firstFilter = new TSW_Filter_Ability_Name( "(Ability)" );
+  secondFilter.active = false;
+  abilityTreeWidget.addFilter( secondFilter );
 
 
 
@@ -254,8 +262,11 @@ void keyPressed()
     case 32:
       global_adjustSizeMode.value = !global_adjustSizeMode.value;
       break;
-    case 'n':
-      nameFilter.active = !nameFilter.active;
+    case 'f':
+      firstFilter.active = !firstFilter.active;
+      break;
+    case 'g':
+      secondFilter.active = !secondFilter.active;
       break;
     default:
   }
