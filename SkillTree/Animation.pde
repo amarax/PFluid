@@ -1,4 +1,12 @@
-class DampingHelper_Float
+interface AnimHelper_Float
+{
+  float getValue();
+  
+  void update( float aNewValue );
+}
+
+
+class DampingHelper_Float implements AnimHelper_Float
 {
   float currentValue;
   float dampingFactor;
@@ -57,7 +65,7 @@ class DampingHelper_PVector
 
 
 
-class EasingHelper_Float
+class EasingHelper_Float implements AnimHelper_Float
 {
   float startValue; 
   float transitionTime;  // in seconds

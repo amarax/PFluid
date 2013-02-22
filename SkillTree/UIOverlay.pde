@@ -39,14 +39,19 @@ class UIOverlay extends UIControl
   {
     super.draw();
     
-    noStroke();
-    fill( 0, 0, 0.05, 0.5 );
-    rect( 0, 0, width, height );
+    drawObscurer();
   }
 
   public boolean isMouseIn()
   {
     return true;
+  }
+  
+  protected void drawObscurer()
+  {
+    noStroke();
+    fill( 0, 0, 0.05, 0.4 );
+    rect( 0, 0, width, height );
   }
 }
 

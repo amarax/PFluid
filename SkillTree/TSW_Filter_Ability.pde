@@ -13,6 +13,11 @@ class TSW_Filter_Ability
   {
     return true; 
   }
+  
+  public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
+  {
+    return new TSW_UIControl_Filter_AbilityWheel();
+  }
 }
 
 
@@ -25,9 +30,15 @@ class TSW_Filter_Ability_Name extends TSW_Filter_Ability
     searchString = aSearchString;
   }
 
+
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
     return aAbility.name.contains( searchString );
+  }
+
+  public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
+  {
+    return new TSW_UIOverlay_Filter_Ability_Name();
   }
 }
 
@@ -41,9 +52,16 @@ class TSW_Filter_Ability_Description extends TSW_Filter_Ability
     searchString = aSearchString;
   }
 
+
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
     return aAbility.description.contains( searchString );
+  }
+
+
+  public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
+  {
+    return new TSW_UIOverlay_Filter_Ability_Description();
   }
 }
 
@@ -65,6 +83,12 @@ class TSW_Filter_Ability_Unlocked extends TSW_Filter_Ability
     
     return false;
   }
+
+  
+  public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
+  {
+    return new TSW_UIOverlay_Filter_Ability_Unlocked();
+  }
 }
 
 class TSW_Filter_Ability_Selected extends TSW_Filter_Ability
@@ -84,5 +108,11 @@ class TSW_Filter_Ability_Selected extends TSW_Filter_Ability
     }
 
     return false;
+  }
+
+  
+  public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
+  {
+    return new TSW_UIOverlay_Filter_Ability_Selected();
   }
 }

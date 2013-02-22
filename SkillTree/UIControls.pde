@@ -6,6 +6,8 @@ class UIControl
   
   protected PVector mousePressedPos;
   
+  protected AnimHelper_Float animHelper_hoverFactor;
+  
   protected UIControl( Rectangle aRect )
   {
     rect = new Rectangle( aRect );
@@ -14,7 +16,15 @@ class UIControl
   }
   
   public void setup() {};
-  public void update() {};
+  
+  public void update()
+  {
+    if( animHelper_hoverFactor != null )
+    {
+      animHelper_hoverFactor.update( this == hoveredControl ? 1.0 : 0.0 );
+    }
+  }
+  
   public void draw() {};
   
   public boolean isMouseIn()
@@ -133,6 +143,8 @@ class UIControl_Switch extends UIControl
 {
   protected String label;
   protected float value;
+
+  protected String labelOff, labelOn;
   
   final float switchWidth = 0.55;
   
@@ -208,10 +220,20 @@ class UIControl_Switch extends UIControl
 
     rect( valueExtents.x + valueDamper.getValue() * valueExtents.width, valueExtents.y, rect.width * switchWidth, valueExtents.height, valueExtents.height / 2.0 );
     
+    float tMargin = 2;
 
+    fill( 0, 0, 1 );
     textFont( font_value );
-    textAlign( LEFT, TOP );
-    //text( linkedValue.value, tValueX, rect.y + rect.height + 2 );
+    if( labelOff != null )
+    {
+      textAlign( RIGHT, CENTER );
+      text( labelOff, rect.x - tMargin, rect.y + rect.height / 2.0 );
+    }
+    if( labelOn != null )
+    {
+      textAlign( LEFT, CENTER );
+      text( labelOn, rect.x + rect.width + tMargin, rect.y + rect.height / 2.0 );
+    }
   }
   
   
@@ -224,6 +246,12 @@ class UIControl_Switch extends UIControl
   public void setLabel( String aLabel )
   {
     label = aLabel;
+  }
+  
+  public void setOnOffLabels( String aLabelOff, String aLabelOn )
+  {
+    labelOff = aLabelOff;
+    labelOn = aLabelOn;
   }
 }
 

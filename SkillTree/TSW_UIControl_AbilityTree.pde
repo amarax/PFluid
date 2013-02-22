@@ -7,6 +7,10 @@ class TSW_UIControl_AbilityTree extends UIControl
 
   ArrayList<TSW_Filter_Ability> abilityFilters;
 
+  Global_Boolean filterModeExclusive;
+  
+  ArrayList<TSW_Ability> cFilteredAbilities;
+
   private PVector centerPos;
   float size;
 
@@ -52,12 +56,16 @@ class TSW_UIControl_AbilityTree extends UIControl
 
     outerRingSize = global_outerRingSize;
     innerRingSize = global_innerRingSize;
+    
+    filterModeExclusive = global_filterModeExclusive;
 
     size = outerRingSize.value;
 
-    createControlsForChildAbilityNodes( abilityTree.rootNode ); 
+    createControlsForChildAbilityNodes( abilityTree.rootNode );
 
     abilityFilters = new ArrayList<TSW_Filter_Ability>();
+    
+    cFilteredAbilities = null;
 
 
     easingHelper_topPos = new EasingHelper_PVector( new PVector( centerPos.x, centerPos.y - size ) );
@@ -69,6 +77,10 @@ class TSW_UIControl_AbilityTree extends UIControl
   public void update()
   {
     super.update();
+
+
+    cFilteredAbilities = evaluateFilters( abilityTree.abilities, 0, abilityFilters.size() - 1 );
+
 
     if ( global_lineMode.value != cLineModeSwitch_PrevValue )
     {
@@ -207,12 +219,12 @@ class TSW_UIControl_AbilityTree extends UIControl
       strokeCap( SQUARE );
       ellipseMode( RADIUS );
       strokeWeight( 20 );
-      stroke( 0, 0, 0.3, 0.5 );
+      stroke( 0, 0, 0.5, 0.5 );
 
       float tStartAngle = -HALF_PI;
       float tEndAngle = dampingHelper_unlockedRatio.getValue() * TWO_PI + tStartAngle;
 
-      float tRadius = outerRingSize.value + abilityRingThickness.value;
+      float tRadius = outerRingSize.value - innerRingSize.value - abilityRingThickness.value;
       arc( tCenter.x, tCenter.y, tRadius, tRadius, tStartAngle, tEndAngle, OPEN );
     }
   }
@@ -316,7 +328,7 @@ class TSW_UIControl_AbilityTree extends UIControl
       tNodeToRelativeSize.put( iNode, tRelativeSize );
       tTotalSize += tRelativeSize;
     }
-
+    
     float tSize = getSize();
 
     float tOuterRingRadius = tSize - ringThickness.value;
@@ -345,12 +357,8 @@ class TSW_UIControl_AbilityTree extends UIControl
       }
       tGapSize /= tControl.cDistanceFromCenter;
 
-      //      tControl.cStartAngle = tCurrentAngle + tGapSize / tControl.cDistanceFromCenter;
-      //      tCurrentAngle = tCurrentAngle + ( aEndAngle - aStartAngle ) * tNodeToRelativeSize.get( iNode ) / tTotalSize;
-      //      tControl.cEndAngle = tCurrentAngle - tGapSize / tControl.cDistanceFromCenter;
-
       tControl.cStartAngle = tCurrentAngle;
-      tCurrentAngle = tCurrentAngle + ( aEndAngle - aStartAngle ) * tNodeToRelativeSize.get( iNode ) / tTotalSize;
+      if( tTotalSize > EPSILON ) { tCurrentAngle += ( aEndAngle - aStartAngle ) * tNodeToRelativeSize.get( iNode ) / tTotalSize; }
       tControl.cEndAngle = tCurrentAngle;
 
       if ( iNode.getChildNodes().size() > 0 )
@@ -363,11 +371,6 @@ class TSW_UIControl_AbilityTree extends UIControl
   private int getNodeRelativeSize( TSW_UIControl_AbilityNode aNode )
   {
     int tRelativeSize = 0;
-
-    if ( selectedAbilityBranch == aNode )
-    {
-      tRelativeSize = sizeByPoints.value ? round( calcTotalAbilityPoints() / ( 1 - selectedNodeRatio.value ) ) : round( calcTotalAbilityCount() / ( 1 - selectedNodeRatio.value ) );
-    }
 
     if ( aNode.linkedNode.getChildNodes().size() > 0 )
     {
@@ -387,16 +390,41 @@ class TSW_UIControl_AbilityTree extends UIControl
           tRelativeSize = tLinkedAbility.points;
         }
 
-        // check filters
-        for ( TSW_Filter_Ability iFilter : abilityFilters )
+        // Check filters
+//        boolean tPassFilters = filterModeExclusive.value;
+//        int tActiveFilters = 0;
+//        for ( TSW_Filter_Ability iFilter : abilityFilters )
+//        {
+//          if( iFilter.active )
+//          {
+//            boolean tFilterResult = iFilter.doesAbilityPass( tLinkedAbility );
+//            if( filterModeExclusive.value )
+//            {
+//              tPassFilters = tPassFilters && tFilterResult;
+//            }
+//            else
+//            {
+//              tPassFilters = tPassFilters || tFilterResult;
+//            }
+//            
+//            ++tActiveFilters;
+//          }
+//        }
+
+        boolean tPassFilters = cFilteredAbilities.contains( tLinkedAbility );
+        if( !tPassFilters && !filterOverlay.activated.value )
         {
-          if ( iFilter.doesAbilityPass( tLinkedAbility ) && iFilter.active )
-          {
-            tRelativeSize *= 200;
-            break;
-          }
+          tRelativeSize = 0;
         }
       }
+    }
+
+    if ( selectedAbilityBranch == aNode )
+    {
+      float tTotalRelativeSize = sizeByPoints.value ? calcTotalAbilityPoints() : calcTotalAbilityCount();
+      float tSelectedRatio = selectedNodeRatio.value == 1 ? selectedNodeRatio.value - EPSILON: selectedNodeRatio.value;
+      float tFinalRatio = tSelectedRatio / ( 1 - tSelectedRatio + EPSILON );
+      tRelativeSize = round( tFinalRatio * tTotalRelativeSize );
     }
 
     if ( aNode.linkedNode.name.equals( "Auxiliary" ) && !showAuxWheel.value )
@@ -443,6 +471,11 @@ class TSW_UIControl_AbilityTree extends UIControl
   public void addFilter( TSW_Filter_Ability aFilter )
   {
     abilityFilters.add( aFilter );
+
+    TSW_UIControl_Filter_AbilityWheel tFilterControl = aFilter.createNewLinkedControl();
+    tFilterControl.setup( aFilter, this );
+    uiControls.add( tFilterControl );
+    filterOverlay.addControl( tFilterControl );
   }
 
 
@@ -567,6 +600,118 @@ class TSW_UIControl_AbilityTree extends UIControl
 
     return tCount;
   }
+  
+  
+  public ArrayList<TSW_Ability> evaluateFilters( ArrayList<TSW_Ability> aCurrentSet, int aStartDepth, int aEndDepth )
+  {
+    ArrayList<TSW_Ability> tFilteredSet = null;
+    
+    if( aCurrentSet == null )
+      return null;
+    
+    if( aStartDepth <= aEndDepth && aStartDepth >= 0 && aEndDepth < abilityFilters.size() )
+    {
+      TSW_Filter_Ability tFilter = abilityFilters.get( aStartDepth );
+      
+      if( tFilter.active )
+      {
+        if( filterModeExclusive.value )
+        {
+          tFilteredSet = new ArrayList<TSW_Ability>();
+          
+          for( TSW_Ability iAbility : aCurrentSet )
+          {
+            if( tFilter.doesAbilityPass( iAbility ) )
+            {
+              tFilteredSet.add( iAbility );
+            }
+          }
+        }
+        else
+        {
+          // Calculate the first active filter
+          int iIndex = 0;
+          while( iIndex < abilityFilters.size() && !abilityFilters.get( iIndex ).active )
+          {
+            ++iIndex;
+          }
+          
+          if( aStartDepth <= iIndex )
+          {
+            // If inclusive, first active filter starts with clean set 
+            tFilteredSet = new ArrayList<TSW_Ability>();
+          }
+          else
+          {
+            tFilteredSet = new ArrayList<TSW_Ability>( aCurrentSet );
+          }
+          
+          for( TSW_Ability iAbility : abilityTree.abilities )
+          {
+            if( tFilter.doesAbilityPass( iAbility ) )
+            {
+              if( !tFilteredSet.contains( iAbility ) )
+              {
+                tFilteredSet.add( iAbility );
+              }
+            }
+          }
+        }
+      }
+      else
+      {
+        // Pass-through
+        tFilteredSet = new ArrayList<TSW_Ability>( aCurrentSet ); 
+      }
+    }
+    
+    if( aStartDepth < aEndDepth )
+    {
+      tFilteredSet = evaluateFilters( tFilteredSet, aStartDepth + 1, aEndDepth );
+    }
+    
+    return tFilteredSet;
+  }
+  
+  public ArrayList<UIControl> getControlsThatPassFilters()
+  {
+    ArrayList<UIControl> tPassed = new ArrayList<UIControl>();
+    for( UIControl iUIControl : uiControls )
+    {
+      if( iUIControl instanceof TSW_UIControl_AbilityNode )
+      {
+        TSW_UIControl_AbilityNode tAbilityNodeControl = (TSW_UIControl_AbilityNode)iUIControl;
+        if( doesNodePassFilters( tAbilityNodeControl.linkedNode ) )
+        {
+          tPassed.add( iUIControl );
+        }
+      }
+    }
+    
+    return tPassed;
+  }
+  
+  public boolean doesNodePassFilters( TSW_AbilityNode aAbilityNode )
+  {
+    if( aAbilityNode instanceof TSW_AbilityBranch )
+    {
+      for( TSW_AbilityNode iChildNode : ( (TSW_AbilityBranch)aAbilityNode ).childNodes )
+      {
+        // Make this inclusive, so we can use it to zoom
+        if( doesNodePassFilters( iChildNode ) )
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+    else if( aAbilityNode instanceof TSW_Ability )
+    {
+      return cFilteredAbilities.contains( aAbilityNode );
+    }
+    
+    return false;
+  }
 }
 
 
@@ -583,5 +728,4 @@ class TSW_AbilityTree_ColorSet
     ability_unlocked = aAbility_Unlocked;
   }
 }
-
 
