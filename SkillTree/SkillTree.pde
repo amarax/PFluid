@@ -158,7 +158,7 @@ void setup()
   tFilter = new TSW_Filter_Ability_Description( "heal" );
   tFilter.active = false;
   abilityTreeWidget.addFilter( tFilter );
-
+  
   tFilter = new TSW_Filter_Ability_Description( "penet" );
   tFilter.active = false;
   abilityTreeWidget.addFilter( tFilter );
@@ -361,11 +361,18 @@ void mouseReleased()
 
 void keyPressed()
 {
+  if( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  {
+    hoveredControl.onKeyPressed();
+    return;
+  }
+  
   switch( key )
   {
   case 32:
     global_adjustSizeMode.value = !global_adjustSizeMode.value;
     break;
+  case 'F':
   case 'f':
     global_editFilterMode.value = !global_editFilterMode.value;
     //firstFilter.active = !firstFilter.active;
@@ -380,6 +387,14 @@ void keyPressed()
       abilityTreeWidget.abilityFilters.get( tIndex ).active = !abilityTreeWidget.abilityFilters.get( tIndex ).active;
     break;
   default:
+  }
+}
+
+void keyTyped()
+{
+  if( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  {
+    hoveredControl.onKeyTyped();
   }
 }
 

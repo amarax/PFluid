@@ -41,6 +41,14 @@ class UIControl
   {
     mousePressedPos = null;
   }
+  
+  public void onKeyPressed()
+  {
+  }
+
+  public void onKeyTyped()
+  {
+  }
 }
 
 

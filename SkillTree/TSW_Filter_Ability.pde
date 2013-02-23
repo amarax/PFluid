@@ -21,19 +21,28 @@ class TSW_Filter_Ability
 }
 
 
-class TSW_Filter_Ability_Name extends TSW_Filter_Ability
+class TSW_Filter_Ability_SearchString extends TSW_Filter_Ability
 {
   String searchString;
-  
-  public TSW_Filter_Ability_Name( String aSearchString )
+
+  protected TSW_Filter_Ability_SearchString( String aSearchString )
   {
     searchString = aSearchString;
+  }
+}
+
+
+class TSW_Filter_Ability_Name extends TSW_Filter_Ability_SearchString
+{
+  public TSW_Filter_Ability_Name( String aSearchString )
+  {
+    super( aSearchString );
   }
 
 
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
-    return aAbility.name.contains( searchString );
+    return aAbility.name.toLowerCase().contains( searchString.toLowerCase() );
   }
 
   public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
@@ -43,19 +52,17 @@ class TSW_Filter_Ability_Name extends TSW_Filter_Ability
 }
 
 
-class TSW_Filter_Ability_Description extends TSW_Filter_Ability
+class TSW_Filter_Ability_Description extends TSW_Filter_Ability_SearchString
 {
-  String searchString;
-  
   public TSW_Filter_Ability_Description( String aSearchString )
   {
-    searchString = aSearchString;
+    super( aSearchString );
   }
 
 
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
-    return aAbility.description.contains( searchString );
+    return aAbility.description.toLowerCase().contains( searchString.toLowerCase() );
   }
 
 
