@@ -4,22 +4,38 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
 {
   TSW_UIControl_AbilityTree abilityTreeToFilter;
   
+  boolean mainFilter;
+  
+  boolean transitingIn;
+  boolean prevTransitingIn;
+  
   public TSW_UIOverlay_Filter_AbilityTree( Global_Boolean aActivated )
   {
     super( aActivated, new PVector( 0, 0 ) );
   }
   
-  public void setup( TSW_UIControl_AbilityTree aAbilityTree )
+  public void setup( TSW_UIControl_AbilityTree aAbilityTree, boolean aMainFilter )
   {
     super.setup();
     
     abilityTreeToFilter = aAbilityTree;
+    
+    mainFilter = aMainFilter;
+    
+    transitingIn = false;
+    prevTransitingIn = false;
   }
   
   public void update()
   {
     super.update();
+
+    if( mainFilter )
+    {
+      filterEasingFactor.update( 1 ); 
+    }
     
+    updateTransitionStatus();
   }
   
   public void draw()
@@ -29,10 +45,15 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
 
   public boolean isMouseIn()
   {
-    float tDist = PVector.dist( abilityTreeToFilter.getCenterPos(), new PVector( mouseX, mouseY ) );
-    float tMinDist = abilityTreeToFilter.outerRingSize.value - abilityTreeToFilter.innerRingSize.value;
-    float tMaxDist = getSize();
-    return tDist < tMaxDist && tDist > tMinDist;
+    if( mainFilter )
+    {
+      float tDist = PVector.dist( abilityTreeToFilter.getCenterPos(), new PVector( mouseX, mouseY ) );
+      float tMinDist = abilityTreeToFilter.outerRingSize.value - abilityTreeToFilter.innerRingSize.value;
+      float tMaxDist = getSize();
+      return tDist < tMaxDist && tDist > tMinDist;
+    }
+    
+    return false;
   }
 
   protected void drawObscurer()
@@ -40,8 +61,14 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
     PVector tCenterPos = abilityTreeToFilter.getCenterPos();
     float tRadius = getSize();
     
+    float tFactor = filterEasingFactor.getValue();
+    //float tFactor = 0;
+    float tAlpha = sqrt( 1 - tFactor );
+    if( !mainFilter ) { tAlpha = sqrt( tFactor ); }
+    tAlpha *= 0.8;
+    
     noStroke();
-    fill( 0, 0, 0.1, 0.8 );
+    fill( 0, 0, 0.1, tAlpha );
     ellipse( tCenterPos.x, tCenterPos.y, tRadius, tRadius );
   }
   
@@ -49,7 +76,22 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
   {
     return abilityTreeToFilter.outerRingSize.value + 160;
   }
+  
+  public void updateTransitionStatus()
+  {
+    prevTransitingIn = transitingIn;
+    
+    transitingIn = false;
+    if( mainFilter )
+    {
+      if( filterEasingFactor.getRatio() < 0.5 )
+        transitingIn = true;
+      else
+        transitingIn = false;
+    }
+  }
 }
+
 
 
 
@@ -174,13 +216,13 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     tAnchorPos.add( tCenterPos );
     tAnchorPos.x += 4;
     
-    final float BACKGROUND_ALPHA = 0.1;
+    final float BACKGROUND_ALPHA = 0.05;
     final float FOREGROUND_ALPHA_ACTIVE = 0.8;
     final float FOREGROUND_ALPHA_INACTIVE = 0.2;
     final float FOREGROUND_ALPHA_CARRYOVER = 0.5;
 
     
-    float tStrokeWeight = 4;
+    float tStrokeWeight = 3;
     
     noFill();
     stroke( 0, 0, 0.8, BACKGROUND_ALPHA );
@@ -217,7 +259,11 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     //float tStartAngle = - HALF_PI, tEndAngle = 0, tAlpha = 0;
     //float tStartAngle = -HALF_PI + PI/15
     float tEndAngle = 0, tAlpha = 0;
-    float tStartAngle = -HALF_PI / 4.0 - 0.2;
+    //float tStartAngle = -HALF_PI / 4.0 - 0.2;
+    float tStartAngle = dampingHelper_textAngle.getValue();
+//    float tStartAngle = -HALF_PI / 4.0; 
+//    tStartAngle -= abilityTreeControl.abilityFilters.size() * -0.08;
+//    tStartAngle += ( abilityTreeControl.abilityFilters.size() - abilityTreeControl.abilityFilters.indexOf( linkedFilter ) ) * -0.08;;
     
     if( dampingHelper_carryOverRatio.getValue() > 0 + EPSILON )
     {
@@ -268,6 +314,8 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     super.onMousePressed();
     
     linkedFilter.active = !linkedFilter.active;
+
+//    filterEasingFactor.start( 0.3 );
   }
   
   

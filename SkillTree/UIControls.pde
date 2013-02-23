@@ -75,7 +75,7 @@ class UIControl_Slider extends UIControl
     super.setup();
     
     linkedValue = aLinkedValue;
-    value = linkedValue.value;
+    value = linkedValue.getValue();
   }
   
   public void update()
@@ -89,7 +89,7 @@ class UIControl_Slider extends UIControl
       if( value < min ) { value = min; }
       if( value > max ) { value = max; }
       
-      linkedValue.value = value;
+      linkedValue.setValue( value );
     }
   }
 
@@ -110,7 +110,7 @@ class UIControl_Slider extends UIControl
     
     
 
-    float tValueX =  valueExtents.x + valueExtents.width * ( linkedValue.value - min ) / ( max - min );
+    float tValueX =  valueExtents.x + valueExtents.width * ( linkedValue.getValue() - min ) / ( max - min );
 
     fill( 0, 0, 0.6 );
     if( this == hoveredControl || this == activeControl ) { fill( 0, 0, 1 ); }
@@ -120,7 +120,7 @@ class UIControl_Slider extends UIControl
 
     textFont( font_value );
     textAlign( LEFT, TOP );
-    text( linkedValue.value, tValueX, rect.y + rect.height + 2 );
+    text( linkedValue.getValue(), tValueX, rect.y + rect.height + 2 );
   }
   
   
@@ -170,7 +170,7 @@ class UIControl_Switch extends UIControl
     super.setup();
     
     linkedValue = aLinkedValue;
-    value = linkedValue.value ? 1.0 : 0.0;
+    value = linkedValue.getValue() ? 1.0 : 0.0;
     
     valueDamper = new DampingHelper_Float( 0.3, value );
   }
@@ -189,12 +189,12 @@ class UIControl_Switch extends UIControl
     }
     else
     {
-      value = linkedValue.value ? 1.0 : 0.0;
+      value = linkedValue.getValue() ? 1.0 : 0.0;
       
     }
     valueDamper.update( value );
 
-    linkedValue.value = valueDamper.getValue() >= 0.5;
+    linkedValue.setValue( valueDamper.getValue() >= 0.5 );
   }
 
   public void draw()
@@ -215,7 +215,7 @@ class UIControl_Switch extends UIControl
     
     float tBrightness = 0.6;
     if( this == hoveredControl || this == activeControl ) { tBrightness = 1; }
-    if( !linkedValue.value ) { tBrightness *= 0.5; }
+    if( !linkedValue.getValue() ) { tBrightness *= 0.5; }
     fill( 0, 0, 1, tBrightness );
 
     rect( valueExtents.x + valueDamper.getValue() * valueExtents.width, valueExtents.y, rect.width * switchWidth, valueExtents.height, valueExtents.height / 2.0 );

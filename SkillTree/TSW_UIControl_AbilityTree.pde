@@ -65,7 +65,7 @@ class TSW_UIControl_AbilityTree extends UIControl
 
     abilityFilters = new ArrayList<TSW_Filter_Ability>();
     
-    cFilteredAbilities = null;
+    cFilteredAbilities = new ArrayList<TSW_Ability>();
 
 
     easingHelper_topPos = new EasingHelper_PVector( new PVector( centerPos.x, centerPos.y - size ) );
@@ -79,7 +79,7 @@ class TSW_UIControl_AbilityTree extends UIControl
     super.update();
 
 
-    cFilteredAbilities = evaluateFilters( abilityTree.abilities, 0, abilityFilters.size() - 1 );
+    updateFilteredAbilities();
 
 
     if ( global_lineMode.value != cLineModeSwitch_PrevValue )
@@ -601,6 +601,11 @@ class TSW_UIControl_AbilityTree extends UIControl
     return tCount;
   }
   
+  
+  public void updateFilteredAbilities()
+  {
+    cFilteredAbilities = evaluateFilters( abilityTree.abilities, 0, abilityFilters.size() - 1 );
+  }
   
   public ArrayList<TSW_Ability> evaluateFilters( ArrayList<TSW_Ability> aCurrentSet, int aStartDepth, int aEndDepth )
   {

@@ -45,7 +45,18 @@ boolean global_debug = false;
 
 
 TSW_UIOverlay_Filter_AbilityTree filterOverlay;
+TSW_UIOverlay_Filter_AbilityTree filterOverlaySecondary;
 
+EasingHelper_Float_InOutIn filterEasingFactor = new EasingHelper_Float_InOutIn( 0 );
+
+ArrayList<UIControl> prevControlsThatPassFilters = null;
+ArrayList<UIControl> justPassedFilters = null;
+ArrayList<UIControl> justFailedFilters = null;
+ArrayList<UIControl> stillPassFilters = null;
+
+ArrayList<UIControl> controlsTransitingIn = new ArrayList<UIControl>();
+ArrayList<UIControl> controlsTransitingOut =new ArrayList<UIControl>();
+ArrayList<UIControl> controlsRemainUnfiltered = new ArrayList<UIControl>();
 
 void setup()
 {
@@ -102,16 +113,16 @@ void setup()
   uiControls.add( tSizeByPoints );
   tYPos += tOffset + 25;
 
-//  tSize = 40;
-//  UIControl_Switch tLengthByPoints = new UIControl_Switch( new Rectangle( width - tSize - 100, tYPos, tSize, 20 ) );
-//  tLengthByPoints.setLabel( "AP Length" );
-//  uiControls.add( tLengthByPoints );
+  //  tSize = 40;
+  //  UIControl_Switch tLengthByPoints = new UIControl_Switch( new Rectangle( width - tSize - 100, tYPos, tSize, 20 ) );
+  //  tLengthByPoints.setLabel( "AP Length" );
+  //  uiControls.add( tLengthByPoints );
 
-//  tSize = 400;
-//  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
-//  tAngleOffsetSlider.setLabel( "Angle Offset" );
-//  uiControls.add( tAngleOffsetSlider );
-//  tYPos += tOffset;
+  //  tSize = 400;
+  //  UIControl_Slider tAngleOffsetSlider = new UIControl_Slider( -PI, PI, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
+  //  tAngleOffsetSlider.setLabel( "Angle Offset" );
+  //  uiControls.add( tAngleOffsetSlider );
+  //  tYPos += tOffset;
 
   tModeSwitch.setup( global_lineMode );
 
@@ -124,7 +135,11 @@ void setup()
 
   filterOverlay = new TSW_UIOverlay_Filter_AbilityTree( global_editFilterMode );
   uiControls.add( filterOverlay );
-  filterOverlay.setup( abilityTreeWidget );
+  filterOverlay.setup( abilityTreeWidget, true );
+
+  filterOverlaySecondary = new TSW_UIOverlay_Filter_AbilityTree( global_editFilterMode );
+  uiControls.add( filterOverlaySecondary );
+  filterOverlaySecondary.setup( abilityTreeWidget, false );
 
   tSize = 40;
   UIControl_Switch tSwitch_FilterModeExclusive = new UIControl_Switch( new Rectangle( width - tSize - 50 - 25, tYPos, tSize, 20 ) );
@@ -136,13 +151,15 @@ void setup()
 
   tSwitch_FilterModeExclusive.setup( global_filterModeExclusive );
 
+
+  // HACK Setup filters
   TSW_Filter_Ability tFilter;
 
-  tFilter = new TSW_Filter_Ability_Description( "afflict" );
+  tFilter = new TSW_Filter_Ability_Description( "heal" );
   tFilter.active = false;
   abilityTreeWidget.addFilter( tFilter );
 
-  tFilter = new TSW_Filter_Ability_Description( "glanc" );
+  tFilter = new TSW_Filter_Ability_Description( "penet" );
   tFilter.active = false;
   abilityTreeWidget.addFilter( tFilter );
 
@@ -157,6 +174,7 @@ void setup()
   //tFilter = new TSW_Filter_Ability_Name( "Ability)" );
   //tFilter.active = false;
   //abilityTreeWidget.addFilter( tFilter );
+
 
 
   TSW_UIOverlay_SizeAdjust_AbilityTree tAdjustSizeOverlay = new TSW_UIOverlay_SizeAdjust_AbilityTree( global_adjustSizeMode );
@@ -229,9 +247,29 @@ void setup()
   tAbilityArcThicknessSlider.setup( abilityRingThickness );
   tGapSizeSlider.setup( branchGapSize );
   tAbilityGapSizeSlider.setup( abilityGapSize );
-//  tAngleOffsetSlider.setup( angleOffset );
+  //  tAngleOffsetSlider.setup( angleOffset );
   tSelectionSizeSlider.setup( selectedNodeRatio );
-
+  
+  
+  
+  
+  // SET INITIAL WORLD STATE
+  {
+    abilityTreeWidget.updateFilteredAbilities();
+  
+    prevControlsThatPassFilters = abilityTreeWidget.getControlsThatPassFilters();
+    justPassedFilters = new ArrayList<UIControl>();
+    justFailedFilters = new ArrayList<UIControl>();
+    stillPassFilters = prevControlsThatPassFilters;
+  
+  //  print( prevControlsThatPassFilters.size()); print("=");
+  //  print( justFailedFilters.size() ); print(":");
+  //  print( justPassedFilters.size() ); print(":");
+  //  print( stillPassFilters.size() );println();
+  
+    controlsRemainUnfiltered = (ArrayList<UIControl>)stillPassFilters.clone();
+    sortControlsForAbilityFilters( false );
+  }
 }
 
 
@@ -244,7 +282,7 @@ void draw()
   hoveredControl = null;
   for ( UIControl iUIControl : uiControls )
   {
-    if( iUIControl.visible )
+    if ( iUIControl.visible )
     {
       if ( iUIControl.isMouseIn() )
       {
@@ -258,45 +296,45 @@ void draw()
   {
     iUIControl.update();
   }
+  
+  // Check if any filters have changed
+  updateControlsPassFilters();
+  if( justPassedFilters.size() > 0 || justFailedFilters.size() > 0 )
+  {
+//  print( prevControlsThatPassFilters.size()); print("=");
+//  print( justPassedFilters.size() ); print(":");
+//  print( justFailedFilters.size() ); print(":");
+//  print( stillPassFilters.size() );println();
 
+    controlsTransitingIn = (ArrayList<UIControl>)justPassedFilters.clone();
+    controlsTransitingOut = (ArrayList<UIControl>)justFailedFilters.clone();
+    controlsRemainUnfiltered = (ArrayList<UIControl>)stillPassFilters.clone();
+
+    filterEasingFactor.start( 0.3 );
+    filterOverlay.updateTransitionStatus();
+  }
 
   // SORT DRAW ORDER
-  ArrayList<UIControl> tToMoveToFront = new ArrayList<UIControl>();
-  
-  tToMoveToFront.add( filterOverlay );
-  for( UIControl iOverlayChild : filterOverlay.controls.keySet() ) { tToMoveToFront.add( iOverlayChild ); }
-  
-  // HACK bring forward abilities that pass the filter
-  tToMoveToFront.addAll( abilityTreeWidget.getControlsThatPassFilters() );
-
-  for( UIControl iUIControl : uiControls )
+  if( filterOverlay.prevTransitingIn != filterOverlay.transitingIn )
   {
-    // Make sure overalays remain on top
-    if( iUIControl instanceof UIOverlay )
+//    print( filterOverlay.prevTransitingIn );
+//    print(":");
+//    println( filterOverlay.transitingIn );
+    
+    if( filterOverlay.transitingIn )
     {
-      UIOverlay tOverlay = (UIOverlay)iUIControl;
-      if( tOverlay != filterOverlay )  // Except for the filter overlay
-      {
-        tToMoveToFront.add( tOverlay );
-        for( UIControl iOverlayChild : tOverlay.controls.keySet() ) { tToMoveToFront.add( iOverlayChild ); }
-      }
+      sortControlsForAbilityFilters( true );
+    }
+    else
+    {
+      sortControlsForAbilityFilters( false );
     }
   }
-  
-  for( UIControl iUIControl : tToMoveToFront )
-  {
-    uiControls.remove( iUIControl );
-  }
-  for( UIControl iUIControl : tToMoveToFront )
-  {
-    uiControls.add( iUIControl );
-  }
-
 
   // DRAW LOOP
   for ( UIControl iUIControl : uiControls )
   {
-    if( iUIControl.visible )
+    if ( iUIControl.visible )
       iUIControl.draw();
   }
 }
@@ -304,8 +342,8 @@ void draw()
 void mousePressed()
 {
   activeControl = hoveredControl;
-  
-  if( activeControl != null )
+
+  if ( activeControl != null )
   {
     activeControl.onMousePressed();
   }
@@ -313,7 +351,7 @@ void mousePressed()
 
 void mouseReleased()
 {
-  if( activeControl == hoveredControl && activeControl != null )
+  if ( activeControl == hoveredControl && activeControl != null )
   {
     activeControl.onMouseReleased();
   }
@@ -325,22 +363,110 @@ void keyPressed()
 {
   switch( key )
   {
-    case 32:
-      global_adjustSizeMode.value = !global_adjustSizeMode.value;
-      break;
-    case 'f':
-      global_editFilterMode.value = !global_editFilterMode.value;
-      //firstFilter.active = !firstFilter.active;
-      break;
+  case 32:
+    global_adjustSizeMode.value = !global_adjustSizeMode.value;
+    break;
+  case 'f':
+    global_editFilterMode.value = !global_editFilterMode.value;
+    //firstFilter.active = !firstFilter.active;
+    break;
 
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-      int tIndex = int( key ) - 49;
-      if( tIndex < abilityTreeWidget.abilityFilters.size() )
-        abilityTreeWidget.abilityFilters.get( tIndex ).active = !abilityTreeWidget.abilityFilters.get( tIndex ).active;
-      break;
-    default:
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+    int tIndex = int( key ) - 49;
+    if ( tIndex < abilityTreeWidget.abilityFilters.size() )
+      abilityTreeWidget.abilityFilters.get( tIndex ).active = !abilityTreeWidget.abilityFilters.get( tIndex ).active;
+    break;
+  default:
+  }
+}
+
+
+void updateControlsPassFilters()
+{
+  ArrayList<UIControl> tControlsThatPassFilters = abilityTreeWidget.getControlsThatPassFilters();
+  
+  justPassedFilters = new ArrayList<UIControl>();
+  justFailedFilters = new ArrayList<UIControl>();
+  stillPassFilters = new ArrayList<UIControl>();
+  
+  for( UIControl iControl : tControlsThatPassFilters )
+  {
+    if( prevControlsThatPassFilters.contains( iControl ) )
+    {
+      stillPassFilters.add( iControl );
+    }
+    else
+    {
+      justPassedFilters.add( iControl );
+    }
+  }
+  
+  for( UIControl iPrevControl : prevControlsThatPassFilters )
+  {
+    if( !tControlsThatPassFilters.contains( iPrevControl ) )
+    {
+      justFailedFilters.add( iPrevControl );
+    }
+  }
+
+  prevControlsThatPassFilters = tControlsThatPassFilters;
+}
+
+void sortControlsForAbilityFilters( boolean aTransitIn )
+{
+//  print( prevControlsThatPassFilters.size()); print("=");
+//  print( controlsTransitingIn.size() ); print(":");
+//  print( controlsTransitingOut.size() ); print(":");
+//  print( controlsRemainUnfiltered.size() );println();
+  
+  
+  ArrayList<UIControl> tToMoveToFront = new ArrayList<UIControl>();
+
+  tToMoveToFront.add( filterOverlay );
+
+  if( aTransitIn )
+  {
+    tToMoveToFront.addAll( controlsTransitingOut );
+  }
+  else
+  {
+    tToMoveToFront.addAll( controlsTransitingIn );
+  }
+
+  tToMoveToFront.add( filterOverlaySecondary );
+
+  tToMoveToFront.addAll( controlsRemainUnfiltered );
+//  tToMoveToFront.addAll( abilityTreeWidget.getControlsThatPassFilters() );
+
+  for ( UIControl iOverlayChild : filterOverlay.controls.keySet() ) { 
+    tToMoveToFront.add( iOverlayChild );
+  }
+
+  for ( UIControl iUIControl : uiControls )
+  {
+    // Make sure overalays remain on top
+    if ( iUIControl instanceof UIOverlay )
+    {
+      UIOverlay tOverlay = (UIOverlay)iUIControl;
+      if ( tOverlay != filterOverlay && tOverlay != filterOverlaySecondary )  // Except for the filter overlay
+      {
+        tToMoveToFront.add( tOverlay );
+        for ( UIControl iOverlayChild : tOverlay.controls.keySet() ) { 
+          tToMoveToFront.add( iOverlayChild );
+        }
+      }
+    }
+  }
+
+  for ( UIControl iUIControl : tToMoveToFront )
+  {
+    uiControls.remove( iUIControl );
+  }
+  for ( UIControl iUIControl : tToMoveToFront )
+  {
+    uiControls.add( iUIControl );
   }
 }

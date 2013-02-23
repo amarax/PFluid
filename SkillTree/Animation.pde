@@ -71,7 +71,7 @@ class EasingHelper_Float implements AnimHelper_Float
   float transitionTime;  // in seconds
   
   float currentValue;
-  private int startTime;
+  protected int startTime;
   
   EasingHelper_Float( float aInitialValue )
   {
@@ -145,5 +145,45 @@ class EasingHelper_PVector
   boolean getCompleted()
   {
     return ( ( millis() - xEaser.startTime ) / 1000.0 ) < xEaser.transitionTime && ( ( millis() - yEaser.startTime ) / 1000.0 ) < yEaser.transitionTime; 
+  }
+}
+
+
+// Special class
+class EasingHelper_Float_InOutIn extends EasingHelper_Float
+{
+  EasingHelper_Float_InOutIn( float aInitialValue )
+  {
+    super( aInitialValue );
+  }
+  
+  void start( float aTransitionTime )
+  {
+    super.start( currentValue, aTransitionTime );
+  }
+  
+  void update( float aActualValue )
+  {
+    float tCurrentTime = ( millis() - startTime ) / 1000.0;
+    
+    float tFactor = sin( -HALF_PI + TWO_PI * ( tCurrentTime / transitionTime ) );
+    tFactor = 0.5 * tFactor + 0.5;
+    tFactor = pow( tFactor, 1 );
+   
+    if( tCurrentTime < transitionTime )
+    {
+      float tNewStartValue = startValue * ( 1 - tCurrentTime / transitionTime );
+      currentValue = ( 1 - tFactor ) * tNewStartValue + tFactor * aActualValue;
+    }
+    else
+    {
+      currentValue = 0;
+      startValue = 0;
+    }
+  }
+  
+  float getRatio()
+  {
+    return min( ( millis() - startTime ) / ( 1000.0 * transitionTime ), 1 );
   }
 }
