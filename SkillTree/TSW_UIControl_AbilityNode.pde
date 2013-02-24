@@ -387,7 +387,7 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
 //        strokeWeight( 1 );
 //        pointcross( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y, 10 );
         
-        PVector tDescriptionDimensions = new PVector( 200, 100 );
+        PVector tDescriptionDimensions = new PVector( 200, 150 );
         PVector tDescriptionCenter = new PVector( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y );
         tDescriptionCenter.x += 0.5 * tDescriptionDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) );
         tDescriptionCenter.y += 0.5 * tDescriptionDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) );
@@ -418,14 +418,14 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
         rectMode( CORNER );
         textAlign( tTextHAlign, tTextVAlign );
         textFont( font_TSW_AbilityDescription );
-        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y + ( textAscent() + textDescent() ) + textDescent() );
+        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
 
         // DEBUG Box around description
 //        noFill();
 //        stroke( 0, 0, 0.3 );
 //        strokeCap( SQUARE );
 //        strokeWeight( 1 );
-//        rect( tDescriptionCenter.x, tDescriptionCenter.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
+//        rect( tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
       }
 
 

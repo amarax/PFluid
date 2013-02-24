@@ -13,8 +13,11 @@ PFont font_TSW_AbilityDescription;
 PFont font_FilterName;
 PFont font_FilterDetail;
 
+
+
 TSW_AbilityTree abilityTreeData;
 TSW_WikiParser wikiParser;
+TSW_CSVParser csvParser;
 
 TSW_UIControl_AbilityTree abilityTreeWidget;
 
@@ -83,9 +86,13 @@ void setup()
   font_FilterName = loadFont( "HelveticaNeue-Bold-10.vlw" );
   font_FilterDetail = loadFont( "HelveticaNeue-10.vlw" );
 
+//  abilityTreeData = new TSW_AbilityTree();
+//  wikiParser = new TSW_WikiParser();
+//  wikiParser.populate( abilityTreeData ); 
+
   abilityTreeData = new TSW_AbilityTree();
-  wikiParser = new TSW_WikiParser();
-  wikiParser.populate( abilityTreeData ); 
+  csvParser = new TSW_CSVParser();
+  csvParser.populate( abilityTreeData ); 
 
   int tSize = 400;
   abilityTreeWidget = new TSW_UIControl_AbilityTree( abilityTreeData, new Rectangle( height / 2 - tSize + 100, height / 2 - tSize, tSize * 2, tSize * 2 ) );
@@ -154,6 +161,10 @@ void setup()
 
   // HACK Setup filters
   TSW_Filter_Ability tFilter;
+
+  tFilter = new TSW_Filter_Ability_Name( "heal" );
+  tFilter.active = false;
+  abilityTreeWidget.addFilter( tFilter );
 
   tFilter = new TSW_Filter_Ability_Description( "heal" );
   tFilter.active = false;

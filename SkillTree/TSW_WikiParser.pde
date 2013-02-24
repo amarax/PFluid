@@ -27,8 +27,7 @@ class TSW_WikiParser
   final color AUX_ABILITY_COLOR_LOCKED = color( 180, 0.3, 0.33, 0.5 );
   final color AUX_ABILITY_COLOR_UNLOCKED = color( 180, 0.3, 0.8, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_auxiliary = new TSW_AbilityTree_ColorSet( AUX_BRANCH_COLOR, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED );
-
-
+  
   TSW_WikiParser()
   {
   }

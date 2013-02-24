@@ -1,912 +1,367 @@
-class TSW_AbilityTree_Generated extends TSW_AbilityTree
+
+class TSW_CSVParser
 {
+  final char CSV_DELIMITER = ',';
+  final char CSV_QUOTE = '"';
+
+
   final color WHEEL_BRANCH_COLOR = color( 0, 0.0, 0.3, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_default = new TSW_AbilityTree_ColorSet( WHEEL_BRANCH_COLOR, WHEEL_BRANCH_COLOR, WHEEL_BRANCH_COLOR );
-  
+
   final color MELEE_BRANCH_COLOR = color( 30, 0.6, 0.6, 0.5 );
   final color MELEE_ABILITY_LOCKED_COLOR = color( 30, 0.7, 0.4, 0.5 );
   final color MELEE_ABILITY_UNLOCKED_COLOR = color( 30, 0.7, 0.8, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_melee = new TSW_AbilityTree_ColorSet( MELEE_BRANCH_COLOR, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR );
-  
+
   final color MAGIC_BRANCH_COLOR = color( 210, 0.5, 0.75, 0.5 );
   final color MAGIC_ABILITY_LOCKED_COLOR = color( 210, 0.6, 0.5, 0.5 );
   final color MAGIC_ABILITY_UNLOCKED_COLOR = color( 210, 0.6, 0.8, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_magic = new TSW_AbilityTree_ColorSet( MAGIC_BRANCH_COLOR, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR );
-  
+
   final color RANGED_BRANCH_COLOR = color( 5, 0.45, 0.7, 0.5 );
   final color RANGED_ABILITY_LOCKED_COLOR = color( 5, 0.55, 0.5, 0.5 );
   final color RANGED_ABILITY_UNLOCKED_COLOR = color( 5, 0.55, 0.8, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_ranged = new TSW_AbilityTree_ColorSet( RANGED_BRANCH_COLOR, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR );
-  
+
   final color MISC_BRANCH_COLOR = color( 120, 0.35, 0.5, 0.5 );
   final color MISC_ABILITY_COLOR_LOCKED = color( 120, 0.35, 0.5, 0.5 );
   final color MISC_ABILITY_COLOR_UNLOCKED = color( 120, 0.35, 0.8, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_misc = new TSW_AbilityTree_ColorSet( MISC_BRANCH_COLOR, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED );
-  
+
   final color AUX_BRANCH_COLOR = color( 180, 0.3, 0.6, 0.5 );
   final color AUX_ABILITY_COLOR_LOCKED = color( 180, 0.3, 0.33, 0.5 );
   final color AUX_ABILITY_COLOR_UNLOCKED = color( 180, 0.3, 0.8, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_auxiliary = new TSW_AbilityTree_ColorSet( AUX_BRANCH_COLOR, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED );
 
 
-  public TSW_AbilityTree_Generated()
+  TSW_AbilityTree abilityTree;
+
+  TSW_AbilityTree_ColorSet tColorSet;
+
+  TSW_AbilityBranch tMainWheel = null;
+  TSW_AbilityBranch tAuxiliaryWheel = null;
+
+  TSW_AbilityBranch tMainMeleeBranch = null;
+  TSW_AbilityBranch tMainMagicBranch = null;
+  TSW_AbilityBranch tMainRangedBranch = null;
+
+  TSW_AbilityBranch tAuxiliaryMeleeBranch = null;
+  TSW_AbilityBranch tAuxiliaryMagicBranch = null;
+  TSW_AbilityBranch tAuxiliaryRangedBranch = null;
+
+
+
+  TSW_CSVParser()
   {
-    super();
-    
-    
   }
-  
-  public void populate()
+
+  public void populate( TSW_AbilityTree aAbilityTree )
   {
-    cLevels = 4;
-    
-    TSW_AbilityBranch tSuperBranch = null;
-    TSW_AbilityBranch tMainBranch = null;
+    abilityTree = aAbilityTree;
+
+    tMainWheel = abilityTree.addNewBranch( "Main", WHEEL_BRANCH_COLOR, null );
+    tAuxiliaryWheel = abilityTree.addNewBranch( "Auxiliary", WHEEL_BRANCH_COLOR, null );
+
+    abilityTree.cLevels = 1;
+
+
+    BufferedReader tReader = createReader( "TSW_Abilities.csv" );
+    ArrayList<String> tHeader = new ArrayList<String>();
+    ArrayList<String> tSubHeader = new ArrayList<String>();
+    ArrayList<String> tEntries = null;
+
+    int i = 0;
+    while ( i < 15 )
+    {
+      tEntries = new ArrayList<String>();
+
+      tHeader = readCSVLine( tReader, false );
+      if ( isEmptyLine( tHeader ) ) { 
+        tHeader = readCSVLine( tReader, false );
+      }
+
+      if ( tHeader.get( 0 ).equals( "Subversion" ) || tHeader.get( 0 ).equals( "Turbulence" ) || tHeader.get( 0 ).equals( "Survivalism" ) )
+      {
+        tSubHeader = tHeader;
+        tHeader = null;
+      }
+      else if ( tHeader.get( 0 ).equals( "Chainsaw" ) || tHeader.get( 0 ).equals( "Rocket Launcher" ) || tHeader.get( 0 ).equals( "Quantum" ) )
+      {
+        tSubHeader = tHeader;
+        tHeader = null;
+      }
+      else
+      {
+        tSubHeader = readCSVLine( tReader, false );
+      }
+
+      int tAbilitiesPerMinorBranch = 7;
+      int tMinorBranchesPerWeapon = tSubHeader.size();
+
+      for ( int iLineIndex = 0; iLineIndex < 4 * tAbilitiesPerMinorBranch; ++iLineIndex )
+      {
+        ArrayList<String> tEntriesToAdd = readCSVLine( tReader, false );
+
+        int iIndex = tSubHeader.size();
+        while ( iIndex < tEntriesToAdd.size () )
+        {
+          tEntriesToAdd.remove( iIndex );
+        }
+
+        tEntries.addAll( tEntriesToAdd );
+      }
+
+      //        for ( String iEntry : tEntries )
+      //        {
+      //          print(" - " );
+      //          println( iEntry );
+      //        }
+
+      TSW_AbilityBranch tWeaponBranch = tMainWheel;
+      ArrayList<TSW_AbilityBranch> tMinorBranches = new ArrayList<TSW_AbilityBranch>();
+      String tWeapon = "";
+      if ( tHeader != null )
+      {  
+        tWeapon = tHeader.get( 0 );
+      }
+      else
+      {
+        tWeapon = tSubHeader.get( 0 );
+      }
+      tWeaponBranch = addBranchForWeapon( tWeapon );
+
+      for ( String iMinorBranchName : tSubHeader )
+      {
+        if ( trim( iMinorBranchName ).length() == 0 )
+          break;
+
+        TSW_AbilityBranch tMinorBranch = abilityTree.addNewBranch( iMinorBranchName, tColorSet.branch, tWeaponBranch );
+        tMinorBranches.add( tMinorBranch );
+      }
+
+      for ( int iRow = 0; iRow + 4 * tMinorBranchesPerWeapon < tEntries.size(); iRow += 4 * tMinorBranchesPerWeapon )
+      {
+        int iIndex = 0;
+        while ( iIndex < tMinorBranchesPerWeapon )
+        {
+          String tAbilityName = tEntries.get( iIndex + iRow );
+          if ( trim( tAbilityName ).length() == 0 )
+            break;
+
+          String tAbilityPointsString = tEntries.get( iIndex + 2 * tMinorBranchesPerWeapon + iRow );
+          int tAbilityPoints = int( trim( tAbilityPointsString.substring( 0, tAbilityPointsString.length() - 2 ) ) );
+
+          String tAbilitiesDescription = tEntries.get( iIndex + 3 * tMinorBranchesPerWeapon + iRow );
+
+          TSW_Ability tAbility = abilityTree.addNewAbility( tAbilityName, tAbilityPoints, tColorSet.ability_locked, tColorSet.ability_unlocked, tMinorBranches.get( iIndex ) );
+          tAbility.description = tAbilitiesDescription;
+
+          ++iIndex;
+        }
+      }
+
+      ++i;
+    }
+
+    aAbilityTree.cLevels = 4;
+  }
+
+  public ArrayList<String> readCSVLine( BufferedReader aReader, boolean aInQuotedEntry )
+  {
+    String tLine = "";
+
+    try
+    {
+      tLine = aReader.readLine();
+    }
+    catch( IOException e )
+    {
+    }
+    if( tLine == null ) { return new ArrayList<String>(); }
+
+    int tEntryCount = 1;
+    for ( int iIndex = 0; iIndex < tLine.length(); ++iIndex ) 
+    { 
+      if ( tLine.charAt( iIndex ) == CSV_DELIMITER ) 
+        ++tEntryCount;
+    }
+
+    String[] tLineEntries = new String[tEntryCount];
+    tLineEntries = split( tLine, CSV_DELIMITER );
+
+    //for( int i = 0; i < tLineEntries.length; ++i ) { println( tLineEntries[i] ); }
+
+    ArrayList<String> tReturnEntries = new ArrayList<String>();
+    for ( int i = 0; i < tLineEntries.length; ++i )
+      tReturnEntries.add( tLineEntries[i] );
+
+    int iIndex = 0;
+    while ( iIndex < tReturnEntries.size () )
+    {
+      String tEntry = tReturnEntries.get( iIndex );
+
+      if ( tEntry.length() > 0 )
+      {
+        if ( ( iIndex == 0 && aInQuotedEntry ) || ( tEntry.charAt( 0 ) == CSV_QUOTE ) )
+        {
+          boolean tEndQuoteFound = false;
+
+          // First check if current entry has an end quote
+          tEndQuoteFound = checkLastCharacterForEndQuote( tEntry ) && tEntry.length() > 1;
+
+          // Merge next entry, and if there is none read next line
+          while ( iIndex + 1 < tReturnEntries.size () && !tEndQuoteFound )
+          {
+            tEntry = tEntry + CSV_DELIMITER + tReturnEntries.get( iIndex + 1 );
+            tReturnEntries.remove( iIndex + 1 );
+            tReturnEntries.remove( iIndex );
+            tReturnEntries.add( iIndex, tEntry );
+
+            tEntry = tReturnEntries.get( iIndex );
+            tEndQuoteFound = checkLastCharacterForEndQuote( tEntry );
+          }
+
+          if ( !tEndQuoteFound )
+          {
+            ArrayList<String> tContinuedEntries = readCSVLine( aReader, true );
+            tEntry = tEntry + "\n" + tContinuedEntries.get( 0 );
+            tContinuedEntries.remove( 0 );
+
+            tReturnEntries.remove( tReturnEntries.size() - 1 );
+            tReturnEntries.add( tEntry );
+            tReturnEntries.addAll( tContinuedEntries );
+            break;
+          }
+        }
+      }
+
+      ++iIndex;
+    }
+
+    return tReturnEntries;
+  }
+
+  private boolean checkLastCharacterForEndQuote( String aEntry )
+  {
+    if ( aEntry.length() > 0 )
+    {
+      if ( aEntry.charAt( aEntry.length() - 1 ) == CSV_QUOTE )
+      {
+        if ( aEntry.length() > 1 )
+        {
+          if ( aEntry.charAt( aEntry.length() - 2 ) == CSV_QUOTE )
+          {
+            return false;
+          }
+        }
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public TSW_AbilityBranch addBranchForWeapon( String aWeapon )
+  {
+    TSW_AbilityBranch tCurrentBranch = tMainWheel;
+    tColorSet = colorSet_default;
+
     TSW_AbilityBranch tWeaponBranch = null;
-    TSW_AbilityBranch tMinorBranch = null;
-    TSW_Ability tAbility = null;
-    
-    tSuperBranch = addNewBranch( "Main", WHEEL_BRANCH_COLOR, null );
+    if ( aWeapon.equals( "Chainsaw" ) || aWeapon.equals( "Quantum" ) || aWeapon.equals( "Rocket Launcher" ) )
     {
-      tMainBranch = addNewBranch( "Melee", MELEE_BRANCH_COLOR, tSuperBranch );
+      tColorSet = colorSet_auxiliary;
+
+      if ( aWeapon.equals( "Chainsaw" ) )
       {
-        tWeaponBranch = addNewBranch( "Blades", MELEE_BRANCH_COLOR, tMainBranch );
+        if ( tAuxiliaryMeleeBranch == null )
         {
-          tMinorBranch = addNewBranch( "Method", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "Delicate Strike", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Delicate Precision", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Balanced Blade", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Expose Weakness", 2, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Dancing Blade", 3, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Sharp Blades", 4, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Stunning Swirl", 7, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Technique", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "Immortal Spirit", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Blade Torrent", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Perfect Storm", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Martial Discipline", 2, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Regeneration", 3, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Surging Blades", 4, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Fluid Defence", 7, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "Wind through Grass", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "Grass Cutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Twist the Knife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Chop Shop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Seven and a Half Samurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny Fulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Four Seasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Tearing of Sky", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Crossing River's Edge", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Running of the Jagged", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Sharpening the Senses", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "The Cutting Artist", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
+          tAuxiliaryMeleeBranch = abilityTree.addNewBranch( "Melee", tColorSet.branch, tAuxiliaryWheel );
         }
 
-        tWeaponBranch = addNewBranch( "Hammers", MELEE_BRANCH_COLOR, tMainBranch );
+        tCurrentBranch = tAuxiliaryMeleeBranch;
+      }
+      else if ( aWeapon.equals( "Quantum" ) )
+      {
+        if ( tAuxiliaryMagicBranch == null )
         {
-          tMinorBranch = addNewBranch( "Brawn", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Grit", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          
-          tMinorBranch = addNewBranch( "Industrial Action", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Brute Force", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Excessive Damage", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Sledge Factory", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Battering Works", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Hammer Pit", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
+          tAuxiliaryMagicBranch = abilityTree.addNewBranch( "Magic", tColorSet.branch, tAuxiliaryWheel );
         }
 
-        tWeaponBranch = addNewBranch( "Fists", MELEE_BRANCH_COLOR, tMainBranch );
+        tCurrentBranch = tAuxiliaryMagicBranch;
+      }
+      else if ( aWeapon.equals( "Rocket Launcher" ) )
+      {
+        if ( tAuxiliaryRangedBranch == null )
         {
-          tMinorBranch = addNewBranch( "Feral", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Primal", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "The Wilderness", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "The Outback", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "The Streets", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Warming Up", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Heat of Battle", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Play with Fire", MELEE_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MELEE_ABILITY_LOCKED_COLOR, MELEE_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
+          tAuxiliaryRangedBranch = abilityTree.addNewBranch( "Ranged", tColorSet.branch, tAuxiliaryWheel );
         }
+
+        tCurrentBranch = tAuxiliaryRangedBranch;
       }
       
-      tMainBranch = addNewBranch( "Turbulence", MISC_BRANCH_COLOR, tSuperBranch );
-      {
-        tAbility = addNewAbility( "SleightofHand", 9, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "UnfairAdvantage", 12, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "TurntheTables", 16, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Cannonball", 21, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "SpeedFreak", 27, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Tenacity", 34, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "LastResort", 50, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-      }
-
-      tMainBranch = addNewBranch( "Magic", MAGIC_BRANCH_COLOR, tSuperBranch );
-      {
-        tWeaponBranch = addNewBranch( "Blood Magic", MAGIC_BRANCH_COLOR, tMainBranch );
-        {
-          tMinorBranch = addNewBranch( "Profane", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Sacred", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "Malediction", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Transmission", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Possession", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Wetwork", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Chirurgia", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Venamancy", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-        }
-
-        tWeaponBranch = addNewBranch( "Chaos", MAGIC_BRANCH_COLOR, tMainBranch );
-        {
-          tMinorBranch = addNewBranch( "Theory", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Chance", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "Teorema", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "The Value of x", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Collapse", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Building Blocks", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Shell Game", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "The Fourth Wall", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-        }
-
-        tWeaponBranch = addNewBranch( "Elementalism", MAGIC_BRANCH_COLOR, tMainBranch );
-        {
-          tMinorBranch = addNewBranch( "Spark", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "React", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharpBlades", 4, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "Zero Crossing", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Altered States", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Mortality Curve", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Resonance", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Disturbance", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Tempest", MAGIC_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenandaalfSamurai", 21, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, MAGIC_ABILITY_LOCKED_COLOR, MAGIC_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-        }
-      }
-      
-      tMainBranch = addNewBranch( "Subversion", MISC_BRANCH_COLOR, tSuperBranch );
-      {
-        tAbility = addNewAbility( "SleightofHand", 9, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "UnfairAdvantage", 12, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "TurntheTables", 16, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Cannonball", 21, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "SpeedFreak", 27, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Tenacity", 34, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "LastResort", 50, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-      }
-
-      tMainBranch = addNewBranch( "Ranged", RANGED_BRANCH_COLOR, tSuperBranch );
-      {
-        tWeaponBranch = addNewBranch( "Shotgun", RANGED_BRANCH_COLOR, tMainBranch );
-        {
-          tMinorBranch = addNewBranch( "Enforce", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharBlades", 4, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Control", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharBlades", 4, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "Crackdown", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Restricted Access", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Close Encounters", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Securing the Perimeter", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Hunkering Down", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Tactical Surprise", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-        }
-
-        tWeaponBranch = addNewBranch( "Pistols", RANGED_BRANCH_COLOR, tMainBranch );
-        {
-          tMinorBranch = addNewBranch( "Profane", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharBlades", 4, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Sacred", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharBlades", 4, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "Malediction", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Transmission", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Possession", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Wetwork", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Chirurgia", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Venamancy", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-        }
-
-        tWeaponBranch = addNewBranch( "Assault Rifles", RANGED_BRANCH_COLOR, tMainBranch );
-        {
-          tMinorBranch = addNewBranch( "Profane", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharBlades", 4, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Sacred", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "DelicateStrike", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DelicatePrecision", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "BalancedBlade", 1, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ExposeWeakness", 2, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DancingBlade", 3, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SharBlades", 4, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "StunningSwirl", 7, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-
-          tMinorBranch = addNewBranch( "Malediction", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Transmission", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Possession", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Wetwork", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Chirurgia", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-          tMinorBranch = addNewBranch( "Venamancy", RANGED_BRANCH_COLOR, tWeaponBranch );
-          {
-            tAbility = addNewAbility( "GrassCutter", 9, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "TwisttheKnife", 12, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "ChopShop", 16, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "SevenanHalfSamurai", 21, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "Destiny", 27, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "DestinyFulfilled", 34, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-            tAbility = addNewAbility( "FourSeasons", 50, RANGED_ABILITY_LOCKED_COLOR, RANGED_ABILITY_UNLOCKED_COLOR, tMinorBranch );
-          }
-        }
-      }
-
-      tMainBranch = addNewBranch( "Survivalism", MISC_BRANCH_COLOR, tSuperBranch );
-      {
-        tAbility = addNewAbility( "Sleight of Hand", 9, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Unfair Advantage", 12, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Turn the Tables", 16, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Cannonball", 21, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Speed Freak", 27, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Tenacity", 34, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-        tAbility = addNewAbility( "Last Resort", 50, MISC_ABILITY_COLOR_LOCKED, MISC_ABILITY_COLOR_UNLOCKED, tMainBranch );
-      }
+      return tCurrentBranch;
     }
-    
-    
-    tSuperBranch = addNewBranch( "Auxiliary", WHEEL_BRANCH_COLOR, null );
+
+    if ( aWeapon.equals( "Subversion" ) || aWeapon.equals( "Turbulence" ) || aWeapon.equals( "Survivalism" ) )
     {
-      tMainBranch = addNewBranch( "Melee", AUX_BRANCH_COLOR, tSuperBranch );
-      {
-        tWeaponBranch = addNewBranch( "(Locked)", AUX_BRANCH_COLOR, tMainBranch );
-        tWeaponBranch = addNewBranch( "Chainsaw", AUX_BRANCH_COLOR, tMainBranch );
-        {
-          tAbility = addNewAbility( "PopShot", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Rangefinder", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Clusterstruck", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "RocketScience", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "DeathFromAbove", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Warhead", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Biged Button", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-        }
-        tWeaponBranch = addNewBranch( "(Locked)", AUX_BRANCH_COLOR, tMainBranch );
-      }
-
-      tMainBranch = addNewBranch( "Magic", AUX_BRANCH_COLOR, tSuperBranch );
-      {
-        tWeaponBranch = addNewBranch( "(Locked)", AUX_BRANCH_COLOR, tMainBranch );
-        tWeaponBranch = addNewBranch( "Quantum", AUX_BRANCH_COLOR, tMainBranch );
-        {
-          tAbility = addNewAbility( "PopShot", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Rangefinder", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Clusterstruck", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "RocketScience", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "DeathFromAbove", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Warhead", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "BigRedButton", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-        }
-        tWeaponBranch = addNewBranch( "(Locked)", AUX_BRANCH_COLOR, tMainBranch );
-      }
-
-      tMainBranch = addNewBranch( "Ranged", AUX_BRANCH_COLOR, tSuperBranch );
-      {
-        tWeaponBranch = addNewBranch( "(Locked)", AUX_BRANCH_COLOR, tMainBranch );
-        tWeaponBranch = addNewBranch( "Rocket Launcher", AUX_BRANCH_COLOR, tMainBranch );
-        {
-          tAbility = addNewAbility( "Pop Shot", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Rangefinder", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Clusterstruck", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Rocket Science", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Death From Above", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Warhead", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-          tAbility = addNewAbility( "Big Red Button", 50, AUX_ABILITY_COLOR_LOCKED, AUX_ABILITY_COLOR_UNLOCKED, tWeaponBranch );
-        }
-        tWeaponBranch = addNewBranch( "(Locked)", AUX_BRANCH_COLOR, tMainBranch );
-      }
+      tCurrentBranch = tMainWheel;
+      tColorSet = colorSet_misc;
+      
+      return tCurrentBranch;
     }
+
+    if ( aWeapon.equals( "Blade" ) || aWeapon.equals( "Hammer" ) || aWeapon.equals( "Fists" ) )
+    {
+      if ( tMainMeleeBranch == null )
+      {
+        tMainMeleeBranch = abilityTree.addNewBranch( "Melee", colorSet_melee.branch, tMainWheel );
+      }
+
+      tCurrentBranch = tMainMeleeBranch;
+      tColorSet = colorSet_melee;
+    }
+    else if ( aWeapon.equals( "Blood Magic" ) || aWeapon.equals( "Chaos" ) || aWeapon.equals( "Elementalism" ) )
+    {
+      if ( tMainMagicBranch == null )
+      {
+        tMainMagicBranch = abilityTree.addNewBranch( "Magic", colorSet_magic.branch, tMainWheel );
+      }
+
+      tCurrentBranch = tMainMagicBranch;
+      tColorSet = colorSet_magic;
+    }
+    else if ( aWeapon.equals( "Shotgun" ) || aWeapon.equals( "Pistols" ) || aWeapon.equals( "Assault Rifle" ) )
+    {
+      if ( tMainRangedBranch == null )
+      {
+        tMainRangedBranch = abilityTree.addNewBranch( "Ranged", colorSet_ranged.branch, tMainWheel );
+      }
+
+      tCurrentBranch = tMainRangedBranch;
+      tColorSet = colorSet_ranged;
+    }
+    else
+    {
+      tCurrentBranch = null;
+      tColorSet = colorSet_default;
+    }
+
+    tWeaponBranch = abilityTree.addNewBranch( aWeapon, tColorSet.branch, tCurrentBranch );
+    return tWeaponBranch;
   }
-  
+
+  public boolean isEmptyLine( ArrayList<String> aStringArray )
+  {
+    for ( String iString : aStringArray )
+    {
+      if ( !trim(iString).equals( "" ) )
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
+
