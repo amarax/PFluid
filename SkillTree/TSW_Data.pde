@@ -1,10 +1,6 @@
 
 class TSW_CSVParser
 {
-  final char CSV_DELIMITER = ',';
-  final char CSV_QUOTE = '"';
-
-
   final color WHEEL_BRANCH_COLOR = color( 0, 0.0, 0.3, 0.5 );
   TSW_AbilityTree_ColorSet colorSet_default = new TSW_AbilityTree_ColorSet( WHEEL_BRANCH_COLOR, WHEEL_BRANCH_COLOR, WHEEL_BRANCH_COLOR );
 
@@ -65,7 +61,7 @@ class TSW_CSVParser
     abilityTree.cLevels = 1;
 
 
-    BufferedReader tReader = createReader( "TSW_Abilities.csv" );
+    CSVReader tReader = new CSVReader( "TSW_Abilities.csv" );
     ArrayList<String> tHeader = new ArrayList<String>();
     ArrayList<String> tSubHeader = new ArrayList<String>();
     ArrayList<String> tEntries = null;
@@ -75,9 +71,9 @@ class TSW_CSVParser
     {
       tEntries = new ArrayList<String>();
 
-      tHeader = readCSVLine( tReader, false );
+      tHeader = tReader.readCSVLine( false );
       if ( isEmptyLine( tHeader ) ) { 
-        tHeader = readCSVLine( tReader, false );
+        tHeader = tReader.readCSVLine( false );
       }
 
       if ( tHeader.get( 0 ).equals( "Subversion" ) || tHeader.get( 0 ).equals( "Turbulence" ) || tHeader.get( 0 ).equals( "Survivalism" ) )
@@ -92,7 +88,7 @@ class TSW_CSVParser
       }
       else
       {
-        tSubHeader = readCSVLine( tReader, false );
+        tSubHeader = tReader.readCSVLine( false );
       }
 
       int tAbilitiesPerMinorBranch = 7;
@@ -100,7 +96,7 @@ class TSW_CSVParser
 
       for ( int iLineIndex = 0; iLineIndex < 4 * tAbilitiesPerMinorBranch; ++iLineIndex )
       {
-        ArrayList<String> tEntriesToAdd = readCSVLine( tReader, false );
+        ArrayList<String> tEntriesToAdd = tReader.readCSVLine( false );
 
         int iIndex = tSubHeader.size();
         while ( iIndex < tEntriesToAdd.size () )
@@ -166,101 +162,7 @@ class TSW_CSVParser
     aAbilityTree.cLevels = 4;
   }
 
-  public ArrayList<String> readCSVLine( BufferedReader aReader, boolean aInQuotedEntry )
-  {
-    String tLine = "";
 
-    try
-    {
-      tLine = aReader.readLine();
-    }
-    catch( IOException e )
-    {
-    }
-    if( tLine == null ) { return new ArrayList<String>(); }
-
-    int tEntryCount = 1;
-    for ( int iIndex = 0; iIndex < tLine.length(); ++iIndex ) 
-    { 
-      if ( tLine.charAt( iIndex ) == CSV_DELIMITER ) 
-        ++tEntryCount;
-    }
-
-    String[] tLineEntries = new String[tEntryCount];
-    tLineEntries = split( tLine, CSV_DELIMITER );
-
-    //for( int i = 0; i < tLineEntries.length; ++i ) { println( tLineEntries[i] ); }
-
-    ArrayList<String> tReturnEntries = new ArrayList<String>();
-    for ( int i = 0; i < tLineEntries.length; ++i )
-      tReturnEntries.add( tLineEntries[i] );
-
-    int iIndex = 0;
-    while ( iIndex < tReturnEntries.size () )
-    {
-      String tEntry = tReturnEntries.get( iIndex );
-
-      if ( tEntry.length() > 0 )
-      {
-        if ( ( iIndex == 0 && aInQuotedEntry ) || ( tEntry.charAt( 0 ) == CSV_QUOTE ) )
-        {
-          boolean tEndQuoteFound = false;
-
-          // First check if current entry has an end quote
-          tEndQuoteFound = checkLastCharacterForEndQuote( tEntry ) && tEntry.length() > 1;
-
-          // Merge next entry, and if there is none read next line
-          while ( iIndex + 1 < tReturnEntries.size () && !tEndQuoteFound )
-          {
-            tEntry = tEntry + CSV_DELIMITER + tReturnEntries.get( iIndex + 1 );
-            tReturnEntries.remove( iIndex + 1 );
-            tReturnEntries.remove( iIndex );
-            tReturnEntries.add( iIndex, tEntry );
-
-            tEntry = tReturnEntries.get( iIndex );
-            tEndQuoteFound = checkLastCharacterForEndQuote( tEntry );
-          }
-
-          if ( !tEndQuoteFound )
-          {
-            ArrayList<String> tContinuedEntries = readCSVLine( aReader, true );
-            tEntry = tEntry + "\n" + tContinuedEntries.get( 0 );
-            tContinuedEntries.remove( 0 );
-
-            tReturnEntries.remove( tReturnEntries.size() - 1 );
-            tReturnEntries.add( tEntry );
-            tReturnEntries.addAll( tContinuedEntries );
-            break;
-          }
-        }
-      }
-
-      ++iIndex;
-    }
-
-    return tReturnEntries;
-  }
-
-  private boolean checkLastCharacterForEndQuote( String aEntry )
-  {
-    if ( aEntry.length() > 0 )
-    {
-      if ( aEntry.charAt( aEntry.length() - 1 ) == CSV_QUOTE )
-      {
-        if ( aEntry.length() > 1 )
-        {
-          if ( aEntry.charAt( aEntry.length() - 2 ) == CSV_QUOTE )
-          {
-            return false;
-          }
-        }
-
-        return true;
-      }
-    }
-
-    return false;
-  }
 
   public TSW_AbilityBranch addBranchForWeapon( String aWeapon )
   {

@@ -848,7 +848,7 @@ Passive Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability,Pass
 "Whenever you apply Hindered, your next hit cannot be evaded.","Instant 25sec
 Builds 3 Assault Rifle Resources.
 Reduces the recharge time of all Assault Rfile resource consumers currently recharging by 4 seconds.","Increases the range of ""Hip Fire"" by 10 metres.","Instant 60sec
-You place a 10 metre wide by 2 metre long area in front of you that lasts 10 seconds and Dash backwards 3 metres. Any enemies passing through the area have their movement speed reduced by 30%.","Whenever you hit with a Frenzy ability, your target becomes Afflicted with a damage over time effect that deals 10 physical damage every second for 5 seconds.",All your Burst abilites are 7.5% more effectivve.,"Instant 30sec
+You place a 10 metre wide by 2 metre long area in front of you that lasts 10 seconds and Dash backwards 3 metres. Any enemies passing through the area have their movement speed reduced by 30%.","Whenever you hit with a Frenzy ability, your target becomes Afflicted with a damage over time effect that deals 10 physical damage every second for 5 seconds.",All your Burst abilites are 7.5% more effective.,"Instant 30sec
 Heals all group members for 68.","Friendly targets within the area of ""Anima Outbreak"",  with more than 90% health remaining, will gain the Major Hit Chance effect, which reduces the likelihood of glancing hits by 50% for 12 seconds."
 Trigger Happy,Extra Clip,Where it Hurts,Explosives Expert,High Explosive Grenade,Transfuse Anima,Post-op,Anima Vessel
 Active Ranged Ability,Passive Ability,Active Ranged Ability,Passive Ability,Active Melee Ability,Active Ranged Ability,Passive Ability,Active Ranged Ability
@@ -930,7 +930,7 @@ A single target melee attack.,,,,,,,
 Revved Up,,,,,,,
 Passive Auxiliary,,,,,,,
 50 ap,,,,,,,
-Increase the damage dealt by “Rotting Teeth” by 100%,,,,,,,
+"Increase the damage dealt by ""Rotting Teeth"" by 100%.",,,,,,,
 Hurly-Burly,,,,,,,
 Active Auxiliary,,,,,,,
 50 ap,,,,,,,
@@ -1000,7 +1000,7 @@ Collapse: A single target attack that deals magical damage based on the number o
 Energy Transfer,,,,,,,
 Passive Auxiliary,,,,,,,
 50 ap,,,,,,,
-"Increases the effectiveness of the ""2nd"" quantum ability in all actives by 25% while reducing the effectiveness of the effectiveness of the ""1st"" abilities by 20%. (Ex: Vector reduced by 20%, Space increased by 25%)",,,,,,,
+"Increases the effectiveness of the ""2nd"" quantum ability in all actives by 25% while reducing the effectiveness of the effectiveness of the ""1st"" abilities by 20%.",,,,,,,
 Charge-Density,,,,,,,
 Active Auxiliary,,,,,,,
 50 ap,,,,,,,
