@@ -13,6 +13,17 @@ class CSVReader
     // TODO file validation goes here
   } 
 
+  public void close()
+  {
+    try
+    {
+      bufferedReader.close();
+    }
+    catch( IOException e )
+    {
+    }
+  }
+
   public ArrayList<String> readCSVLine( boolean aInQuotedEntry )
   {
     String tLine = "";

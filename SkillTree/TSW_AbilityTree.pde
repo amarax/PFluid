@@ -126,6 +126,7 @@ class TSW_Ability extends TSW_AbilityNode
 {
   int points;
   String description;
+  ArrayList<String> tags;
   
   public color nodeLockedColor;
   public color nodeUnlockedColor;
@@ -136,6 +137,8 @@ class TSW_Ability extends TSW_AbilityNode
     
     name = aName;
     points = aPoints;
+    
+    tags = new ArrayList<String>();
   }
 
   public TSW_UIControl_AbilityNode createAssociatedUIControl()

@@ -64,11 +64,28 @@ ArrayList<UIControl> controlsRemainUnfiltered = new ArrayList<UIControl>();
 void setup()
 {
 
+  int appWidth = 1440, appHeight = 810;
+  try
+  {
+    BufferedReader tConfigReader = createReader( "config.txt" );
+    if( tConfigReader != null )
+    {
+      String tLine = tConfigReader.readLine();
+      if( tLine.substring( 0, 5 ).equals( "size=" ) )
+      {
+        String[] tTokens = splitTokens( tLine, "=," );
+        appWidth = int( tTokens[1] );
+        appHeight = int( tTokens[2] );
+      }
+      
+      tConfigReader.close();
+    }
+  }
+  catch( IOException e )
+  {
+  }
 
-
-
-  size( 1440, 810 );
-  //size( 1600, 900 );
+  size( appWidth, appHeight );
   smooth();
   colorMode( HSB, 360.0, 1.0, 1.0, 1.0 );
 

@@ -173,7 +173,12 @@ class TSW_UIControl_AbilityTree extends UIControl
 
     PVector tCenter = getCenterPos();
 
-    fill( 0, 0, 0.7 );
+    float tRadius = outerRingSize.value - innerRingSize.value - abilityRingThickness.value;
+
+    float tFullyVisibleRadius = 140, tFullyInvisibleRadius = 70;
+    float tAlpha = ( tRadius - tFullyInvisibleRadius ) / ( tFullyVisibleRadius - tFullyInvisibleRadius);
+    tAlpha = max( min( tAlpha, 1 ), 0 );
+    fill( 0, 0, 0.7, tAlpha );
     noStroke();
 
     textAlign( CENTER, BOTTOM );
@@ -183,7 +188,7 @@ class TSW_UIControl_AbilityTree extends UIControl
     textFont( font_TSW_Subtitle );
     text( "ABILITY WHEEL", tCenter.x, tCenter.y - 5 );
 
-    fill( 0, 0, 0.3 );
+    fill( 0, 0, 0.3, tAlpha );
     textAlign( CENTER, TOP );
     textFont( font_TSW_Subtitle );
     text( "Visualisation Test", tCenter.x, tCenter.y + 5 );
@@ -224,7 +229,7 @@ class TSW_UIControl_AbilityTree extends UIControl
       float tStartAngle = -HALF_PI;
       float tEndAngle = dampingHelper_unlockedRatio.getValue() * TWO_PI + tStartAngle;
 
-      float tRadius = outerRingSize.value - innerRingSize.value - abilityRingThickness.value;
+      tRadius = outerRingSize.value - innerRingSize.value - abilityRingThickness.value;
       arc( tCenter.x, tCenter.y, tRadius, tRadius, tStartAngle, tEndAngle, OPEN );
     }
   }
