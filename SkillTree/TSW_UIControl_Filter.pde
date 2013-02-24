@@ -450,7 +450,7 @@ class TSW_UIOverlay_Filter_Ability_EditableString extends TSW_UIControl_Filter_A
 
       noStroke();
       fill( 0, 0, 0.8, 0.3 * tAlpha * animHelper_hoverFactor.getValue() );
-      rect( floor( tTextAnchorPoint.x - 1 + tCaretXPos * animHelper_hoverFactor.getValue() ), tCaretTopLeft.y, 1 + textWidth( getSearchString() ) * ( 1 - animHelper_hoverFactor.getValue() ), tTextHeight + 2 * tMargin );
+      rect( ceil( tTextAnchorPoint.x + tCaretXPos * animHelper_hoverFactor.getValue() ), tCaretTopLeft.y, 1 + textWidth( getSearchString() ) * ( 1 - animHelper_hoverFactor.getValue() ), tTextHeight + 2 * tMargin );
     }
 
     fill( 0, 0, 0.8, tAlpha );

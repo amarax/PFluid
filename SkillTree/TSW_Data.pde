@@ -147,10 +147,13 @@ class TSW_CSVParser
           String tAbilityPointsString = tEntries.get( iIndex + 2 * tMinorBranchesPerWeapon + iRow );
           int tAbilityPoints = int( trim( tAbilityPointsString.substring( 0, tAbilityPointsString.length() - 2 ) ) );
 
-          String tAbilitiesDescription = tEntries.get( iIndex + 3 * tMinorBranchesPerWeapon + iRow );
+          String tAbilityDescriptors = tEntries.get( iIndex + 1 * tMinorBranchesPerWeapon + iRow );
+          String tAbilityDescription = tEntries.get( iIndex + 3 * tMinorBranchesPerWeapon + iRow );
 
           TSW_Ability tAbility = abilityTree.addNewAbility( tAbilityName, tAbilityPoints, tColorSet.ability_locked, tColorSet.ability_unlocked, tMinorBranches.get( iIndex ) );
-          tAbility.description = tAbilitiesDescription;
+          tAbility.description = tAbilityDescriptors + "\n" + tAbilityDescription;
+          //tAbility.tags.addAll( parseAbilityDescriptors( tAbilityDescriptors ) ); 
+          
 
           ++iIndex;
         }
@@ -158,6 +161,8 @@ class TSW_CSVParser
 
       ++i;
     }
+
+    tReader.close();
 
     aAbilityTree.cLevels = 4;
   }
@@ -264,6 +269,13 @@ class TSW_CSVParser
     }
 
     return true;
+  }
+  
+  public ArrayList<String> parseAbilityDescriptors( String aString )
+  {
+    ArrayList<String> tTags = new ArrayList<String>();
+    
+    return null;
   }
 }
 
