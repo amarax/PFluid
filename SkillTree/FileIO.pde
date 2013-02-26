@@ -157,7 +157,7 @@ class CSVReader
     String tDelimiter = "";
     tDelimiter += CSV_QUOTE;
     tDelimiter += CSV_QUOTE;
-    
+
     String[] tSplitEntry = split( aEntry, tDelimiter );
 
     String tReturnString = tSplitEntry[0];
@@ -166,10 +166,10 @@ class CSVReader
     while ( iIndex < tSplitEntry.length )
     {
       tReturnString += CSV_QUOTE + tSplitEntry[iIndex];
-      
+
       ++iIndex;
     }
-    
+
     return tReturnString;
   }
 }

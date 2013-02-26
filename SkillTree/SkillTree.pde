@@ -33,6 +33,8 @@ Global_Boolean global_filterModeExclusive = new Global_Boolean( false );
 Global_Boolean global_adjustSizeMode = new Global_Boolean( false );
 Global_Boolean global_editFilterMode = new Global_Boolean( false );
 
+Global_Boolean global_textDisplayMode = new Global_Boolean( true );
+
 Global_Float global_outerRingSize = new Global_Float( 250 );
 Global_Float global_innerRingSize = new Global_Float( 80 );
 Global_Float ringThickness = new Global_Float( 10 );
@@ -45,10 +47,15 @@ Global_Boolean showAuxWheel = new Global_Boolean( true );
 Global_Boolean sizeByPoints = new Global_Boolean( false );
 
 boolean global_debug = false;
+Global_Boolean global_profilingMode = new Global_Boolean( false );
+int[] profilingTimes = new int[3];
+int[] prevProfilingTimes = new int[3];
 
 
 TSW_UIOverlay_Filter_AbilityTree filterOverlay;
 TSW_UIOverlay_Filter_AbilityTree filterOverlaySecondary;
+
+UIOverlay_TextLayer textLayer_FrontMost;
 
 EasingHelper_Float_InOutIn filterEasingFactor = new EasingHelper_Float_InOutIn( 0 );
 
@@ -64,20 +71,22 @@ ArrayList<UIControl> controlsRemainUnfiltered = new ArrayList<UIControl>();
 void setup()
 {
 
-  int appWidth = 1440, appHeight = 810;
+
+
+  int appWidth = 1600, appHeight = 900;
   try
   {
     BufferedReader tConfigReader = createReader( "config.txt" );
-    if( tConfigReader != null )
+    if ( tConfigReader != null )
     {
       String tLine = tConfigReader.readLine();
-      if( tLine.substring( 0, 5 ).equals( "size=" ) )
+      if ( tLine.substring( 0, 5 ).equals( "size=" ) )
       {
         String[] tTokens = splitTokens( tLine, "=," );
-        appWidth = int( tTokens[1] );
-        appHeight = int( tTokens[2] );
+        //appWidth = int( tTokens[1] );
+        //appHeight = int( tTokens[2] );
       }
-      
+
       tConfigReader.close();
     }
   }
@@ -103,9 +112,9 @@ void setup()
   font_FilterName = loadFont( "HelveticaNeue-Bold-10.vlw" );
   font_FilterDetail = loadFont( "HelveticaNeue-10.vlw" );
 
-//  abilityTreeData = new TSW_AbilityTree();
-//  wikiParser = new TSW_WikiParser();
-//  wikiParser.populate( abilityTreeData ); 
+  //  abilityTreeData = new TSW_AbilityTree();
+  //  wikiParser = new TSW_WikiParser();
+  //  wikiParser.populate( abilityTreeData ); 
 
   abilityTreeData = new TSW_AbilityTree();
   csvParser = new TSW_CSVParser();
@@ -186,7 +195,7 @@ void setup()
   tFilter = new TSW_Filter_Ability_Description( "heal" );
   tFilter.active = false;
   abilityTreeWidget.addFilter( tFilter );
-  
+
   tFilter = new TSW_Filter_Ability_Description( "penet" );
   tFilter.active = false;
   abilityTreeWidget.addFilter( tFilter );
@@ -203,6 +212,11 @@ void setup()
   //tFilter.active = false;
   //abilityTreeWidget.addFilter( tFilter );
 
+
+
+  textLayer_FrontMost = new UIOverlay_TextLayer( global_textDisplayMode, new PVector( 0, 0 ) );
+  uiControls.add( textLayer_FrontMost );
+  textLayer_FrontMost.setup();
 
 
   TSW_UIOverlay_SizeAdjust_AbilityTree tAdjustSizeOverlay = new TSW_UIOverlay_SizeAdjust_AbilityTree( global_adjustSizeMode );
@@ -277,24 +291,27 @@ void setup()
   tAbilityGapSizeSlider.setup( abilityGapSize );
   //  tAngleOffsetSlider.setup( angleOffset );
   tSelectionSizeSlider.setup( selectedNodeRatio );
-  
-  
-  
-  
+
+
+  UIOverlay_Profiling tProfilingOverlay = new UIOverlay_Profiling( global_profilingMode );
+  uiControls.add( tProfilingOverlay );
+
+
+
   // SET INITIAL WORLD STATE
   {
     abilityTreeWidget.updateFilteredAbilities();
-  
+
     prevControlsThatPassFilters = abilityTreeWidget.getControlsThatPassFilters();
     justPassedFilters = new ArrayList<UIControl>();
     justFailedFilters = new ArrayList<UIControl>();
     stillPassFilters = prevControlsThatPassFilters;
-  
-  //  print( prevControlsThatPassFilters.size()); print("=");
-  //  print( justFailedFilters.size() ); print(":");
-  //  print( justPassedFilters.size() ); print(":");
-  //  print( stillPassFilters.size() );println();
-  
+
+    //  print( prevControlsThatPassFilters.size()); print("=");
+    //  print( justFailedFilters.size() ); print(":");
+    //  print( justPassedFilters.size() ); print(":");
+    //  print( stillPassFilters.size() );println();
+
     controlsRemainUnfiltered = (ArrayList<UIControl>)stillPassFilters.clone();
     sortControlsForAbilityFilters( false );
   }
@@ -303,7 +320,10 @@ void setup()
 
 void draw()
 {
-
+  if ( global_profilingMode.value )
+  {
+    profilingTimes[0] = millis();
+  }
 
   background( 0, 0, 0.15 );
 
@@ -319,20 +339,26 @@ void draw()
     }
   }
 
+  // FLUSH NON-PERSISTENT CACHE
+  for ( UIControl iUIControl : uiControls )
+  {
+    iUIControl.flushCache();
+  }
+
   // UPDATE LOOP
   for ( UIControl iUIControl : uiControls )
   {
     iUIControl.update();
   }
-  
+
   // Check if any filters have changed
   updateControlsPassFilters();
-  if( justPassedFilters.size() > 0 || justFailedFilters.size() > 0 )
+  if ( justPassedFilters.size() > 0 || justFailedFilters.size() > 0 )
   {
-//  print( prevControlsThatPassFilters.size()); print("=");
-//  print( justPassedFilters.size() ); print(":");
-//  print( justFailedFilters.size() ); print(":");
-//  print( stillPassFilters.size() );println();
+    //  print( prevControlsThatPassFilters.size()); print("=");
+    //  print( justPassedFilters.size() ); print(":");
+    //  print( justFailedFilters.size() ); print(":");
+    //  print( stillPassFilters.size() );println();
 
     controlsTransitingIn = (ArrayList<UIControl>)justPassedFilters.clone();
     controlsTransitingOut = (ArrayList<UIControl>)justFailedFilters.clone();
@@ -343,13 +369,13 @@ void draw()
   }
 
   // SORT DRAW ORDER
-  if( filterOverlay.prevTransitingIn != filterOverlay.transitingIn )
+  if ( filterOverlay.prevTransitingIn != filterOverlay.transitingIn )
   {
-//    print( filterOverlay.prevTransitingIn );
-//    print(":");
-//    println( filterOverlay.transitingIn );
-    
-    if( filterOverlay.transitingIn )
+    //    print( filterOverlay.prevTransitingIn );
+    //    print(":");
+    //    println( filterOverlay.transitingIn );
+
+    if ( filterOverlay.transitingIn )
     {
       sortControlsForAbilityFilters( true );
     }
@@ -359,11 +385,23 @@ void draw()
     }
   }
 
+  if ( global_profilingMode.value )
+  {
+    profilingTimes[1] = millis();
+  }
+
   // DRAW LOOP
   for ( UIControl iUIControl : uiControls )
   {
     if ( iUIControl.visible )
       iUIControl.draw();
+  }
+
+  if ( global_profilingMode.value )
+  {
+    profilingTimes[2] = millis();
+
+    arrayCopy( profilingTimes, prevProfilingTimes );
   }
 }
 
@@ -379,9 +417,16 @@ void mousePressed()
 
 void mouseReleased()
 {
-  if ( activeControl == hoveredControl && activeControl != null )
+  if( activeControl != null )
   {
-    activeControl.onMouseReleased();
+    if ( activeControl == hoveredControl )
+    {
+      activeControl.onMouseReleased();
+    }
+    else
+    {
+      activeControl.onMouseReleasedOutside();
+    }
   }
 
   activeControl = null;
@@ -389,12 +434,12 @@ void mouseReleased()
 
 void keyPressed()
 {
-  if( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  if ( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
   {
     hoveredControl.onKeyPressed();
     return;
   }
-  
+
   switch( key )
   {
   case 32:
@@ -403,7 +448,10 @@ void keyPressed()
   case 'F':
   case 'f':
     global_editFilterMode.value = !global_editFilterMode.value;
-    //firstFilter.active = !firstFilter.active;
+    break;
+  case 'P':
+  case 'p':
+    global_profilingMode.value = !global_profilingMode.value;
     break;
 
   case '1':
@@ -420,7 +468,7 @@ void keyPressed()
 
 void keyTyped()
 {
-  if( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  if ( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
   {
     hoveredControl.onKeyTyped();
   }
@@ -430,14 +478,14 @@ void keyTyped()
 void updateControlsPassFilters()
 {
   ArrayList<UIControl> tControlsThatPassFilters = abilityTreeWidget.getControlsThatPassFilters();
-  
+
   justPassedFilters = new ArrayList<UIControl>();
   justFailedFilters = new ArrayList<UIControl>();
   stillPassFilters = new ArrayList<UIControl>();
-  
-  for( UIControl iControl : tControlsThatPassFilters )
+
+  for ( UIControl iControl : tControlsThatPassFilters )
   {
-    if( prevControlsThatPassFilters.contains( iControl ) )
+    if ( prevControlsThatPassFilters.contains( iControl ) )
     {
       stillPassFilters.add( iControl );
     }
@@ -446,10 +494,10 @@ void updateControlsPassFilters()
       justPassedFilters.add( iControl );
     }
   }
-  
-  for( UIControl iPrevControl : prevControlsThatPassFilters )
+
+  for ( UIControl iPrevControl : prevControlsThatPassFilters )
   {
-    if( !tControlsThatPassFilters.contains( iPrevControl ) )
+    if ( !tControlsThatPassFilters.contains( iPrevControl ) )
     {
       justFailedFilters.add( iPrevControl );
     }
@@ -460,17 +508,17 @@ void updateControlsPassFilters()
 
 void sortControlsForAbilityFilters( boolean aTransitIn )
 {
-//  print( prevControlsThatPassFilters.size()); print("=");
-//  print( controlsTransitingIn.size() ); print(":");
-//  print( controlsTransitingOut.size() ); print(":");
-//  print( controlsRemainUnfiltered.size() );println();
-  
-  
+  //  print( prevControlsThatPassFilters.size()); print("=");
+  //  print( controlsTransitingIn.size() ); print(":");
+  //  print( controlsTransitingOut.size() ); print(":");
+  //  print( controlsRemainUnfiltered.size() );println();
+
+
   ArrayList<UIControl> tToMoveToFront = new ArrayList<UIControl>();
 
   tToMoveToFront.add( filterOverlay );
 
-  if( aTransitIn )
+  if ( aTransitIn )
   {
     tToMoveToFront.addAll( controlsTransitingOut );
   }
@@ -482,7 +530,7 @@ void sortControlsForAbilityFilters( boolean aTransitIn )
   tToMoveToFront.add( filterOverlaySecondary );
 
   tToMoveToFront.addAll( controlsRemainUnfiltered );
-//  tToMoveToFront.addAll( abilityTreeWidget.getControlsThatPassFilters() );
+  //  tToMoveToFront.addAll( abilityTreeWidget.getControlsThatPassFilters() );
 
   for ( UIControl iOverlayChild : filterOverlay.controls.keySet() ) { 
     tToMoveToFront.add( iOverlayChild );
@@ -513,3 +561,4 @@ void sortControlsForAbilityFilters( boolean aTransitIn )
     uiControls.add( iUIControl );
   }
 }
+

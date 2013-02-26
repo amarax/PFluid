@@ -31,7 +31,7 @@ class TSW_UIControl_AbilityNode extends UIControl
     parentTreeControl = aParentTreeControl;
 
     float tDampingFactor = 0.05;
-    
+
     damper_startAngle = new DampingHelper_Float( tDampingFactor, 0 );
     damper_endAngle = new DampingHelper_Float( tDampingFactor, 0 );
 
@@ -49,13 +49,13 @@ class TSW_UIControl_AbilityNode extends UIControl
 
 
     float tDampingFactor = 0.05;
-    if( parentTreeControl.rotatingByDrag )
+    if ( parentTreeControl.rotatingByDrag )
     {
       tDampingFactor = 0.3;
     }
     damper_startAngle.setDampingFactor( tDampingFactor );
     damper_endAngle.setDampingFactor( tDampingFactor );
-    
+
     damper_startAngle.update( cStartAngle );
     damper_endAngle.update( cEndAngle );
 
@@ -102,7 +102,7 @@ class TSW_UIControl_AbilityNode extends UIControl
 
       tRadius = tDistanceFromCenter + tArcThickness / 2;
 
-      if( damper_glowFactor.getValue() > EPSILON )
+      if ( damper_glowFactor.getValue() > EPSILON )
       {
         stroke( hue( nodeColor ), saturation( nodeColor ) + ( ( saturation( nodeColor ) > 0 ) ? ( 1 - saturation( nodeColor ) ) * 0.5 * damper_glowFactor.getValue() : 0 ), 1.0, alpha( nodeColor ) * brightness( nodeColor ) * 0.4 * damper_glowFactor.getValue() );
 
@@ -135,10 +135,10 @@ class TSW_UIControl_AbilityNode extends UIControl
     {
       noFill();
       strokeCap( SQUARE );
-      
+
       float tAlphaFactor = min( 0.4 + tArcLength * 0.4, 1.0 );
       color tNodeColor = color( hue( nodeColor ), saturation( nodeColor ), brightness( nodeColor ), alpha( nodeColor ) * tAlphaFactor );
-      
+
       strokeWeight( max( tArcLength, 1.0 ) );
       stroke( tNodeColor );
 
@@ -149,7 +149,7 @@ class TSW_UIControl_AbilityNode extends UIControl
       tStartPoint.y += tDistanceFromCenter * sin( tMidAngle );
       tEndPoint.x += ( tDistanceFromCenter + tArcThickness ) * cos( tMidAngle );
       tEndPoint.y += ( tDistanceFromCenter + tArcThickness ) * sin( tMidAngle );
-      
+
       line( tStartPoint.x, tStartPoint.y, tEndPoint.x, tEndPoint.y );
     }
   }
@@ -168,13 +168,13 @@ class TSW_UIControl_AbilityNode extends UIControl
       if ( tDist >= cDistanceFromCenter && tDist <= cDistanceFromCenter + cThickness )
       {
         float tRelativeAngle = atan2( mouseY - tCenter.y, mouseX - tCenter.x );
-//        float tOffsetAngle = angleOffset.value;
-//        if ( global_lineMode.value ) { 
-//          tOffsetAngle = -parentTreeControl.getCenterPos().x / parentTreeControl.getSize();
-//        }
-//        while ( tRelativeAngle < 0 + tOffsetAngle ) { 
-//          tRelativeAngle += TWO_PI;
-//        }
+        //        float tOffsetAngle = angleOffset.value;
+        //        if ( global_lineMode.value ) { 
+        //          tOffsetAngle = -parentTreeControl.getCenterPos().x / parentTreeControl.getSize();
+        //        }
+        //        while ( tRelativeAngle < 0 + tOffsetAngle ) { 
+        //          tRelativeAngle += TWO_PI;
+        //        }
 
         return Angle.isWithinAngles( tRelativeAngle, damper_startAngle.getValue(), damper_endAngle.getValue() );
       }
@@ -211,7 +211,7 @@ class TSW_UIControl_AbilityBranch extends TSW_UIControl_AbilityNode
   public void setup( TSW_UIControl_AbilityTree aParentTreeControl )
   {
     super.setup( aParentTreeControl );
-    
+
     nodeGapSize = branchGapSize;
   }
 
@@ -220,17 +220,17 @@ class TSW_UIControl_AbilityBranch extends TSW_UIControl_AbilityNode
     super.update();
 
     cThickness = ringThickness.value;
-    
+
     float tGlow = 0.0;
-    if( this == parentTreeControl.selectedAbilityBranch )
+    if ( this == parentTreeControl.selectedAbilityBranch )
     {
       tGlow = 0.667;
     }
-    if( this == hoveredControl )
+    if ( this == hoveredControl )
     {
       tGlow = 1.0;
     }
-    
+
     damper_glowFactor.update( tGlow );
   }
 
@@ -258,9 +258,16 @@ class TSW_UIControl_AbilityBranch extends TSW_UIControl_AbilityNode
 
       if ( tAlpha >= EPSILON )
       {
-        textAlign( CENTER, CENTER );
-        fill( 0, 0, 1, tAlpha );
-        text( linkedNode.name, tArcCenter.x, tArcCenter.y );
+        //        textAlign( CENTER, CENTER );
+        //        fill( 0, 0, 1, tAlpha );
+        //        text( linkedNode.name, tArcCenter.x, tArcCenter.y );
+
+        UIOverlay_TextLayer_TextEntry tTextEntry = new UIOverlay_TextLayer_TextEntry();
+        tTextEntry.displayString = linkedNode.name;
+        tTextEntry.displayFont = font_TSW_AbilityTree;
+        tTextEntry.displayColor = color( 0, 0, 1, tAlpha );
+        tTextEntry.anchorPos = tArcCenter;
+        textLayer_FrontMost.addTextEntry( tTextEntry );
       }
     }
   }
@@ -268,7 +275,7 @@ class TSW_UIControl_AbilityBranch extends TSW_UIControl_AbilityNode
   public void onMouseReleased()
   {
     super.onMouseReleased();
-    
+
     if ( parentTreeControl.selectedAbilityBranch != this )
     {
       parentTreeControl.selectedAbilityBranch = this;
@@ -292,10 +299,10 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
   public void setup( TSW_UIControl_AbilityTree aParentTreeControl )
   {
     super.setup( aParentTreeControl );
-    
+
     nodeGapSize = abilityGapSize;
   }
-  
+
   public void update()
   {
     super.update();
@@ -333,7 +340,7 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
       tTextAttachPoint.x += tTextDistanceFromArc * cos( tMidAngle );
       tTextAttachPoint.y += tTextDistanceFromArc * sin( tMidAngle );
 
-      if( global_debug )
+      if ( global_debug )
       {
         noFill();
         stroke( 0, 0, 0.3 );
@@ -350,14 +357,16 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
       tTextCenter.y += 0.5 * tTextDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) );
 
       float tAlpha = damper_hoverFactor.getValue();
-      if( parentTreeControl.isAbilitySelected( this ) ) { tAlpha = 1.0 ; }
+      if ( parentTreeControl.isAbilitySelected( this ) ) { 
+        tAlpha = 1.0 ;
+      }
 
       rectMode( CENTER );
       textAlign( LEFT, TOP );
       fill( 0, 0, 1, tAlpha );
       text( ( (TSW_Ability)linkedNode ).name, tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
 
-      if( global_debug )
+      if ( global_debug )
       {
         noFill();
         stroke( 0, 0, 0.3 );
@@ -366,51 +375,57 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
         rect( tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
       }
 
-      if( tArcLength > 5 )
+      if ( tArcLength > 5 )
       {
-//        PVector tDescriptionTopLeft = new PVector( tTextCenter.x, tTextCenter.y );
-//        tDescriptionTopLeft.x += 0.5 * tTextDimensions.x + 10;
-//        tDescriptionTopLeft.y -= 0.5 * tTextDimensions.y;
-//        rectMode( CORNER );
-//        textFont( font_TSW_AbilityDescription );
-//        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, 200, 100 );
+        //        PVector tDescriptionTopLeft = new PVector( tTextCenter.x, tTextCenter.y );
+        //        tDescriptionTopLeft.x += 0.5 * tTextDimensions.x + 10;
+        //        tDescriptionTopLeft.y -= 0.5 * tTextDimensions.y;
+        //        rectMode( CORNER );
+        //        textFont( font_TSW_AbilityDescription );
+        //        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, 200, 100 );
 
         float tMargin = 3;
         PVector tDescriptionAttachPoint = new PVector( tTextAttachPoint.x, tTextAttachPoint.y );
         tDescriptionAttachPoint.x += tTextDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) ) + signof( cos( tMidAngle ) ) * tMargin;
         tDescriptionAttachPoint.y += tTextDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) ) + signof( sin( tMidAngle ) ) * tMargin;
-        
+
         // DEBUG DescriptionAttachPoint
-//        noFill();
-//        stroke( 0, 0, 0.3 );
-//        strokeCap( SQUARE );
-//        strokeWeight( 1 );
-//        pointcross( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y, 10 );
-        
+        //        noFill();
+        //        stroke( 0, 0, 0.3 );
+        //        strokeCap( SQUARE );
+        //        strokeWeight( 1 );
+        //        pointcross( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y, 10 );
+
         PVector tDescriptionDimensions = new PVector( 200, 150 );
         PVector tDescriptionCenter = new PVector( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y );
         tDescriptionCenter.x += 0.5 * tDescriptionDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) );
         tDescriptionCenter.y += 0.5 * tDescriptionDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) );
 
-        PVector tTextHalfDimensions = new PVector(); PVector.mult( tTextDimensions, 0.5, tTextHalfDimensions );
-        PVector tTextTopLeft = new PVector(); PVector.sub( tTextCenter, tTextHalfDimensions, tTextTopLeft );
-        PVector tTextBottomRight = new PVector(); PVector.add( tTextCenter, tTextHalfDimensions, tTextBottomRight );
+        PVector tTextHalfDimensions = new PVector(); 
+        PVector.mult( tTextDimensions, 0.5, tTextHalfDimensions );
+        PVector tTextTopLeft = new PVector(); 
+        PVector.sub( tTextCenter, tTextHalfDimensions, tTextTopLeft );
+        PVector tTextBottomRight = new PVector(); 
+        PVector.add( tTextCenter, tTextHalfDimensions, tTextBottomRight );
 
-        PVector tDescriptionHalfDimensions = new PVector(); PVector.mult( tDescriptionDimensions, 0.5, tDescriptionHalfDimensions );
-        PVector tDescriptionTopLeft = new PVector(); PVector.sub( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionTopLeft );
-        PVector tDescriptionBottomRight = new PVector(); PVector.add( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionBottomRight );
+        PVector tDescriptionHalfDimensions = new PVector(); 
+        PVector.mult( tDescriptionDimensions, 0.5, tDescriptionHalfDimensions );
+        PVector tDescriptionTopLeft = new PVector(); 
+        PVector.sub( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionTopLeft );
+        PVector tDescriptionBottomRight = new PVector(); 
+        PVector.add( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionBottomRight );
 
         int tTextHAlign = LEFT;
         int tTextVAlign = TOP;
-        if( tDescriptionCenter.x < tTextCenter.x && !global_lineMode.value )
+        if ( tDescriptionCenter.x < tTextCenter.x && !global_lineMode.value )
         {
-          tTextHAlign = RIGHT;  
+          tTextHAlign = RIGHT;
         }
-        if( tDescriptionTopLeft.y < tTextTopLeft.y && tDescriptionBottomRight.y > tTextBottomRight.y )
+        if ( tDescriptionTopLeft.y < tTextTopLeft.y && tDescriptionBottomRight.y > tTextBottomRight.y )
         {
           tTextVAlign = CENTER;
         }
-        else if( tDescriptionTopLeft.y < tTextTopLeft.y )
+        else if ( tDescriptionTopLeft.y < tTextTopLeft.y )
         {
           tTextVAlign = BOTTOM;
         }
@@ -421,11 +436,11 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
         text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
 
         // DEBUG Box around description
-//        noFill();
-//        stroke( 0, 0, 0.3 );
-//        strokeCap( SQUARE );
-//        strokeWeight( 1 );
-//        rect( tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
+        //        noFill();
+        //        stroke( 0, 0, 0.3 );
+        //        strokeCap( SQUARE );
+        //        strokeWeight( 1 );
+        //        rect( tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
       }
 
 

@@ -3,17 +3,17 @@
 class TSW_Filter_Ability
 {
   boolean active;
-  
+
   protected TSW_Filter_Ability()
   {
     active = true;
   }
-  
+
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
-    return true; 
+    return true;
   }
-  
+
   public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
   {
     return new TSW_UIControl_Filter_AbilityWheel();
@@ -75,7 +75,7 @@ class TSW_Filter_Ability_Description extends TSW_Filter_Ability_SearchString
 class TSW_Filter_Ability_Unlocked extends TSW_Filter_Ability
 {
   boolean unlocked;
-  
+
   public TSW_Filter_Ability_Unlocked( boolean aUnlocked )
   {
     unlocked = aUnlocked;
@@ -83,15 +83,15 @@ class TSW_Filter_Ability_Unlocked extends TSW_Filter_Ability
 
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
-    if( aAbility.linkedControl != null )
+    if ( aAbility.linkedControl != null )
     {
       return ( (TSW_UIControl_Ability)aAbility.linkedControl ).unlocked == unlocked;
     }
-    
+
     return false;
   }
 
-  
+
   public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
   {
     return new TSW_UIOverlay_Filter_Ability_Unlocked();
@@ -101,7 +101,7 @@ class TSW_Filter_Ability_Unlocked extends TSW_Filter_Ability
 class TSW_Filter_Ability_Selected extends TSW_Filter_Ability
 {
   boolean selected;
-  
+
   public TSW_Filter_Ability_Selected( boolean aSelected )
   {
     selected = aSelected;
@@ -109,7 +109,7 @@ class TSW_Filter_Ability_Selected extends TSW_Filter_Ability
 
   public boolean doesAbilityPass( TSW_Ability aAbility )
   {
-    if( aAbility.linkedControl != null )
+    if ( aAbility.linkedControl != null )
     {
       return abilityTreeWidget.isAbilitySelected( (TSW_UIControl_Ability)aAbility.linkedControl ) == selected;
     }
@@ -117,9 +117,10 @@ class TSW_Filter_Ability_Selected extends TSW_Filter_Ability
     return false;
   }
 
-  
+
   public TSW_UIControl_Filter_AbilityWheel createNewLinkedControl()
   {
     return new TSW_UIOverlay_Filter_Ability_Selected();
   }
 }
+

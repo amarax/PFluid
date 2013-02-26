@@ -69,9 +69,12 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
     }
     tAlpha *= 0.8;
 
-    noStroke();
-    fill( 0, 0, 0.1, tAlpha );
-    ellipse( tCenterPos.x, tCenterPos.y, tRadius, tRadius );
+    if ( tAlpha > EPSILON )
+    {
+      noStroke();
+      fill( 0, 0, 0.1, tAlpha );
+      ellipse( tCenterPos.x, tCenterPos.y, tRadius, tRadius );
+    }
   }
 
   public float getSize()
@@ -349,29 +352,29 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     int tDisplayIndex = 0;
 
     int iIndex = 0;
-    while( iIndex < abilityTreeControl.abilityFilters.indexOf( linkedFilter ) )
+    while ( iIndex < abilityTreeControl.abilityFilters.indexOf ( linkedFilter ) )
     {
-      if( abilityTreeControl.abilityFilters.get( iIndex ).active == linkedFilter.active )
+      if ( abilityTreeControl.abilityFilters.get( iIndex ).active == linkedFilter.active )
       {
         ++tDisplayIndex;
       }
-      
+
       ++iIndex;
     }
 
     int tTotalFilters = abilityTreeControl.abilityFilters.size();
-    if( linkedFilter.active )
+    if ( linkedFilter.active )
     {
       tTotalFilters = 0;
-      for( TSW_Filter_Ability iFilter : abilityTreeControl.abilityFilters )
+      for ( TSW_Filter_Ability iFilter : abilityTreeControl.abilityFilters )
       {
-        if( iFilter.active )
+        if ( iFilter.active )
         {
           ++tTotalFilters;
         }
       }
     }
-    
+
     float tAngleMargin = 0.08;
     float tTextAngle = HALF_PI / 3.0;
     if ( linkedFilter.active ) { 
@@ -412,12 +415,12 @@ class TSW_UIOverlay_Filter_Ability_EditableString extends TSW_UIControl_Filter_A
       caretPos = getSearchString().length();
     }
   }
-  
+
   public void update()
   {
     super.update();
-    
-    if( !editMode && animHelper_hoverFactor.getValue() < EPSILON )
+
+    if ( !editMode && animHelper_hoverFactor.getValue() < EPSILON )
     {
       caretPos = getSearchString().length();
     }
@@ -450,7 +453,7 @@ class TSW_UIOverlay_Filter_Ability_EditableString extends TSW_UIControl_Filter_A
 
       noStroke();
       fill( 0, 0, 0.8, 0.3 * tAlpha * animHelper_hoverFactor.getValue() );
-      rect( ceil( tTextAnchorPoint.x + tCaretXPos * animHelper_hoverFactor.getValue() ), tCaretTopLeft.y, 1 + textWidth( getSearchString() ) * ( 1 - animHelper_hoverFactor.getValue() ), tTextHeight + 2 * tMargin );
+      rect( tTextAnchorPoint.x - 0.5 + tCaretXPos * animHelper_hoverFactor.getValue(), tCaretTopLeft.y, 1 + textWidth( getSearchString() ) * ( 1 - animHelper_hoverFactor.getValue() ), tTextHeight + 2 * tMargin );
     }
 
     fill( 0, 0, 0.8, tAlpha );

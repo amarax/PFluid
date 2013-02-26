@@ -135,7 +135,7 @@ class TSW_CSVParser
         tMinorBranches.add( tMinorBranch );
       }
 
-      for ( int iRow = 0; iRow + 4 * tMinorBranchesPerWeapon < tEntries.size(); iRow += 4 * tMinorBranchesPerWeapon )
+      for ( int iRow = 0; iRow + 4 * tMinorBranchesPerWeapon <= tEntries.size(); iRow += 4 * tMinorBranchesPerWeapon )
       {
         int iIndex = 0;
         while ( iIndex < tMinorBranchesPerWeapon )
@@ -153,7 +153,7 @@ class TSW_CSVParser
           TSW_Ability tAbility = abilityTree.addNewAbility( tAbilityName, tAbilityPoints, tColorSet.ability_locked, tColorSet.ability_unlocked, tMinorBranches.get( iIndex ) );
           tAbility.description = tAbilityDescriptors + "\n" + tAbilityDescription;
           //tAbility.tags.addAll( parseAbilityDescriptors( tAbilityDescriptors ) ); 
-          
+
 
           ++iIndex;
         }
@@ -206,7 +206,7 @@ class TSW_CSVParser
 
         tCurrentBranch = tAuxiliaryRangedBranch;
       }
-      
+
       return tCurrentBranch;
     }
 
@@ -214,7 +214,7 @@ class TSW_CSVParser
     {
       tCurrentBranch = tMainWheel;
       tColorSet = colorSet_misc;
-      
+
       return tCurrentBranch;
     }
 
@@ -270,11 +270,11 @@ class TSW_CSVParser
 
     return true;
   }
-  
+
   public ArrayList<String> parseAbilityDescriptors( String aString )
   {
     ArrayList<String> tTags = new ArrayList<String>();
-    
+
     return null;
   }
 }
