@@ -73,7 +73,7 @@ void setup()
 
 
 
-  int appWidth = 1600, appHeight = 900;
+  int appWidth = 1280, appHeight = 720;
   try
   {
     BufferedReader tConfigReader = createReader( "config.txt" );
@@ -83,8 +83,8 @@ void setup()
       if ( tLine.substring( 0, 5 ).equals( "size=" ) )
       {
         String[] tTokens = splitTokens( tLine, "=," );
-        //appWidth = int( tTokens[1] );
-        //appHeight = int( tTokens[2] );
+        appWidth = int( tTokens[1] );
+        appHeight = int( tTokens[2] );
       }
 
       tConfigReader.close();
@@ -434,7 +434,12 @@ void mouseReleased()
 
 void keyPressed()
 {
-  if ( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  if ( activeControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  {
+    activeControl.onKeyPressed();
+    return;
+  }
+  else if ( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
   {
     hoveredControl.onKeyPressed();
     return;
@@ -468,7 +473,12 @@ void keyPressed()
 
 void keyTyped()
 {
-  if ( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  if ( activeControl instanceof TSW_UIControl_Filter_AbilityWheel )
+  {
+    activeControl.onKeyTyped();
+    return;
+  }
+  else if ( hoveredControl instanceof TSW_UIControl_Filter_AbilityWheel )
   {
     hoveredControl.onKeyTyped();
   }
