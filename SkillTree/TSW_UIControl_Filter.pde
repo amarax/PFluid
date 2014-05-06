@@ -8,7 +8,7 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
 
   boolean transitingIn;
   boolean prevTransitingIn;
-  
+
   public TSW_UIOverlay_Filter_AbilityTree( Global_Boolean aActivated )
   {
     super( aActivated, new PVector( 0, 0 ) );
@@ -112,8 +112,6 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
   DampingHelper_Float dampingHelper_filterAddRatio, dampingHelper_carryOverRatio;
   DampingHelper_Float dampingHelper_textAngle;
 
-  boolean dragging;
-
   Rectangle cHitRect;
 
   public TSW_UIControl_Filter_AbilityWheel()
@@ -123,8 +121,6 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     cHitRect = new Rectangle();
 
     editMode = false;
-    
-    dragging = false;
   }
 
   public void setup( TSW_Filter_Ability aLinkedFilter, TSW_UIControl_AbilityTree aAbilityTreeControl )
@@ -149,45 +145,11 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
   public void update()
   {
     super.update();
-    
-    if( mousePressedPos != null )
-    {
-      if( !dragging )
-      {
-        if( mouseX != mousePressedPos.x || mouseY != mousePressedPos.y )
-        {
-          dragging = true;
-        }
-      }
-    }
-    
-    // editMode = !dragging;
-
-    if( dragging )
-    {
-      animHelper_hoverFactor.update( 1 );
-      
-      dampingHelper_textAngle.setDampingFactor( 1 );
-    }
-    else
-    {
-      dampingHelper_textAngle.setDampingFactor( 0.2 );
-    }
-    
-    linkedFilter.active = dampingHelper_textAngle.getValue() < 0;
-    
 
     // TODO Should update extents rect 
     rect = new Rectangle();
 
-    if( activeControl == null )
-    {
-      editMode = this == hoveredControl;
-    }
-    else
-    {
-      editMode = this == activeControl;
-    }
+    editMode = this == hoveredControl;
 
     cFilterAddRatio = 0.0;
     cCarryOverRatio = 0.0;
@@ -247,7 +209,7 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     dampingHelper_filterAddRatio.update( cFilterAddRatio );
     dampingHelper_carryOverRatio.update( cCarryOverRatio );
 
-    dampingHelper_textAngle.update( calcTextAngle() );
+    dampingHelper_textAngle.update( calcTextAngle() );    
 
     PVector tTextDimensions = new PVector( 150, 16 );
 
@@ -340,7 +302,7 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     if ( linkedFilter.active ) { 
       tAlpha = 0.8;
     }
-    if ( this == hoveredControl || this == activeControl || animHelper_hoverFactor.getValue() > EPSILON ) { 
+    if ( this == hoveredControl || this == activeControl ) { 
       tAlpha = ( 1.0 - tAlpha ) * animHelper_hoverFactor.getValue() + tAlpha;
     }
 
@@ -363,23 +325,9 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
   {
     super.onMousePressed();
 
-    //linkedFilter.active = !linkedFilter.active;
+    linkedFilter.active = !linkedFilter.active;
 
     //    filterEasingFactor.start( 0.3 );
-  }
-  
-  public void onMouseReleased()
-  {
-    super.onMouseReleased();
-    
-    dragging = false;
-  }
-
-  public void onMouseReleasedOutside()
-  {
-    super.onMouseReleasedOutside();
-    
-    dragging = false;
   }
 
 
@@ -428,26 +376,13 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     }
 
     float tAngleMargin = 0.08;
-    float tInactiveAngle = HALF_PI / 3.0;
-    float tActiveAngle = tInactiveAngle;
-    tInactiveAngle += ( tTotalFilters - tDisplayIndex ) * -tAngleMargin;
-    tActiveAngle *= -1; 
-    tActiveAngle -= abilityTreeControl.abilityFilters.size() * -tAngleMargin;
-    tActiveAngle += ( tTotalFilters - tDisplayIndex ) * -tAngleMargin;
-
-    if( dragging )
-    {
-      float tDraggedAngle = atan2( mouseY - abilityTreeControl.getCenterPos().y, mouseX - abilityTreeControl.getCenterPos().x );
-      //return max( min( tDraggedAngle, tInactiveAngle ), tActiveAngle );
-      return tDraggedAngle;
+    float tTextAngle = HALF_PI / 3.0;
+    if ( linkedFilter.active ) { 
+      tTextAngle *= -1; 
+      tTextAngle -= abilityTreeControl.abilityFilters.size() * -tAngleMargin;
     }
-
-    if( linkedFilter.active )
-    {
-      return tActiveAngle;
-    }
-    
-    return tInactiveAngle;
+    tTextAngle += ( tTotalFilters - tDisplayIndex ) * -tAngleMargin;
+    return tTextAngle;
   }
 
   public String getFilterName()
@@ -504,22 +439,21 @@ class TSW_UIOverlay_Filter_Ability_EditableString extends TSW_UIControl_Filter_A
     if ( linkedFilter.active ) { 
       tAlpha = 0.8;
     }
-    if ( this == hoveredControl || this == activeControl || animHelper_hoverFactor.getValue() > EPSILON ) { 
+    if ( this == hoveredControl || this == activeControl ) { 
       tAlpha = ( 1.0 - tAlpha ) * animHelper_hoverFactor.getValue() + tAlpha;
     }
 
-    if ( ( this == activeControl || editMode ) && animHelper_hoverFactor.getValue() > EPSILON )
+    //if( editMode )
+    if ( animHelper_hoverFactor.getValue() > EPSILON )
     {
       float tCaretXPos = calcCaretXPos();
       float tTextHeight = textAscent() + textDescent();
       float tMargin = 2;
       PVector tCaretTopLeft = new PVector( tTextAnchorPoint.x + tCaretXPos, tTextAnchorPoint.y - tTextHeight / 2.0 - tMargin );
-      
-      float tFactor = editMode ? 1 : animHelper_hoverFactor.getValue();
 
       noStroke();
       fill( 0, 0, 0.8, 0.3 * tAlpha * animHelper_hoverFactor.getValue() );
-      rect( tTextAnchorPoint.x - 0.5 + tCaretXPos * tFactor, tCaretTopLeft.y, 1 + textWidth( getSearchString() ) * ( 1 - tFactor ), tTextHeight + 2 * tMargin );
+      rect( tTextAnchorPoint.x - 0.5 + tCaretXPos * animHelper_hoverFactor.getValue(), tCaretTopLeft.y, 1 + textWidth( getSearchString() ) * ( 1 - animHelper_hoverFactor.getValue() ), tTextHeight + 2 * tMargin );
     }
 
     fill( 0, 0, 0.8, tAlpha );
