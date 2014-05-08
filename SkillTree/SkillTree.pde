@@ -28,6 +28,8 @@ UIControl activeControl = null;
 
 Global_Boolean global_lineMode = new Global_Boolean( false );
 
+Global_Boolean global_showDescriptions = new Global_Boolean( true );
+
 Global_Boolean global_filterModeExclusive = new Global_Boolean( false );
 
 Global_Boolean global_adjustSizeMode = new Global_Boolean( false );
@@ -51,6 +53,8 @@ Global_Boolean global_profilingMode = new Global_Boolean( false );
 int[] profilingTimes = new int[3];
 int[] prevProfilingTimes = new int[3];
 
+
+TSW_UIOverlay_AbilityDescriptions descriptionOverlay;
 
 TSW_UIOverlay_Filter_AbilityTree filterOverlay;
 TSW_UIOverlay_Filter_AbilityTree filterOverlaySecondary;
@@ -164,6 +168,11 @@ void setup()
   tSizeByPoints.setup( sizeByPoints );
 
   abilityTreeWidget.setup();
+  
+  
+  descriptionOverlay = new TSW_UIOverlay_AbilityDescriptions( global_showDescriptions );
+  uiControls.add( descriptionOverlay );
+  descriptionOverlay.setup( abilityTreeWidget );
 
 
   filterOverlay = new TSW_UIOverlay_Filter_AbilityTree( global_editFilterMode );
@@ -178,7 +187,7 @@ void setup()
   UIControl_Switch tSwitch_FilterModeExclusive = new UIControl_Switch( new Rectangle( width - tSize - 50 - 25, tYPos, tSize, 20 ) );
   tSwitch_FilterModeExclusive.setLabel( "Filter Mode" );
   tSwitch_FilterModeExclusive.setOnOffLabels( "Inclusive", "Exclusive" );
-  uiControls.add( tSwitch_FilterModeExclusive );
+  //uiControls.add( tSwitch_FilterModeExclusive );
   filterOverlay.addControl( tSwitch_FilterModeExclusive );
   tYPos += tOffset;
 
@@ -226,59 +235,59 @@ void setup()
   tSize = 215;
   UIControl_Slider tSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tSizeSlider.setLabel( "Outer Ring Size" );
-  uiControls.add( tSizeSlider );
+  //uiControls.add( tSizeSlider );
   tAdjustSizeOverlay.addControl( tSizeSlider );
   tYPos += tOffset;
 
   UIControl_RadiusGizmo tOuterRingSizeRadius = new UIControl_RadiusGizmo( abilityTreeWidget.centerPos );
   tOuterRingSizeRadius.setup( global_outerRingSize );
-  uiControls.add( tOuterRingSizeRadius );
+  //uiControls.add( tOuterRingSizeRadius );
   tAdjustSizeOverlay.addControl( tOuterRingSizeRadius );
 
   tSize = 215;
   UIControl_Slider tInnerSizeSlider = new UIControl_Slider( 20, tSize * 2 + 20, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tInnerSizeSlider.setLabel( "Inner Ring Distance from Outer Ring" );
-  uiControls.add( tInnerSizeSlider );
+  //uiControls.add( tInnerSizeSlider );
   tAdjustSizeOverlay.addControl( tInnerSizeSlider );
   tYPos += tOffset;
 
   TSW_UIControl_RadiusGizmo_InnerRing tInnerRingSizeRadius = new TSW_UIControl_RadiusGizmo_InnerRing( abilityTreeWidget.centerPos );
   tInnerRingSizeRadius.setup( global_innerRingSize, global_outerRingSize );
-  uiControls.add( tInnerRingSizeRadius );
+  //uiControls.add( tInnerRingSizeRadius );
   tAdjustSizeOverlay.addControl( tInnerRingSizeRadius );
 
   tSize = 200;
   UIControl_Slider tArcThicknessSlider = new UIControl_Slider( 0, tSize/2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tArcThicknessSlider.setLabel( "Branch Ring Thickness" );
-  uiControls.add( tArcThicknessSlider );
+  //uiControls.add( tArcThicknessSlider );
   tAdjustSizeOverlay.addControl( tArcThicknessSlider );
   tYPos += tOffset;
 
   tSize = 200;
   UIControl_Slider tAbilityArcThicknessSlider = new UIControl_Slider( 0, tSize/2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tAbilityArcThicknessSlider.setLabel( "Ability Ring Thickness" );
-  uiControls.add( tAbilityArcThicknessSlider );
+  //uiControls.add( tAbilityArcThicknessSlider );
   tAdjustSizeOverlay.addControl( tAbilityArcThicknessSlider );
   tYPos += tOffset;
 
   tSize = 200;
   UIControl_Slider tGapSizeSlider = new UIControl_Slider( 0, 5, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tGapSizeSlider.setLabel( "Gap between Branches" );
-  uiControls.add( tGapSizeSlider );
+  //uiControls.add( tGapSizeSlider );
   tAdjustSizeOverlay.addControl( tGapSizeSlider );
   tYPos += tOffset;
 
   tSize = 200;
   UIControl_Slider tAbilityGapSizeSlider = new UIControl_Slider( 0, 2, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tAbilityGapSizeSlider.setLabel( "Gap between Abilities" );
-  uiControls.add( tAbilityGapSizeSlider );
+  //uiControls.add( tAbilityGapSizeSlider );
   tAdjustSizeOverlay.addControl( tAbilityGapSizeSlider );
   tYPos += tOffset;
 
   tSize = 200;
   UIControl_Slider tSelectionSizeSlider = new UIControl_Slider( 0, 0.9999, new Rectangle( width - tSize - 50, tYPos, tSize, 12 ) );
   tSelectionSizeSlider.setLabel( "Selected Node Ratio (Size)" );
-  uiControls.add( tSelectionSizeSlider );
+  //uiControls.add( tSelectionSizeSlider );
   tAdjustSizeOverlay.addControl( tSelectionSizeSlider );
   tYPos += tOffset;
 
@@ -457,6 +466,9 @@ void keyPressed()
   case 'P':
   case 'p':
     global_profilingMode.value = !global_profilingMode.value;
+    break;
+  case '`':
+    global_debug = !global_debug;
     break;
 
   case '1':

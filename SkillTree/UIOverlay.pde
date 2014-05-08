@@ -33,6 +33,11 @@ class UIOverlay extends UIControl
     {
       iControl.visible = activated.value;
     }
+    
+    for ( UIControl iControl : controls.keySet() )
+    {
+      iControl.update();
+    }
   }
 
   public void draw()
@@ -40,6 +45,11 @@ class UIOverlay extends UIControl
     super.draw();
 
     drawObscurer();
+
+    for ( UIControl iControl : controls.keySet() )
+    {
+      iControl.draw();
+    }
   }
 
   public boolean isMouseIn()

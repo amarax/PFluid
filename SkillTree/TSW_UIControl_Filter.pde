@@ -48,7 +48,7 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
     if ( mainFilter )
     {
       float tDist = PVector.dist( abilityTreeToFilter.getCenterPos(), new PVector( mouseX, mouseY ) );
-      float tMinDist = abilityTreeToFilter.outerRingSize.value - abilityTreeToFilter.innerRingSize.value;
+      float tMinDist = abilityTreeToFilter.getSize() - abilityTreeToFilter.innerRingSize.value;
       float tMaxDist = getSize();
       return tDist < tMaxDist && tDist > tMinDist;
     }
@@ -79,7 +79,7 @@ class TSW_UIOverlay_Filter_AbilityTree extends UIOverlay
 
   public float getSize()
   {
-    return abilityTreeToFilter.outerRingSize.value + 160;
+    return abilityTreeToFilter.getSize() + 160;
   }
 
   public void updateTransitionStatus()
@@ -115,6 +115,8 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
   boolean dragging;
 
   Rectangle cHitRect;
+  
+  protected PVector cDescriptionMiddleLeft;
 
   public TSW_UIControl_Filter_AbilityWheel()
   {
@@ -324,8 +326,13 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
 
     tAlpha = BACKGROUND_ALPHA;
 
-    float tLineLength = 5 - 2 + 10 * abilityTreeControl.abilityFilters.size();
-    PVector tLineEnd = calcTextAnchorPoint();
+    tAnchorPos = calcTextAnchorPoint();
+
+    float tLineLength = 5 - 2 + 10 * abilityTreeControl.abilityFilters.size() - 4;
+    PVector tLineEnd = new PVector( tAnchorPos.x, tAnchorPos.y );
+    tLineEnd.sub( tCenterPos );
+    tLineEnd.mult( ( tLineEnd.mag() - 4 ) / tLineEnd.mag() );
+    tLineEnd.add( tCenterPos ); 
     PVector tLineStart = new PVector( tLineEnd.x, tLineEnd.y );
     tLineStart.sub( tCenterPos );
     tLineStart.mult( -tLineLength / tLineStart.mag() );
@@ -334,7 +341,6 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     stroke( 0, 0, 0.8, tAlpha );
     line( tLineStart.x, tLineStart.y, tLineEnd.x, tLineEnd.y );
 
-    tAnchorPos = tLineEnd;
 
     tAlpha = 0.4;
     if ( linkedFilter.active ) { 
@@ -344,11 +350,21 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
       tAlpha = ( 1.0 - tAlpha ) * animHelper_hoverFactor.getValue() + tAlpha;
     }
 
+    String tDisplayText = getFilterName();
+
     fill( 0, 0, 0.8, tAlpha );
     textAlign( LEFT, CENTER );
 
     textFont( font_FilterName );
-    text( getFilterName(), tAnchorPos.x + 4, tAnchorPos.y );
+    float tTextHeight = textAscent() + textDescent(); 
+    PVector tTextDimensions = new PVector( textWidth( tDisplayText ) + EPSILON, tTextHeight );
+    PVector tTextCenter = calcArcAnchoredTextCenter( tTextDimensions, tAnchorPos, dampingHelper_textAngle.getValue() );
+
+    rectMode( CENTER );
+    text( tDisplayText, tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
+    rectMode( CORNER );
+    
+    cDescriptionMiddleLeft = new PVector( tTextCenter.x + tTextDimensions.x / 2, tTextCenter.y );
   }
 
 
@@ -386,7 +402,7 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
   public float calcRadius()
   {
     float tOffset = 10 * ( abilityTreeControl.abilityFilters.size() - abilityTreeControl.abilityFilters.indexOf( linkedFilter ) );
-    return abilityTreeControl.outerRingSize.value + 50 + tOffset;
+    return abilityTreeControl.getSize() + 50 + tOffset;
   }
 
   public PVector calcTextAnchorPoint()
@@ -394,7 +410,6 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
     PVector tLineEnd = new PVector( calcRadius() + 5 + abilityTreeControl.abilityFilters.size() * 10, 0 );
     tLineEnd.rotate( dampingHelper_textAngle.getValue() );
     tLineEnd.add( abilityTreeControl.getCenterPos() );
-    tLineEnd.y += 1;
 
     return tLineEnd;
   }
@@ -495,8 +510,8 @@ class TSW_UIOverlay_Filter_Ability_EditableString extends TSW_UIControl_Filter_A
   {
     super.draw();
 
-    PVector tTextAnchorPoint = calcTextAnchorPoint();
-    tTextAnchorPoint.x += 4 + textWidth( getFilterName() ) + 3;
+    PVector tTextAnchorPoint = new PVector( cDescriptionMiddleLeft.x, cDescriptionMiddleLeft.y );
+    tTextAnchorPoint.x += 3;
 
     textFont( font_FilterDetail );
 

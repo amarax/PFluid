@@ -64,8 +64,8 @@ class UIOverlay_TextLayer extends UIOverlay
 
 class UIOverlay_TextLayer_TextEntry
 {
-  final int ANCHORTYPE_NORMAL_ALIGN = 1;
-  final int ANCHORTYPE_CIRCULAR_SNAP = 256;
+  static final int ANCHORTYPE_NORMAL_ALIGN = 1;
+  static final int ANCHORTYPE_CIRCULAR_SNAP = 256;
 
   String displayString;
 
@@ -75,6 +75,7 @@ class UIOverlay_TextLayer_TextEntry
 
   int anchorType;
   PVector anchorPos;
+  float anchorAngle;
 
   int hAlign;
   int vAlign;
@@ -89,6 +90,7 @@ class UIOverlay_TextLayer_TextEntry
 
     anchorType = 1;
     anchorPos = new PVector( 0, 0 );
+    anchorAngle = 0;
 
     hAlign = CENTER;
     vAlign = CENTER;
@@ -116,10 +118,32 @@ class UIOverlay_TextLayer_TextEntry
       break;
     case ANCHORTYPE_CIRCULAR_SNAP:
       {
+        PVector tTextDimensions = calcTextDimensions();
+        PVector tTextCenter = calcArcAnchoredTextCenter( tTextDimensions, anchorPos, anchorAngle );
+
+        rectMode( CENTER );
+        text( displayString, tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
+        rectMode( CORNER );
+
+        if ( global_debug )
+        {
+          noFill();
+          stroke( 0, 0, 0.3 );
+          strokeCap( SQUARE );
+          strokeWeight( 1 );
+          rect( tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
+        }
       }
       break;
     default:
     }
   }
+  
+  public PVector calcTextDimensions()
+  {
+    PVector tTextDimensions = new PVector( textWidth( displayString ) + EPSILON, textAscent() + textDescent() + EPSILON );  // Adding EPSILON to reduce floating point pops of text display
+    return tTextDimensions;
+  }
+  
 }
 

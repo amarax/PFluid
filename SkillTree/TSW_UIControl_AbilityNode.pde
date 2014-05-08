@@ -69,7 +69,7 @@ class TSW_UIControl_AbilityNode extends UIControl
       else
       {
         // Damp in quickly
-        damper_hoverFactor.dampingFactor = 0.5;
+        damper_hoverFactor.dampingFactor = 0.3;
       }
     }
 
@@ -352,95 +352,81 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
       textFont( font_TSW_AbilityName );
       PVector tTextDimensions = new PVector( textWidth( ( (TSW_Ability)linkedNode ).name ) + EPSILON, textAscent() + textDescent() + EPSILON   );
 
-      PVector tTextCenter = new PVector( tTextAttachPoint.x, tTextAttachPoint.y );
-      tTextCenter.x += 0.5 * tTextDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) );
-      tTextCenter.y += 0.5 * tTextDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) );
+      //      PVector tTextCenter = new PVector( tTextAttachPoint.x, tTextAttachPoint.y );
+      //      tTextCenter.x += 0.5 * tTextDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) );
+      //      tTextCenter.y += 0.5 * tTextDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) );
 
       float tAlpha = damper_hoverFactor.getValue();
       if ( parentTreeControl.isAbilitySelected( this ) ) { 
-        tAlpha = 1.0 ;
+        float tMinAlpha = 0.1;
+        tAlpha = tMinAlpha + (1.0 - tMinAlpha) * tAlpha;
       }
 
-      rectMode( CENTER );
-      textAlign( LEFT, TOP );
-      fill( 0, 0, 1, tAlpha );
-      text( ( (TSW_Ability)linkedNode ).name, tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
+      //      rectMode( CENTER );
+      //      textAlign( LEFT, TOP );
+      //      fill( 0, 0, 1, tAlpha );
+      //      text( ( (TSW_Ability)linkedNode ).name, tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
 
-      if ( global_debug )
+      UIOverlay_TextLayer_TextEntry tTextEntry = new UIOverlay_TextLayer_TextEntry();
+      tTextEntry.displayString = linkedNode.name;
+      tTextEntry.displayFont = font_TSW_AbilityName;
+      tTextEntry.displayColor = color( 0, 0, 1, tAlpha );
+      tTextEntry.anchorType = UIOverlay_TextLayer_TextEntry.ANCHORTYPE_CIRCULAR_SNAP;
+      tTextEntry.anchorPos = tTextAttachPoint;
+      tTextEntry.anchorAngle = tMidAngle;
+      tTextEntry.hAlign = LEFT;
+      tTextEntry.vAlign = TOP;
+      textLayer_FrontMost.addTextEntry( tTextEntry );
+
+      float tMinArcLength = 3;
+      if ( tArcLength > tMinArcLength || damper_hoverFactor.getValue() > EPSILON )
       {
-        noFill();
-        stroke( 0, 0, 0.3 );
-        strokeCap( SQUARE );
-        strokeWeight( 1 );
-        rect( tTextCenter.x, tTextCenter.y, tTextDimensions.x, tTextDimensions.y );
-      }
-
-      if ( tArcLength > 5 )
-      {
-        //        PVector tDescriptionTopLeft = new PVector( tTextCenter.x, tTextCenter.y );
-        //        tDescriptionTopLeft.x += 0.5 * tTextDimensions.x + 10;
-        //        tDescriptionTopLeft.y -= 0.5 * tTextDimensions.y;
-        //        rectMode( CORNER );
-        //        textFont( font_TSW_AbilityDescription );
-        //        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, 200, 100 );
-
         float tMargin = 3;
         PVector tDescriptionAttachPoint = new PVector( tTextAttachPoint.x, tTextAttachPoint.y );
         tDescriptionAttachPoint.x += tTextDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) ) + signof( cos( tMidAngle ) ) * tMargin;
         tDescriptionAttachPoint.y += tTextDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) ) + signof( sin( tMidAngle ) ) * tMargin;
 
-        // DEBUG DescriptionAttachPoint
-        //        noFill();
-        //        stroke( 0, 0, 0.3 );
-        //        strokeCap( SQUARE );
-        //        strokeWeight( 1 );
-        //        pointcross( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y, 10 );
+        if ( global_debug )
+        {
+          noFill();
+          stroke( 0, 0, 0.3 );
+          strokeCap( SQUARE );
+          strokeWeight( 1 );
+          pointcross( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y, 10 );
+        }
 
-        PVector tDescriptionDimensions = new PVector( 200, 150 );
+        PVector tDescriptionDimensions = new PVector( 150, 150 );
+
+        int tTextHAlign = LEFT;
+        int tTextVAlign = CENTER;
+
+        textFont( font_TSW_AbilityDescription );
+        float tTextLeading = textAscent() + textDescent() + 3;
+        textLeading( tTextLeading );
+        ArrayList<String> tDescriptionStrings = wrapTextForDisplay( ( (TSW_Ability)linkedNode ).description, tDescriptionDimensions.x );
+        float tCalculatedHeight = tDescriptionStrings.size() * tTextLeading;
+        tDescriptionDimensions.y = tCalculatedHeight;
+
         PVector tDescriptionCenter = new PVector( tDescriptionAttachPoint.x, tDescriptionAttachPoint.y );
         tDescriptionCenter.x += 0.5 * tDescriptionDimensions.x * ( min_abs( sqrt(2) * cos( tMidAngle ), signof( cos( tMidAngle ) ) ) );
         tDescriptionCenter.y += 0.5 * tDescriptionDimensions.y * ( min_abs( sqrt(2) * sin( tMidAngle ), signof( sin( tMidAngle ) ) ) );
 
-        PVector tTextHalfDimensions = new PVector(); 
-        PVector.mult( tTextDimensions, 0.5, tTextHalfDimensions );
-        PVector tTextTopLeft = new PVector(); 
-        PVector.sub( tTextCenter, tTextHalfDimensions, tTextTopLeft );
-        PVector tTextBottomRight = new PVector(); 
-        PVector.add( tTextCenter, tTextHalfDimensions, tTextBottomRight );
-
-        PVector tDescriptionHalfDimensions = new PVector(); 
-        PVector.mult( tDescriptionDimensions, 0.5, tDescriptionHalfDimensions );
-        PVector tDescriptionTopLeft = new PVector(); 
-        PVector.sub( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionTopLeft );
-        PVector tDescriptionBottomRight = new PVector(); 
-        PVector.add( tDescriptionCenter, tDescriptionHalfDimensions, tDescriptionBottomRight );
-
-        int tTextHAlign = LEFT;
-        int tTextVAlign = TOP;
-        if ( tDescriptionCenter.x < tTextCenter.x && !global_lineMode.value )
-        {
-          tTextHAlign = RIGHT;
-        }
-        if ( tDescriptionTopLeft.y < tTextTopLeft.y && tDescriptionBottomRight.y > tTextBottomRight.y )
-        {
-          tTextVAlign = CENTER;
-        }
-        else if ( tDescriptionTopLeft.y < tTextTopLeft.y )
-        {
-          tTextVAlign = BOTTOM;
-        }
-
-        rectMode( CORNER );
+        tAlpha *= max( min( ( tArcLength - tMinArcLength ) / 3.0, 1.0 ), 0.0 );
+        tAlpha = max( tAlpha, damper_hoverFactor.getValue() );
+          
+        fill( 0, 0, 1, tAlpha );
+        rectMode( CENTER );
         textAlign( tTextHAlign, tTextVAlign );
-        textFont( font_TSW_AbilityDescription );
-        text( ( (TSW_Ability)linkedNode ).description, tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
+        text( ( (TSW_Ability)linkedNode ).description, tDescriptionCenter.x, tDescriptionCenter.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
 
-        // DEBUG Box around description
-        //        noFill();
-        //        stroke( 0, 0, 0.3 );
-        //        strokeCap( SQUARE );
-        //        strokeWeight( 1 );
-        //        rect( tDescriptionTopLeft.x, tDescriptionTopLeft.y, tDescriptionDimensions.x, tDescriptionDimensions.y );
+        if ( global_debug )
+        {
+          noFill();
+          stroke( 0, 0, 0.3 );
+          strokeCap( SQUARE );
+          strokeWeight( 1 );
+          rect( tDescriptionCenter.x, tDescriptionCenter.y, tDescriptionDimensions.x, tCalculatedHeight );
+        }
       }
 
 
@@ -461,4 +447,5 @@ class TSW_UIControl_Ability extends TSW_UIControl_AbilityNode
     }
   }
 }
+
 
