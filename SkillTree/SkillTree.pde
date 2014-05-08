@@ -1,5 +1,5 @@
 import java.awt.*;
-
+import java.awt.event.KeyEvent;
 
 PFont font_label;
 PFont font_value;
@@ -168,8 +168,8 @@ void setup()
   tSizeByPoints.setup( sizeByPoints );
 
   abilityTreeWidget.setup();
-  
-  
+
+
   descriptionOverlay = new TSW_UIOverlay_AbilityDescriptions( global_showDescriptions );
   uiControls.add( descriptionOverlay );
   descriptionOverlay.setup( abilityTreeWidget );
@@ -426,7 +426,7 @@ void mousePressed()
 
 void mouseReleased()
 {
-  if( activeControl != null )
+  if ( activeControl != null )
   {
     if ( activeControl == hoveredControl )
     {
@@ -454,8 +454,28 @@ void keyPressed()
     return;
   }
 
+  if ( key == CODED )
+  {
+    switch( keyCode )
+    {
+    case KeyEvent.VK_F5:
+      println("SAVING...");
+      saveAbilityTreeWidgetState( abilityTreeWidget );
+      println("SAVED!");
+      break;
+
+    case KeyEvent.VK_F6:
+      println("LOADING...");
+      restoreAbilityTreeWidgetState( abilityTreeWidget );
+      println("LOADED!");
+      break;
+    }
+    return;
+  }
+
   switch( key )
   {
+
   case 32:
     global_adjustSizeMode.value = !global_adjustSizeMode.value;
     break;
@@ -471,10 +491,15 @@ void keyPressed()
     global_debug = !global_debug;
     break;
 
+  case 8:  // BACKSPACE
+    abilityTreeWidget.clearSelectedAbilities();
+    break;
+
   case '1':
   case '2':
   case '3':
   case '4':
+  case '5':
     int tIndex = int( key ) - 49;
     if ( tIndex < abilityTreeWidget.abilityFilters.size() )
       abilityTreeWidget.abilityFilters.get( tIndex ).active = !abilityTreeWidget.abilityFilters.get( tIndex ).active;

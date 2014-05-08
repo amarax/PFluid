@@ -3,7 +3,7 @@ class TSW_UIControl_AbilityTree extends UIControl
   TSW_AbilityTree abilityTree;
 
   TSW_UIControl_AbilityBranch selectedAbilityBranch;
-  private ArrayList<TSW_UIControl_Ability> selectedAbilities;  
+  private ArrayList<TSW_UIControl_Ability> selectedAbilities; 
 
   ArrayList<TSW_Filter_Ability> abilityFilters;
 
@@ -325,6 +325,16 @@ class TSW_UIControl_AbilityTree extends UIControl
     }
 
     return false;
+  }
+  
+  public ArrayList<TSW_UIControl_Ability> getSelectedAbilities()
+  {
+    return new ArrayList<TSW_UIControl_Ability>( selectedAbilities );
+  }
+  
+  public void clearSelectedAbilities()
+  {
+    selectedAbilities.clear();
   }
 
 

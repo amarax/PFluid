@@ -1,3 +1,10 @@
+// Refactor stuff to have proper Model View Controller structure
+
+
+
+
+
+
 // Make Overlays update and draw their own child UIControls  OK
 //// Also manage them?
 
@@ -7,7 +14,7 @@
 //// Needs to work with line mode as well
 
 // Polish filter dragging
-//// Re-arrange filters
+//// Re-arrange filters  OK
 //// Improve drag point (dragging far from center increases distance from text)
 
 // Fix cirle/line mode transition.

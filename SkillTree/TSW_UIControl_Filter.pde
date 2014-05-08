@@ -170,13 +170,14 @@ class TSW_UIControl_Filter_AbilityWheel extends UIControl
       animHelper_hoverFactor.update( 1 );
       
       dampingHelper_textAngle.setDampingFactor( 1 );
+
+      linkedFilter.active = dampingHelper_textAngle.getValue() < 0;
     }
     else
     {
       dampingHelper_textAngle.setDampingFactor( 0.2 );
     }
     
-    linkedFilter.active = dampingHelper_textAngle.getValue() < 0;
     
 
     // TODO Should update extents rect 
