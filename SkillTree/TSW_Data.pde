@@ -81,7 +81,7 @@ class TSW_CSVParser
         tSubHeader = tHeader;
         tHeader = null;
       }
-      else if ( tHeader.get( 0 ).equals( "Chainsaw" ) || tHeader.get( 0 ).equals( "Rocket Launcher" ) || tHeader.get( 0 ).equals( "Quantum" ) )
+      else if ( tHeader.get( 0 ).equals( "Chainsaw" ) || tHeader.get( 0 ).equals( "Rocket Launcher" ) || tHeader.get( 0 ).equals( "Quantum" ) || tHeader.get( 0 ).equals( "Whip" ) || tHeader.get( 0 ).equals( "Flamethrower" ) )
       {
         tSubHeader = tHeader;
         tHeader = null;
@@ -180,11 +180,11 @@ class TSW_CSVParser
     tColorSet = colorSet_default;
 
     TSW_AbilityBranch tWeaponBranch = null;
-    if ( aWeapon.equals( "Chainsaw" ) || aWeapon.equals( "Quantum" ) || aWeapon.equals( "Rocket Launcher" ) )
+    if ( aWeapon.equals( "Chainsaw" ) || aWeapon.equals( "Quantum" ) || aWeapon.equals( "Rocket Launcher" ) || aWeapon.equals( "Whip" ) || aWeapon.equals( "Flamethrower" )  )
     {
       tColorSet = colorSet_auxiliary;
 
-      if ( aWeapon.equals( "Chainsaw" ) )
+      if ( aWeapon.equals( "Chainsaw" ) || aWeapon.equals( "Whip" ) )
       {
         if ( tAuxiliaryMeleeBranch == null )
         {
@@ -202,7 +202,7 @@ class TSW_CSVParser
 
         tCurrentBranch = tAuxiliaryMagicBranch;
       }
-      else if ( aWeapon.equals( "Rocket Launcher" ) )
+      else if ( aWeapon.equals( "Rocket Launcher" ) || aWeapon.equals( "Flamethrower" ) )
       {
         if ( tAuxiliaryRangedBranch == null )
         {
