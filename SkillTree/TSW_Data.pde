@@ -145,7 +145,12 @@ class TSW_CSVParser
             break;
 
           String tAbilityPointsString = tEntries.get( iIndex + 2 * tMinorBranchesPerWeapon + iRow );
-          int tAbilityPoints = int( trim( tAbilityPointsString.substring( 0, tAbilityPointsString.length() - 2 ) ) );
+          int tAPTextPosition = tAbilityPointsString.indexOf( "ap" );
+          int tAbilityPoints = 0;
+          if( tAPTextPosition > 1 )
+          {
+             tAbilityPoints = int( trim( tAbilityPointsString.substring( 0, tAPTextPosition ) ) );
+          }
 
           String tAbilityDescriptors = tEntries.get( iIndex + 1 * tMinorBranchesPerWeapon + iRow );
           String tAbilityDescription = tEntries.get( iIndex + 3 * tMinorBranchesPerWeapon + iRow );

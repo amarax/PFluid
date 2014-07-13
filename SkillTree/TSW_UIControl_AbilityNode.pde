@@ -48,7 +48,7 @@ class TSW_UIControl_AbilityNode extends UIControl
     nodeColor = linkedNode.getNodeColor();
 
 
-    float tDampingFactor = 0.05;
+    float tDampingFactor = 0.3;
     if ( parentTreeControl.rotatingByDrag )
     {
       tDampingFactor = 0.3;
