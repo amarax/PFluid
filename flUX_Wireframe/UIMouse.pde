@@ -115,8 +115,14 @@ void mousePressed()
     {
       if ( mouseCursor.focusedEntity != null )
       {
+        if( mouseCursor.focusedEntity.parent instanceof EditableRect )
+        {
+          world.selectedEntity = mouseCursor.focusedEntity.parent;
+        } 
+
         mouseCursor.focusedEntity = null;
         uiModeManager.currentMode = UIMODE_RESIZABLE;
+        
       }
     } else if ( uiModeManager.currentMode == UIMODE_RESIZABLE )
     {

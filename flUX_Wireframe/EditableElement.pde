@@ -66,8 +66,6 @@ class EditableRect extends EditableElement
 
   void update()
   {
-    super.update();
-
     calcEdgeRects();
 
     left = getPinnedSideValue( PINARRAY_LEFT );
@@ -90,7 +88,7 @@ class EditableRect extends EditableElement
             right = left;
             left = mouseCursor.position.x;
             edgeBeingEdited -= 2;
-            
+
             swapPins( 1, 0 );
           }
           break;
@@ -139,6 +137,8 @@ class EditableRect extends EditableElement
       {
       }
     }
+
+    super.update();
   }
 
   void swapPins( int iIndexA, int iIndexB )
@@ -206,7 +206,36 @@ class EditableRect extends EditableElement
   {
     super.plot();
 
-    color tWireframeColor = this == world.selectedEntity ? color_selectedEditableElementRect : color_defaultEditableElementRect;
+    color tWireframeColor = color_defaultEditableElementRect;
+    if ( this == world.selectedEntity )
+    {
+      tWireframeColor = color_selectedEditableElementRect;
+    } 
+    else if ( parent == world.selectedEntity && parent instanceof EditableRect )
+    {
+      tWireframeColor = color_selectedEditableElementRectChild;
+    }
+    else
+    {
+      boolean tIsChildSelected = false;
+      for( Entity iChild : childEntities )
+      {
+        if( iChild instanceof EditableRect )
+        {
+          EditableRect tRectChild = (EditableRect)iChild;
+          if( tRectChild == world.selectedEntity )
+          {
+            tIsChildSelected = true;
+            break;
+          }
+        }
+      }
+      
+      if (tIsChildSelected) 
+      {
+        tWireframeColor = color_selectedEditableElementRectParent;
+      }
+    }
     if ( uiModeManager.currentMode == UIMODE_PINNING && mouseCursor.focusedEntity != this )
       tWireframeColor = isValidPinningTarget() ? tWireframeColor : color_greyedEditableElementRect;
 
