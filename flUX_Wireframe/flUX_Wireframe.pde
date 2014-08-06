@@ -16,7 +16,7 @@ void setup()
   uiModeManager = new UIModeManager();
   
   size( 1280, 720 );
-  
+
   setupColors();
   colorMode( HSB, 1.0 );
 

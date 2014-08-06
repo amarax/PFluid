@@ -109,6 +109,8 @@ class Entity
 
   ArrayList<Entity> childrenToRemove;
 
+  boolean selectable;
+
   Entity()
   {
     super();
@@ -117,6 +119,8 @@ class Entity
 
     childEntities = new ArrayList<Entity>();
     childrenToRemove = new ArrayList<Entity>();
+    
+    selectable = false;
   }
 
   void update()
@@ -194,6 +198,13 @@ class Entity
   {
     childEntities.add( aEntity );
     aEntity.parent = this;
+    
+    onSetParent();
+  }
+  
+  void onSetParent()
+  {
+    
   }
 
   void processKeyBuffer( KeyBuffer aKeyBuffer )

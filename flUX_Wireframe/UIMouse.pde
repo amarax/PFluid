@@ -29,6 +29,9 @@ class MouseCursor
       focusedEntity.position.set( position );
       tNewRect.left = position.x;
       tNewRect.top = position.y;
+      
+      tNewRect.pinArray.get( PINARRAY_LEFT ).updateOffset( position.x );
+      tNewRect.pinArray.get( PINARRAY_TOP ).updateOffset( position.y );
 
       EditableElement tEditableParent = editableElement;
       if ( world.selectedEntity != null )
@@ -101,7 +104,17 @@ void mousePressed()
 {
   mouseDownPos = new PVector( mouseX, mouseY );
 
-  world.selectedEntity = mouseCursor.hoveredEntity;
+  if( mouseCursor.hoveredEntity != null )
+  {
+    if( mouseCursor.hoveredEntity.selectable )
+    {
+      world.selectedEntity = mouseCursor.hoveredEntity;
+    }
+  }
+  else
+  {
+    world.selectedEntity = null;
+  }
 
   if ( !(mouseCursor.hoveredEntity instanceof EditableRect ) && ( uiModeManager.currentMode != UIMODE_PINNING ) )
   {
@@ -137,17 +150,29 @@ void mousePressed()
     } else if ( uiModeManager.currentMode == UIMODE_PINNING )
     {
       world.selectedEntity = mouseCursor.focusedEntity;
-      if ( mouseCursor.hoveredEntity != null )
+      if ( mouseCursor.hoveredEntity != null && mouseCursor.hoveredEntity instanceof EditableRect)
       {
-        EditableRect tHoveredRect = (EditableRect)( mouseCursor.hoveredEntity );
-        EditableRect tFocusedRect = (EditableRect)( mouseCursor.focusedEntity );
-        if ( tHoveredRect.isValidPinningTarget() )
+        EditableRect tSourceRect = (EditableRect)( mouseCursor.hoveredEntity );
+        EditableRect tTargetRect = (EditableRect)( mouseCursor.focusedEntity );
+        if ( tSourceRect.isValidPinningTarget() )
         {
-          int tPinnedSourceEdge = tHoveredRect.getPinnedSourceEdge();
-          int tPinnedTargetEdge = tFocusedRect.getPinnedTargetEdge();
-          float tOffset = tFocusedRect.getPinnedEdgeValue( tPinnedTargetEdge ) - tHoveredRect.getPinnedEdgeValue( tPinnedSourceEdge );
-          EditableRectPin tPin = new EditableRectPin( tHoveredRect, tPinnedSourceEdge, tOffset );
-          tFocusedRect.pinArray.set( tPinnedTargetEdge, tPin );
+          int tPinnedSourceEdge = tSourceRect.getPinnedSourceEdge();
+          int tPinnedTargetEdge = tTargetRect.getPinnedTargetEdge();
+          
+          float tTargetEdgeCurrentValue = tTargetRect.getPinnedEdgeValue( tPinnedTargetEdge );
+          EditableRectPin tPin = null;
+          if( tPinnedSourceEdge == tPinnedTargetEdge || tPinnedSourceEdge == getOppositePinnedEdgeIndex( tPinnedTargetEdge ) )
+          {
+            tPin = new EditableRectPinOffset( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+          }
+          else
+          {
+            tPinnedSourceEdge += 2;
+            tPinnedSourceEdge = tPinnedSourceEdge % 4;
+            tPin = new EditableRectPinRelative( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+          }
+          
+          tTargetRect.pinArray.set( tPinnedTargetEdge, tPin );
         }
       }
       mouseCursor.focusedEntity = null;

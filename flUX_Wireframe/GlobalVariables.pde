@@ -19,3 +19,5 @@ UIModeManager uiModeManager;
 Grid styleGrid;
 
 EditableElement editableElement;  // HACK
+
+boolean showPins = true;

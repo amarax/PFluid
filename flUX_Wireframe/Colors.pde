@@ -18,8 +18,9 @@ color color_selectedEditableElementRectParent;
 color color_selectedEditableElementRectChild;
 
 
-color color_editingEditableElement;
-color color_pinToEditableElement;
+color color_editedEdgeFill;
+color color_hoveredEdgeStroke;
+color color_pinSourceEdgeFill;
 
 color color_buttonBg_default;
 color color_buttonBg_inEffect;
@@ -48,11 +49,12 @@ void setupColors()
   color_greyedEditableElementRect = color( 0.07, 1.0, 1.0, 0.3 );
 
  color_selectedEditableElementRectParent = color( 0.02, 1.0, 1.0, 0.7 );
- color_selectedEditableElementRectChild = color( 0.52, 1.0, 1.0, 0.7 );
+ color_selectedEditableElementRectChild = color( 0.57, 1.0, 1.0, 0.7 );
 
 
-  color_editingEditableElement = color( 0.5 );
-  color_pinToEditableElement = color( 0.9 );
+  color_editedEdgeFill = color( 1, 0, 0, 0.3 );
+  color_hoveredEdgeStroke = color( 1, 0, 0.5 );
+  color_pinSourceEdgeFill = color( 1, 0, 0, 0.1 );
 
   color_buttonBg_default = color( 1,0,0,0.1);
   color_buttonBg_inEffect =color( 1,0,0,0.3);

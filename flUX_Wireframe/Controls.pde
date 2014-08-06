@@ -75,3 +75,18 @@ class UIModeButton extends Button
   }
 }
 
+class UIActionButton extends Button
+{
+  I_UIAction uiAction;
+  
+  UIActionButton( String aLabel, float aWidth, float aHeight, I_UIAction aUIAction )
+  {
+    super( aLabel, aWidth, aHeight );
+    uiAction = aUIAction;
+  }
+  
+  void processMousePressed()
+  {
+    uiAction.execute();
+  }
+}

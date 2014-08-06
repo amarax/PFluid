@@ -26,7 +26,7 @@ void setupWorld_wireframeLayout()
   editableElement.position.set( 100, height * 0.333 );
   world.addEntity( editableElement );
   
-  UIModeButton tButton;
+  Button tButton;
   
   tButton = new UIModeButton( "Resize", 50, 30, UIMODE_RESIZABLE );
   tButton.position.set( 300, 20 );
@@ -34,6 +34,14 @@ void setupWorld_wireframeLayout()
   
   tButton = new UIModeButton( "Pin", 50, 30, UIMODE_PINNABLE );
   tButton.position.set( 360, 20 );
+  world.addEntity( tButton );
+  
+  tButton = new UIActionButton( "Mirror Contents", 100, 30, new Action_MirrorSelection() );
+  tButton.position.set( width - 100 -20, 20 );
+  world.addEntity( tButton );
+  
+  tButton = new UIActionButton( "Toggle Pins", 100, 30, new Action_ToggleShowPins() );
+  tButton.position.set( width - 100 -20, 20 + 30 + 10 );
   world.addEntity( tButton );
   
 }

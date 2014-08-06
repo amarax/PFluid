@@ -8,3 +8,5 @@ boolean debug_uimode = true;
 
 boolean debug_entity = false;
 boolean debug_entityGrid = false;
+
+boolean debug_editableRect_pinnedEdge = true;

@@ -15,7 +15,6 @@ class UIModeManager
     {
       currentMode = UIMODE_PINNABLE;
     }
-
   }
 
   void plotDebug()
