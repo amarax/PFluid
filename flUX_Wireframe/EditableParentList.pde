@@ -7,8 +7,8 @@ class EditableParentList extends EditableRect
   {
     super( aPosition );
 
-    pinArray.get( PINARRAY_RIGHT ).updateOffset( position.x + 100 );
-    pinArray.get( PINARRAY_BOTTOM ).updateOffset( position.y + 200 );
+    pinArray.get( PINARRAY_RIGHT ).updateOffset( position.x + 200 );
+    pinArray.get( PINARRAY_BOTTOM ).updateOffset( position.y + 300 );
 
     cWorldEditableElementsSorted = new ArrayList<EditableElement>();
 
@@ -38,8 +38,6 @@ class EditableParentList extends EditableRect
     for ( EditableElement iElement : tEditableElementsToRemove )
     {
       EditableElementListEntry tListEntryToRemove = editableElementsListMap.get( iElement );
-
-      println( cWorldEditableElementsSorted.indexOf( iElement ) );
 
       // If there is a next entry, relink its pins to the previous element
       int tIndexAfter = cWorldEditableElementsSorted.indexOf( iElement ) + 1;
@@ -86,6 +84,22 @@ class EditableParentList extends EditableRect
 
     super.update();
   }
+  
+  void plot()
+  {
+    PVector tWorldTopLeft = new PVector( left, top );
+//    tWorldTopLeft.add( position );
+//    tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
+
+    float tMargin = 5;
+
+    fill( color_buttonText );
+    textFont( font_default );
+    textAlign( LEFT, TOP );
+    text( "ENTITY LIST", tWorldTopLeft.x + tMargin, tWorldTopLeft.y + tMargin );
+    
+    super.plot();
+  }
 
   ArrayList<EditableElement> getEditableElements( EditableElement aEditableElement )
   {
@@ -108,7 +122,7 @@ class EditableParentList extends EditableRect
     float tMargin = 5;
     float tChildIndentOffset = 10;
 
-    EditableElementListEntry tEntry = new EditableElementListEntry( aEditableElement, this.position ); 
+    EditableElementListEntry tEntry = new EditableElementListEntry( aEditableElement, position ); 
     addEditableChild( tEntry );
     editableElementsListMap.put( aEditableElement, tEntry );
 
@@ -132,7 +146,7 @@ class EditableParentList extends EditableRect
 
     EditableRect tPinTarget = this;
     int tPinnedSide = PINARRAY_TOP;
-    float tPinValue = getPinnedSideValue( PINARRAY_TOP ) + tMargin;
+    float tPinValue = getPinnedSideValue( PINARRAY_TOP ) + tMargin + 16;
     if ( aPreviousEditableElement != null )
     {
       tPinTarget = editableElementsListMap.get( aPreviousEditableElement );
@@ -191,11 +205,14 @@ class EditableElementListEntry extends EditableRect
   {
     String tDisplayString = linkedEditableElement.getClass().getSimpleName();
 
-    rectMode( CORNERS );
+    PVector tWorldTopLeft = new PVector( left, top );
+//    tWorldTopLeft.add( position );
+//    tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
+
     fill( color_buttonText );
+    textFont( font_default );
     textAlign( CENTER, CENTER );
-    text( tDisplayString, left, top, right, bottom );
-    rectMode( CORNER );
+    text( tDisplayString, tWorldTopLeft.x, tWorldTopLeft.y, right-left, bottom-top );
 
     super.plot();
   }

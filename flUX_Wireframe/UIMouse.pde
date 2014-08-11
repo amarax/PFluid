@@ -73,8 +73,15 @@ void mousePressed()
 
   if( uiModeManager.currentMode == UIMODE_ADDING )
   {
-    ( new Action_AddEditableRect() ).execute();
-    return;
+    if( mouseButton == LEFT )
+    {
+      ( new Action_AddEditableRect() ).execute();
+      return;
+    }
+    else
+    {
+      uiModeManager.setModeClean( UIMODE_MOVABLE );
+    }    
   }
 
   if( !mouseCursor.selectionLocked )

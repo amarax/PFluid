@@ -16,7 +16,7 @@ class Action_MirrorSelection implements I_UIAction
   {
     if ( world.selectedEntity instanceof EditableRect )
     {
-      ( (EditableRect)( world.selectedEntity ) ).mirrorChildrensPins();
+      ( (EditableRect)( world.selectedEntity ) ).mirrorChildren();
     }
   }
 }
@@ -50,7 +50,7 @@ class Action_AddEditableRect implements I_UIAction
       tParent = (EditableRect)( world.selectedEntity );
     }
     tParent.addEditableChild( tNewRect );
-
+    
     tNewRect.edgeBeingEdited = 3;
 
     mouseCursor.focusedEntity = tNewRect;

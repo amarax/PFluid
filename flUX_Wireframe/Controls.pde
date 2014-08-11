@@ -28,6 +28,7 @@ class Button extends Entity
 
     fill( color_buttonText );
     textAlign( CENTER, CENTER );
+    textFont( font_default );
     text( label, position.x + size.x / 2.0, position.y + size.y / 2.0 );
   }
 

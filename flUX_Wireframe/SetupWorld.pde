@@ -27,7 +27,7 @@ void setupWorld_wireframeLayout()
   world.addEntity( editableElement );
   
   Button tButton;
-  PVector tPosition = new PVector( 300, 20 );
+  PVector tPosition = new PVector( 150, 20 );
   float tMargin = 10; 
   
   tButton = new UIModeButton( "+", 30, 30, UIMODE_ADDING );
@@ -35,30 +35,33 @@ void setupWorld_wireframeLayout()
   tPosition.x += tButton.size.x + tMargin;
   world.addEntity( tButton );
   
-  tButton = new UIModeButton( "Move", 50, 30, UIMODE_MOVABLE );
+  tButton = new UIModeButton( "MOVE", 50, 30, UIMODE_MOVABLE );
   tButton.position.set( tPosition.x, tPosition.y );
   tPosition.x += tButton.size.x + tMargin;
   world.addEntity( tButton );
   
-  tButton = new UIModeButton( "Resize", 50, 30, UIMODE_RESIZABLE );
+  tButton = new UIModeButton( "RESIZE", 50, 30, UIMODE_RESIZABLE );
   tButton.position.set( tPosition.x, tPosition.y );
   tPosition.x += tButton.size.x + tMargin;
   world.addEntity( tButton );
   
-  tButton = new UIModeButton( "Pin", 50, 30, UIMODE_PINNABLE );
+  tButton = new UIModeButton( "PIN", 50, 30, UIMODE_PINNABLE );
   tButton.position.set( tPosition.x, tPosition.y );
   tPosition.x += tButton.size.x + tMargin;
   world.addEntity( tButton );
   
+  tPosition = new PVector( width - 140-20, 20 );
   
-  tButton = new UIActionButton( "Mirror Contents", 100, 30, new Action_MirrorSelection() );
-  tButton.position.set( width - 100 -20, 20 );
+  tButton = new UIActionButton( "MIRROR CONTENTS", 140, 30, new Action_MirrorSelection() );
+  tButton.position.set( tPosition.x, tPosition.y );
+  tPosition.y += tButton.size.y + tMargin;
   world.addEntity( tButton );
   
-  tButton = new UIActionButton( "Toggle Pins", 100, 30, new Action_ToggleShowPins() );
-  tButton.position.set( width - 100 -20, 20 + 30 + 10 );
+  tButton = new UIActionButton( "TOGGLE PINS", 140, 30, new Action_ToggleShowPins() );
+  tButton.position.set( tPosition.x, tPosition.y );
+  tPosition.y += tButton.size.y + tMargin;
   world.addEntity( tButton );
   
-  EditableParentList tParentList = new EditableParentList( new PVector( 10, 50 ) );
+  EditableParentList tParentList = new EditableParentList( new PVector( 20, 200 ) );
   world.addEntity( tParentList );
 }

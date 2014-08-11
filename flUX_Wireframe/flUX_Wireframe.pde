@@ -15,7 +15,7 @@ void setup()
   
   uiModeManager = new UIModeManager();
   
-  size( 1280, 720 );
+  size( windowWidth, windowHeight );
   frameRate( 60 );
 
   setupColors();
@@ -47,6 +47,7 @@ void update()
   camera.update();
   mouseCursor.update();
   world.update();
+  world.update();  // Quick hack to improve apparent reactivity of elements 
   uiModeManager.update();
 }
 

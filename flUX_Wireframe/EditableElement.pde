@@ -44,10 +44,10 @@ class EditableRect extends EditableElement
     edgeBeingEdited = 0;
 
     pinArray = new ArrayList<EditableRectPin>();
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_LEFT, 0.0 ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_RIGHT, 0.0 ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_TOP, 0.0 ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_BOTTOM, 0.0 ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_LEFT, 0.0, this ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_RIGHT, 0.0, this ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_TOP, 0.0, this ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_BOTTOM, 0.0, this ) );
 
     position.set( aPosition );
     pinArray.get( PINARRAY_LEFT ).updateOffset( position.x );
@@ -56,6 +56,10 @@ class EditableRect extends EditableElement
 
   void update()
   {
+    // If moving, update entity update first because it runs all position updates.
+    if ( uiModeManager.currentMode == UIMODE_MOVING )
+      super.update();
+
     for ( int i = PINARRAY_LEFT; i <= PINARRAY_BOTTOM; ++i )
     {
       //if ( !childEntities.contains( pinArray.get( i ).pinnedSource ) )
@@ -66,28 +70,32 @@ class EditableRect extends EditableElement
     {
       if ( uiModeManager.currentMode == UIMODE_RESIZING )
       {
+        PVector tMouseRelativePos = mouseCursor.position;
+        //        tMouseRelativePos.set( worldToLocal( tMouseRelativePos ) );
+        //        tMouseRelativePos.sub( position );
+
         switch( edgeBeingEdited % 3 )
         {
         case 0:
-          right = mouseCursor.position.x;
+          right = tMouseRelativePos.x;
           updatePin( 1 );
           if ( right < left )
           {
             right = left;
-            left = mouseCursor.position.x;
+            left = tMouseRelativePos.x;
             edgeBeingEdited -= 2;
 
             swapPins( 1, 0 );
           }
           break;
         case 1:
-          left = mouseCursor.position.x;
+          left = tMouseRelativePos.x;
           updatePin( 0 );
           if ( left > right )
           {
             left = right;
-            right = mouseCursor.position.x;
-            edgeBeingEdited += 2;
+            right = tMouseRelativePos.x;
+            edgeBeingEdited+= 2;
 
             swapPins( 1, 0 );
           }
@@ -97,24 +105,24 @@ class EditableRect extends EditableElement
         switch( ( edgeBeingEdited - 1 ) / 3 )
         {
         case 0:
-          bottom = mouseCursor.position.y;
+          bottom = tMouseRelativePos.y;
           updatePin( 3 );
           if ( bottom < top )
           {
             bottom = top;
-            top = mouseCursor.position.y;
+            top = tMouseRelativePos.y;
             edgeBeingEdited += 6;
 
             swapPins( 2, 3 );
           }
           break;
         case 2:
-          top = mouseCursor.position.y;
+          top = tMouseRelativePos.y;
           updatePin( 2 );
           if ( top > bottom )
           {
             top = bottom;
-            bottom = mouseCursor.position.y;
+            bottom = tMouseRelativePos.y;
             edgeBeingEdited -= 6;
 
             swapPins( 2, 3 );
@@ -127,7 +135,8 @@ class EditableRect extends EditableElement
       }
     }
 
-    super.update();
+    if ( uiModeManager.currentMode != UIMODE_MOVING )
+      super.update();
 
     calcEdgeRects();
   }
@@ -176,7 +185,7 @@ class EditableRect extends EditableElement
     if ( this == world.selectedEntity )
     {
       tWireframeColor = color_selectedEditableElementRect;
-    } 
+    }
     else if ( getParent() == world.selectedEntity && getParent() instanceof EditableRect )
     {
       tWireframeColor = color_selectedEditableElementRectChild;
@@ -208,7 +217,11 @@ class EditableRect extends EditableElement
     noFill();
     stroke( tWireframeColor );
     strokeWeight( 1 );
-    rect( left, top, right-left, bottom-top );
+
+    PVector tWorldPos = new PVector( left, top );
+    //    tWorldPos.add( position );
+    //    tWorldPos.set( localToWorld( tWorldPos ) );
+    rect( tWorldPos.x, tWorldPos.y, right-left, bottom-top );
 
     int tEdgeRectIndex = -1;
     color tEdgeFillColor = color( 0, 0, 0, 0 );
@@ -294,22 +307,30 @@ class EditableRect extends EditableElement
       {
         if ( !(iPin instanceof EditableRectPinLocalAbsolute ) )
         {
-          PVector tPinPosition = new PVector( (left + right)/2.0, (top+bottom)/2.0 );
+          PVector tWorldTopLeft = new PVector( left, top );
+          //          tWorldTopLeft.add( position );
+          //          tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
+
+          PVector tWorldBottomRight = new PVector( right, bottom );
+          //          tWorldBottomRight.add( position );
+          //          tWorldBottomRight.set( localToWorld( tWorldBottomRight ) );
+
+          PVector tPinPosition = new PVector( (tWorldTopLeft.x + tWorldBottomRight.x)/2.0, (tWorldTopLeft.y + tWorldBottomRight.y)/2.0 );
           if ( iIndex == PINARRAY_LEFT )
           {
-            tPinPosition.x = left;
+            tPinPosition.x = tWorldTopLeft.x;
           } 
           else if ( iIndex == PINARRAY_RIGHT )
           {
-            tPinPosition.x = right;
+            tPinPosition.x = tWorldBottomRight.x;
           } 
           else if ( iIndex == PINARRAY_TOP )
           {
-            tPinPosition.y = top;
+            tPinPosition.y = tWorldTopLeft.y;
           } 
           else if ( iIndex == PINARRAY_BOTTOM )
           {
-            tPinPosition.y = bottom;
+            tPinPosition.y = tWorldBottomRight.y;
           }
 
           PVector tOffset = new PVector( 0, 0 );
@@ -428,6 +449,8 @@ class EditableRect extends EditableElement
     cRectArray.clear();
 
     PVector tPosition = new PVector( left, top );
+    //    tPosition.add( position );
+    //    tPosition.set( localToWorld( tPosition ) );
     PVector tSize = new PVector( right-left, bottom-top );
 
     if ( tSize.x < 0 )
@@ -558,36 +581,47 @@ class EditableRect extends EditableElement
     tPin.updateOffset( getPinnedEdgeValue(aPinArrayIndex) );
   }
 
-  void mirrorChildrensPins()
+  void mirrorChildren()
   {
     for ( Entity iChild : childEntities )
     {
       if ( iChild instanceof EditableRect )
       {
-        ( (EditableRect)iChild ).mirrorPins();
+        ( (EditableRect)iChild ).mirror();
       }
     }
   }
 
-  void mirrorPins()
+  void mirror()
   {
     swapPins( 1, 0 );
     pinArray.get( PINARRAY_LEFT ).mirror();
     pinArray.get( PINARRAY_RIGHT ).mirror();
-    mirrorChildrensPins();
+
+    if ( getParent() instanceof EditableRect )
+    {
+      EditableRect tParentRect = (EditableRect)getParent();
+      float tRelativePos = 1 - ( localToWorld( position ).x - tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) ) / ( tParentRect.getPinnedEdgeValue( PINARRAY_RIGHT ) - tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) );
+      position.x = worldToLocal( new PVector( tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) * (1-tRelativePos) + tParentRect.getPinnedEdgeValue( PINARRAY_RIGHT ) * tRelativePos, 0 ) ).x;
+    }
+    else
+    {
+      position.x *= -1;
+    }
+
+    mirrorChildren();
   }
 
   void onSetParent( Entity aPreviousParent )
   {
-    if ( getParent() instanceof EditableRect )
+    for ( EditableRectPin iPin : pinArray )
     {
-      for ( EditableRectPin iPin : pinArray )
+      if ( iPin instanceof EditableRectPinLocalAbsolute )
       {
-        if ( iPin instanceof EditableRectPinLocalAbsolute )
-        {
-          ( (EditableRectPinLocalAbsolute)iPin ).pinnedSource = (EditableRect)getParent();
-        }
+        ( (EditableRectPinLocalAbsolute)iPin ).pinnedSource = getParent();
       }
+
+      //iPin.updateOffset( getPinnedEdgeValue( pinArray.indexOf( iPin ) ) );
     }
   }
 
@@ -661,8 +695,8 @@ class EditableRect extends EditableElement
     {
       uiModeManager.currentMode = UIMODE_RESIZABLE;
       mouseCursor.focusLocked = false;
-      
-      if( world.selectedEntity == null )
+
+      if ( world.selectedEntity == null )
       {
         world.selectedEntity = this;
       }

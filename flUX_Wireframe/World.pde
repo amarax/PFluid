@@ -175,13 +175,12 @@ class Entity
   {
     if ( debug_entity )
     {
-      PVector tScreenPos = camera.worldToScreen( position );
+      PVector tScreenPos = camera.worldToScreen( localToWorld( position ) );
 
       stroke( color_debug );
       cross( tScreenPos.x, tScreenPos.y, 5 );
 
-      String[] tClassStrings = split( this.getClass().getCanonicalName(), "." );
-      String tDebugDisplayString = tClassStrings[tClassStrings.length - 1];
+      String tDebugDisplayString = this.getClass().getSimpleName();
 
       fill( color_debug );
       textAlign( LEFT, BOTTOM );
@@ -236,6 +235,7 @@ class Entity
 
   void setParent( Entity aParent )
   {
+    PVector tWorldPosition = localToWorld( position ); 
     Entity tPreviousParent = parent; 
     if ( parent != null )
     {
@@ -243,6 +243,7 @@ class Entity
     }
 
     parent = aParent;
+    position.set( worldToLocal( tWorldPosition ) );
 
     onSetParent( tPreviousParent );
   }
@@ -309,16 +310,36 @@ class Entity
     }
   }
   
-  PVector calcGlobalPosition()
+  PVector calcWorldPosition()
   {
-    PVector tGlobalPosition = position;
-    Entity tParent = parent;
-    while( tParent != null )
-    {
-      tGlobalPosition.add( tParent.position );
-      tParent = tParent.parent;
-    }
-    return tGlobalPosition;
+    PVector tWorldPosition = position.get();
+    if( parent != null )
+      tWorldPosition.add( parent.calcWorldPosition() );
+      
+    return tWorldPosition;
+  }
+  
+  PVector getWorldPosition()
+  {
+    return calcWorldPosition();
+  }
+  
+  PVector localToWorld( PVector aLocalPosition )
+  {
+    PVector tWorldPosition = aLocalPosition.get();
+    if( parent != null )
+      tWorldPosition.add( parent.calcWorldPosition() );
+    
+    return tWorldPosition;
+  }
+  
+  PVector worldToLocal( PVector aWorldPosition )
+  {
+    PVector tLocalPosition = aWorldPosition.get();
+    if( parent != null )
+      tLocalPosition.sub( parent.calcWorldPosition() );
+      
+    return tLocalPosition;
   }
 }
 
