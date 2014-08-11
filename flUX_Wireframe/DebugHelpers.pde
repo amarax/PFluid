@@ -47,12 +47,11 @@ void debugText( String aDebugString, float aX, float aY )
 void debugText( String aDebugString )
 {
   debugText( aDebugString, debugPos.x, debugPos.y );
-  incrementDebugPos();
 }
 
 void incrementDebugPos()
 {
   float tLineSpacingFactor = 1.1;
-  debugPos.add( new PVector( 0, textAscent() + textDescent() * tLineSpacingFactor ) );
+  debugPos.add( new PVector( 0, ceil( textAscent() + textDescent() ) * tLineSpacingFactor ) );
 }
 

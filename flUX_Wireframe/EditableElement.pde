@@ -367,7 +367,7 @@ class EditableRect extends EditableElement
             String[] tClassStrings = split( iPin.getClass().getCanonicalName(), "." );
             String tDebugDisplayString = tClassStrings[tClassStrings.length - 1];
             debugText( tDebugDisplayString, tPinPosition.x, tPinPosition.y );
-            if( iPin instanceof EditableRectPinOffset )
+            if ( iPin instanceof EditableRectPinOffset )
             {
               tDebugDisplayString = "Offset=";
               tDebugDisplayString += ((EditableRectPinOffset)iPin).offset;
@@ -587,6 +587,84 @@ class EditableRect extends EditableElement
         {
           ( (EditableRectPinLocalAbsolute)iPin ).pinnedSource = (EditableRect)getParent();
         }
+      }
+    }
+  }
+
+  void processMousePressed()
+  {
+    super.processMousePressed();
+
+    if ( uiModeManager.currentMode == UIMODE_RESIZING )
+    {
+      if ( getParent() instanceof EditableRect )
+      {
+        world.selectedEntity = getParent();
+      } 
+
+      uiModeManager.currentMode = UIMODE_RESIZABLE;
+    }
+    else if ( uiModeManager.currentMode == UIMODE_PINNING )
+    {
+      if ( mouseCursor.hoveredEntity instanceof EditableRect )
+      {
+        EditableRect tSourceRect = (EditableRect)( mouseCursor.hoveredEntity );
+        EditableRect tTargetRect = this;
+        if ( tSourceRect.isValidPinningTarget() )
+        {
+          int tPinnedSourceEdge = tSourceRect.getPinnedSourceEdge();
+          int tPinnedTargetEdge = tTargetRect.getPinnedTargetEdge();
+
+          float tTargetEdgeCurrentValue = tTargetRect.getPinnedEdgeValue( tPinnedTargetEdge );
+          EditableRectPin tPin = null;
+          if ( tPinnedSourceEdge == tPinnedTargetEdge || tPinnedSourceEdge == getOppositePinnedEdgeIndex( tPinnedTargetEdge ) )
+          {
+            tPin = new EditableRectPinOffset( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+          }
+          else
+          {
+            // Get diagonal edge
+            tPinnedSourceEdge += 2;
+            tPinnedSourceEdge = tPinnedSourceEdge % 4;
+
+            tPin = new EditableRectPinRelative( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+          }
+
+          tTargetRect.pinArray.set( tPinnedTargetEdge, tPin );
+        }
+      }
+
+      uiModeManager.currentMode = UIMODE_PINNABLE;
+      mouseCursor.focusLocked = false;
+    } 
+    else if ( uiModeManager.currentMode == UIMODE_RESIZABLE )
+    {
+      edgeBeingEdited = getHoveredEdge();
+      uiModeManager.currentMode = UIMODE_RESIZING;
+
+      mouseCursor.focusLocked = true;
+    } 
+    else if ( uiModeManager.currentMode == UIMODE_PINNABLE )
+    {
+      edgeBeingEdited = getHoveredEdge();
+      uiModeManager.currentMode = UIMODE_PINNING;
+
+      mouseCursor.focusLocked = true;
+    }
+  }
+
+  void processMouseReleased()
+  {
+    super.processMouseReleased();
+
+    if ( uiModeManager.currentMode == UIMODE_RESIZING )
+    {
+      uiModeManager.currentMode = UIMODE_RESIZABLE;
+      mouseCursor.focusLocked = false;
+      
+      if( world.selectedEntity == null )
+      {
+        world.selectedEntity = this;
       }
     }
   }

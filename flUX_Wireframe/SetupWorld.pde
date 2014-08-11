@@ -27,14 +27,29 @@ void setupWorld_wireframeLayout()
   world.addEntity( editableElement );
   
   Button tButton;
+  PVector tPosition = new PVector( 300, 20 );
+  float tMargin = 10; 
+  
+  tButton = new UIModeButton( "+", 30, 30, UIMODE_ADDING );
+  tButton.position.set( tPosition.x, tPosition.y );
+  tPosition.x += tButton.size.x + tMargin;
+  world.addEntity( tButton );
+  
+  tButton = new UIModeButton( "Move", 50, 30, UIMODE_MOVABLE );
+  tButton.position.set( tPosition.x, tPosition.y );
+  tPosition.x += tButton.size.x + tMargin;
+  world.addEntity( tButton );
   
   tButton = new UIModeButton( "Resize", 50, 30, UIMODE_RESIZABLE );
-  tButton.position.set( 300, 20 );
+  tButton.position.set( tPosition.x, tPosition.y );
+  tPosition.x += tButton.size.x + tMargin;
   world.addEntity( tButton );
   
   tButton = new UIModeButton( "Pin", 50, 30, UIMODE_PINNABLE );
-  tButton.position.set( 360, 20 );
+  tButton.position.set( tPosition.x, tPosition.y );
+  tPosition.x += tButton.size.x + tMargin;
   world.addEntity( tButton );
+  
   
   tButton = new UIActionButton( "Mirror Contents", 100, 30, new Action_MirrorSelection() );
   tButton.position.set( width - 100 -20, 20 );

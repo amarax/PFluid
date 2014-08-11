@@ -42,6 +42,23 @@ class World
       if ( mouseCursor.hoveredEntity != null )
         break;
     }
+
+    if ( keyBuffer.contains( 'a' ) || keyBuffer.contains( 'A' ) )
+    {
+      uiModeManager.setModeClean( UIMODE_ADDING );
+    }
+    else if ( keyBuffer.contains( 'w' ) || keyBuffer.contains( 'W' ) )
+    {
+      uiModeManager.setModeClean( UIMODE_MOVABLE );
+    }
+    else if ( keyBuffer.contains( 'r' ) || keyBuffer.contains( 'R' ) )
+    {
+      uiModeManager.setModeClean( UIMODE_RESIZABLE );
+    }
+    else if ( keyBuffer.contains( 't' ) || keyBuffer.contains( 'T' ) )
+    {
+      uiModeManager.setModeClean( UIMODE_PINNABLE );
+    }
   }
 
   void plot()
@@ -58,27 +75,19 @@ class World
     {
       if ( debug_world )
       {
-        PVector tScreenPos = new PVector( 1, 0 ); 
-        float tLineSpacingFactor = 1.1;
         String tDebugText = "World";
 
-        fill( color_debug );
         textAlign( LEFT, TOP );
-        textFont( font_debug );
-        text( tDebugText, tScreenPos.x, tScreenPos.y + 1 );
-
-        tScreenPos.y += ceil( ( textAscent() + textDescent() ) * tLineSpacingFactor );
+        debugText( tDebugText );
 
         tDebugText = "selectedEntity = "; 
         if ( selectedEntity == null )
           tDebugText += "null";
         else
         {
-          String[] tClassStrings = split( selectedEntity.getClass().getCanonicalName(), "." );
-
-          tDebugText += tClassStrings[tClassStrings.length - 1];
+          tDebugText += selectedEntity.getClass().getSimpleName();
         }
-        text( tDebugText, tScreenPos.x, tScreenPos.y + 1 );
+        debugText( tDebugText );
       }
 
       for ( Entity iEntity : entities )
@@ -111,6 +120,8 @@ class Entity
 
   boolean selectable;
 
+  PVector mouseCursorDragOffset;
+
   Entity()
   {
     super();
@@ -119,12 +130,25 @@ class Entity
 
     childEntities = new ArrayList<Entity>();
     childrenToRemove = new ArrayList<Entity>();
-    
+
     selectable = false;
   }
 
   void update()
   {
+    if ( uiModeManager.currentMode == UIMODE_MOVING )
+    {    
+      if ( mouseCursorDragOffset != null )
+      {
+        position.set( mouseCursor.position );
+        position.sub( mouseCursorDragOffset );
+      }
+    }
+    else
+    {
+      mouseCursorDragOffset = null;
+    }
+
     for ( Entity iChild : childEntities )
     {
       iChild.update();
@@ -199,11 +223,10 @@ class Entity
     childEntities.add( aEntity );
     aEntity.setParent( this );
   }
-  
+
   void onSetParent( Entity aPreviousParent )
   {
     // New parent is just getParent()
-    
   }
 
   Entity getParent()
@@ -214,11 +237,11 @@ class Entity
   void setParent( Entity aParent )
   {
     Entity tPreviousParent = parent; 
-    if( parent != null )
+    if ( parent != null )
     {
       parent.childEntities.remove( this );
     }
-    
+
     parent = aParent;
 
     onSetParent( tPreviousParent );
@@ -234,7 +257,8 @@ class Entity
         switch( iCommand.keyCode )
         {
         }
-      } else
+      } 
+      else
       {
         switch( iCommand.key )
         {
@@ -261,13 +285,40 @@ class Entity
       mouseCursor.focusedEntity = null;
     }
   }
-  
+
   void processMousePressed()
   {
+    if ( uiModeManager.currentMode == UIMODE_MOVABLE )
+    {
+      mouseCursorDragOffset = mouseCursor.position.get();
+      mouseCursorDragOffset.sub( position ); 
+
+      uiModeManager.currentMode = UIMODE_MOVING;
+      mouseCursor.focusLocked = true;
+    }
   }
-  
+
   void processMouseReleased()
   {
+    if ( uiModeManager.currentMode == UIMODE_MOVING )
+    {
+      mouseCursorDragOffset = null;
+
+      uiModeManager.currentMode = UIMODE_MOVABLE;
+      mouseCursor.focusLocked = false;
+    }
+  }
+  
+  PVector calcGlobalPosition()
+  {
+    PVector tGlobalPosition = position;
+    Entity tParent = parent;
+    while( tParent != null )
+    {
+      tGlobalPosition.add( tParent.position );
+      tParent = tParent.parent;
+    }
+    return tGlobalPosition;
   }
 }
 

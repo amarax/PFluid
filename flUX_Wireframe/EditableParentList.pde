@@ -18,9 +18,9 @@ class EditableParentList extends EditableRect
   void update()
   {
     ArrayList<EditableElement> tNewWorldEditableElements = new ArrayList<EditableElement>();
-    for ( Entity iEntity : world.entities )
+    for ( Entity iEntity : editableElement.childEntities )
     {
-      if ( iEntity instanceof EditableElement && !(iEntity instanceof EditableParentList) )
+      if ( iEntity instanceof EditableElement )
       {
         tNewWorldEditableElements.addAll( getEditableElements( (EditableElement)iEntity ) );
       }
@@ -116,7 +116,7 @@ class EditableParentList extends EditableRect
     tEntry.pinArray.set( PINARRAY_RIGHT, new EditableRectPinOffset( this, PINARRAY_RIGHT, right - tMargin ) );
 
     EditableRect tParentListEntry = editableElementsListMap.get( aEditableElement.getParent() );
-    float tLeftPinValue = tMargin;
+    float tLeftPinValue = getPinnedSideValue( PINARRAY_LEFT ) + tMargin;
     if ( tParentListEntry != null )
     {
       tLeftPinValue = tParentListEntry.getPinnedSideValue( PINARRAY_LEFT ) + tChildIndentOffset;
@@ -128,17 +128,16 @@ class EditableParentList extends EditableRect
 
     tEntry.pinArray.set( PINARRAY_LEFT, new EditableRectPinOffset( tParentListEntry, PINARRAY_LEFT, tLeftPinValue ) );
 
-    float tChildSize = 15;
+    float tChildSize = 30;
 
     EditableRect tPinTarget = this;
     int tPinnedSide = PINARRAY_TOP;
-    float tPinValue = tMargin;
+    float tPinValue = getPinnedSideValue( PINARRAY_TOP ) + tMargin;
     if ( aPreviousEditableElement != null )
     {
       tPinTarget = editableElementsListMap.get( aPreviousEditableElement );
       tPinnedSide = PINARRAY_BOTTOM;
       tPinValue = tPinTarget.getPinnedSideValue( tPinnedSide ) + tMargin;
-      tChildSize = 30; 
     }
 
     tEntry.pinArray.set( PINARRAY_TOP, new EditableRectPinOffset( tPinTarget, tPinnedSide, tPinValue ) );
@@ -190,8 +189,7 @@ class EditableElementListEntry extends EditableRect
 
   void plot()
   {
-    String[] tClassStrings = split( linkedEditableElement.getClass().getCanonicalName(), "." );
-    String tDisplayString = tClassStrings[tClassStrings.length - 1];
+    String tDisplayString = linkedEditableElement.getClass().getSimpleName();
 
     rectMode( CORNERS );
     fill( color_buttonText );

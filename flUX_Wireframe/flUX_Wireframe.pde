@@ -52,7 +52,7 @@ void update()
 
 void plot()
 {
-  debugPos.set( 0, 0 );
+  debugPos.set( 1, 1 );
   
   world.plot();
   

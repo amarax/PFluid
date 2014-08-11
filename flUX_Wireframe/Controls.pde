@@ -22,7 +22,7 @@ class Button extends Entity
     super.plot();
 
     color tBackground = calcBackgroundColor();
-      noStroke();
+    noStroke();
     fill( tBackground );
     rect( position.x, position.y, size.x, size.y );
 
@@ -42,7 +42,8 @@ class Button extends Entity
     if ( mouseCursor.focusedEntity == this )
     {
       return color_buttonBg_pressed;
-    } else if ( mouseCursor.hoveredEntity == this )
+    } 
+    else if ( mouseCursor.hoveredEntity == this )
     {
       return color_buttonBg_hover;
     }
@@ -62,7 +63,9 @@ class UIModeButton extends Button
 
   void processMousePressed()
   {
-    uiModeManager.currentMode = associatedUIMode;
+    super.processMousePressed();
+
+    uiModeManager.setModeClean( associatedUIMode );
   }
 
   color calcBackgroundColor()
@@ -78,15 +81,19 @@ class UIModeButton extends Button
 class UIActionButton extends Button
 {
   I_UIAction uiAction;
-  
+
   UIActionButton( String aLabel, float aWidth, float aHeight, I_UIAction aUIAction )
   {
     super( aLabel, aWidth, aHeight );
     uiAction = aUIAction;
   }
-  
+
   void processMousePressed()
   {
+    super.processMousePressed();
+
     uiAction.execute();
+    mouseCursor.focusLocked = false;
   }
 }
+
