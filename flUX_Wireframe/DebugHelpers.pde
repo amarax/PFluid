@@ -35,3 +35,24 @@ class DebugValueHistory
   }
 }
 
+void debugText( String aDebugString, float aX, float aY )
+{
+  fill( color_debug );
+  textFont( font_debug );
+  text( aDebugString, aX, aY );
+  debugPos.set( aX, aY );
+  incrementDebugPos();
+}
+
+void debugText( String aDebugString )
+{
+  debugText( aDebugString, debugPos.x, debugPos.y );
+  incrementDebugPos();
+}
+
+void incrementDebugPos()
+{
+  float tLineSpacingFactor = 1.1;
+  debugPos.add( new PVector( 0, textAscent() + textDescent() * tLineSpacingFactor ) );
+}
+

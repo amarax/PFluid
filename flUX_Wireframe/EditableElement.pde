@@ -32,7 +32,7 @@ class EditableRect extends EditableElement
 
   ArrayList<EditableRectPin> pinArray;
 
-  EditableRect()
+  EditableRect( PVector aPosition )
   {
     super();
     selectable = true;
@@ -48,6 +48,10 @@ class EditableRect extends EditableElement
     pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_RIGHT, 0.0 ) );
     pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_TOP, 0.0 ) );
     pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_BOTTOM, 0.0 ) );
+
+    position.set( aPosition );
+    pinArray.get( PINARRAY_LEFT ).updateOffset( position.x );
+    pinArray.get( PINARRAY_TOP ).updateOffset( position.y );
   }
 
   void update()
@@ -117,7 +121,8 @@ class EditableRect extends EditableElement
           }
           break;
         }
-      } else if ( uiModeManager.currentMode == UIMODE_PINNING )
+      } 
+      else if ( uiModeManager.currentMode == UIMODE_PINNING )
       {
       }
     }
@@ -167,16 +172,16 @@ class EditableRect extends EditableElement
 
   void plot()
   {
-    super.plot();
-
     color tWireframeColor = color_defaultEditableElementRect;
     if ( this == world.selectedEntity )
     {
       tWireframeColor = color_selectedEditableElementRect;
-    } else if ( parent == world.selectedEntity && parent instanceof EditableRect )
+    } 
+    else if ( getParent() == world.selectedEntity && getParent() instanceof EditableRect )
     {
       tWireframeColor = color_selectedEditableElementRectChild;
-    } else
+    } 
+    else
     {
       boolean tIsChildSelected = false;
       for ( Entity iChild : childEntities )
@@ -227,7 +232,8 @@ class EditableRect extends EditableElement
           tEdgeRectIndex = getHoveredEdge() - 1;
           tEdgeStrokeColor = color_hoveredEdgeStroke;
         }
-      } else
+      } 
+      else
       {
         tEdgeRectIndex = getHoveredEdge() - 1;
         tEdgeStrokeColor = color_hoveredEdgeStroke;
@@ -249,7 +255,8 @@ class EditableRect extends EditableElement
           tPinnedRect = (EditableRect)( mouseCursor.focusedEntity );
           tPinnableEdgeIndex = getPinnableEdgeIndex( tPinnedRect.edgeBeingEdited );
         }
-      } else if ( mouseCursor.hoveredEntity != null )
+      } 
+      else if ( mouseCursor.hoveredEntity != null )
       {
         if ( mouseCursor.hoveredEntity instanceof EditableRect )
         {
@@ -291,19 +298,22 @@ class EditableRect extends EditableElement
           if ( iIndex == PINARRAY_LEFT )
           {
             tPinPosition.x = left;
-          } else if ( iIndex == PINARRAY_RIGHT )
+          } 
+          else if ( iIndex == PINARRAY_RIGHT )
           {
             tPinPosition.x = right;
-          } else if ( iIndex == PINARRAY_TOP )
+          } 
+          else if ( iIndex == PINARRAY_TOP )
           {
             tPinPosition.y = top;
-          } else if ( iIndex == PINARRAY_BOTTOM )
+          } 
+          else if ( iIndex == PINARRAY_BOTTOM )
           {
             tPinPosition.y = bottom;
           }
 
           PVector tOffset = new PVector( 0, 0 );
-          float tPinTriangleSize = 10;
+          float tPinTriangleSize = 6;
           float tPinArcSize = tPinTriangleSize * 1.5;
           if ( iPin instanceof EditableRectPinOffset )
           {
@@ -312,7 +322,8 @@ class EditableRect extends EditableElement
             if ( iIndex == PINARRAY_LEFT || iIndex == PINARRAY_RIGHT )
             {
               tOffset.x = tOffsetPin.offset;
-            } else
+            } 
+            else
             {
               tOffset.y = tOffsetPin.offset;
             }
@@ -324,18 +335,21 @@ class EditableRect extends EditableElement
             if ( childEntities.contains( tOffsetPin.pinnedSource ) )
             {
               pinArc( tPinPosition.x, tPinPosition.y, tOffset.x, tOffset.y, tPinArcSize );
-            } else
+            } 
+            else
             {
               pinTriangle( tPinPosition.x, tPinPosition.y, -tOffset.x, -tOffset.y, tPinTriangleSize );
             }
-          } else if ( iPin instanceof EditableRectPinRelative )
+          } 
+          else if ( iPin instanceof EditableRectPinRelative )
           {
             EditableRectPinRelative tOffsetPin = (EditableRectPinRelative)iPin;
 
             if ( iIndex == PINARRAY_LEFT || iIndex == PINARRAY_RIGHT )
             {
               tOffset.x = 1.0;
-            } else
+            } 
+            else
             {
               tOffset.y = 1.0;
             }
@@ -346,11 +360,27 @@ class EditableRect extends EditableElement
             pinTriangle( tPinPosition.x, tPinPosition.y, -tOffset.x, -tOffset.y, tPinTriangleSize );
             pinTriangle( tPinPosition.x, tPinPosition.y, tOffset.x, tOffset.y, tPinTriangleSize );
           }
+
+          if ( debug_editableRect_pins )
+          {
+            textAlign( LEFT, TOP );
+            String[] tClassStrings = split( iPin.getClass().getCanonicalName(), "." );
+            String tDebugDisplayString = tClassStrings[tClassStrings.length - 1];
+            debugText( tDebugDisplayString, tPinPosition.x, tPinPosition.y );
+            if( iPin instanceof EditableRectPinOffset )
+            {
+              tDebugDisplayString = "Offset=";
+              tDebugDisplayString += ((EditableRectPinOffset)iPin).offset;
+              debugText( tDebugDisplayString );
+            }
+          }
         }
+
 
         ++iIndex;
       }
     }
+    super.plot();
   }
 
   void plotEdgeRect( int aRectIndex, color aStrokeColor )
@@ -368,7 +398,8 @@ class EditableRect extends EditableElement
     if ( alpha( aFillColor ) > EPSILON )
     {
       fill( aFillColor );
-    } else
+    } 
+    else
     {
       noFill();
     }
@@ -377,7 +408,8 @@ class EditableRect extends EditableElement
     {
       stroke( aStrokeColor );
       strokeWeight( 1 );
-    } else
+    } 
+    else
     {
       noStroke();
     }
@@ -507,12 +539,12 @@ class EditableRect extends EditableElement
       return true;
     }
 
-    if ( this.parent == mouseCursor.focusedEntity.parent && this != mouseCursor.focusedEntity )
+    if ( getParent() == mouseCursor.focusedEntity.getParent() && this != mouseCursor.focusedEntity )
     {
       return true;
     }
 
-    if ( this.parent == mouseCursor.focusedEntity )
+    if ( getParent() == mouseCursor.focusedEntity )
     {
       return true;
     }
@@ -545,15 +577,15 @@ class EditableRect extends EditableElement
     mirrorChildrensPins();
   }
 
-  void onSetParent()
+  void onSetParent( Entity aPreviousParent )
   {
-    if( parent instanceof EditableRect )
+    if ( getParent() instanceof EditableRect )
     {
       for ( EditableRectPin iPin : pinArray )
       {
-        if( iPin instanceof EditableRectPinLocalAbsolute )
+        if ( iPin instanceof EditableRectPinLocalAbsolute )
         {
-          ( (EditableRectPinLocalAbsolute)iPin ).pinnedSource = (EditableRect)parent;
+          ( (EditableRectPinLocalAbsolute)iPin ).pinnedSource = (EditableRect)getParent();
         }
       }
     }

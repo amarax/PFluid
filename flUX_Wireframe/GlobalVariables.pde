@@ -21,3 +21,5 @@ Grid styleGrid;
 EditableElement editableElement;  // HACK
 
 boolean showPins = true;
+
+PVector debugPos;

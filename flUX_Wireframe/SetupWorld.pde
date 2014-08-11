@@ -23,7 +23,7 @@ void setupWorld_editableElementTest()
 void setupWorld_wireframeLayout()
 {
   editableElement = new EditableElement();
-  editableElement.position.set( 100, height * 0.333 );
+  editableElement.position.set( width * 0.5, height * 0.5 );
   world.addEntity( editableElement );
   
   Button tButton;
@@ -44,4 +44,6 @@ void setupWorld_wireframeLayout()
   tButton.position.set( width - 100 -20, 20 + 30 + 10 );
   world.addEntity( tButton );
   
+  EditableParentList tParentList = new EditableParentList( new PVector( 10, 50 ) );
+  world.addEntity( tParentList );
 }

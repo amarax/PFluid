@@ -23,15 +23,9 @@ class MouseCursor
     if ( keyBuffer.contains( 'r' ) )
     {
       uiModeManager.currentMode = UIMODE_RESIZING;
-      EditableRect tNewRect = new EditableRect(); 
+      EditableRect tNewRect = new EditableRect( new PVector( position.x, position.y ) ); 
 
       focusedEntity = tNewRect;
-      focusedEntity.position.set( position );
-      tNewRect.left = position.x;
-      tNewRect.top = position.y;
-      
-      tNewRect.pinArray.get( PINARRAY_LEFT ).updateOffset( position.x );
-      tNewRect.pinArray.get( PINARRAY_TOP ).updateOffset( position.y );
 
       EditableElement tEditableParent = editableElement;
       if ( world.selectedEntity != null )

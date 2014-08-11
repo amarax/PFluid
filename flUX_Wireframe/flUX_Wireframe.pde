@@ -16,6 +16,7 @@ void setup()
   uiModeManager = new UIModeManager();
   
   size( 1280, 720 );
+  frameRate( 60 );
 
   setupColors();
   colorMode( HSB, 1.0 );
@@ -23,6 +24,8 @@ void setup()
   camera = new Camera();
   
   setupWorld();
+  
+  debugPos = new PVector();
 }
 
 
@@ -49,6 +52,8 @@ void update()
 
 void plot()
 {
+  debugPos.set( 0, 0 );
+  
   world.plot();
   
   resetMatrix();

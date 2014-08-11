@@ -105,7 +105,7 @@ class Entity
   PVector position;
 
   ArrayList<Entity> childEntities;
-  Entity parent;
+  private Entity parent;
 
   ArrayList<Entity> childrenToRemove;
 
@@ -197,14 +197,31 @@ class Entity
   void addChildEntity( Entity aEntity )
   {
     childEntities.add( aEntity );
-    aEntity.parent = this;
-    
-    onSetParent();
+    aEntity.setParent( this );
   }
   
-  void onSetParent()
+  void onSetParent( Entity aPreviousParent )
   {
+    // New parent is just getParent()
     
+  }
+
+  Entity getParent()
+  {
+    return parent;
+  }
+
+  void setParent( Entity aParent )
+  {
+    Entity tPreviousParent = parent; 
+    if( parent != null )
+    {
+      parent.childEntities.remove( this );
+    }
+    
+    parent = aParent;
+
+    onSetParent( tPreviousParent );
   }
 
   void processKeyBuffer( KeyBuffer aKeyBuffer )
