@@ -115,7 +115,6 @@ void mouseReleased()
   if ( mouseCursor.focusedEntity != null )
   {
     mouseCursor.focusedEntity.processMouseReleased();
-    
   }
 
   if( !mouseCursor.focusLocked )

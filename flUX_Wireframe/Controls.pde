@@ -1,4 +1,4 @@
-
+ 
 class Button extends Entity
 {
   String label;

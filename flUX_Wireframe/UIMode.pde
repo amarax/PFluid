@@ -1,4 +1,6 @@
 
+static int UIMODE_ENTITYSPECIFIC = 1;
+
 static int UIMODE_RESIZABLE = 10;
 static int UIMODE_RESIZING = 11;
 
@@ -12,17 +14,33 @@ static int UIMODE_MOVING = 41;
 
 class UIModeManager
 {
-  int currentMode = 10;
+  private int currentMode = 10;
+  int previousMode = 10;
 
   void update()
   {
   }
   
+  void setMode( int aNewMode )
+  {
+    if( aNewMode != currentMode )
+    {
+      previousMode = currentMode;
+      currentMode = aNewMode;
+    }
+  }
+  
   void setModeClean( int aNewMode )
   {
-    currentMode = aNewMode;
+    setMode( aNewMode );
     mouseCursor.focusLocked = false;
     mouseCursor.focusedEntity = null;
+  }
+
+  void revertMode()
+  {
+    int tNewMode = previousMode;
+    setMode( tNewMode );
   }
 
   void plotDebug()
@@ -34,6 +52,9 @@ class UIModeManager
       String tDebugText = "UIMode = ";
       switch( currentMode )
       {
+      case 1:
+        tDebugText += "UIMODE_ENTITYSPECIFIC";
+        break;
       case 10:
         tDebugText += "UIMODE_RESIZABLE";
         break;
