@@ -49,6 +49,13 @@ void debugText( String aDebugString )
   debugText( aDebugString, debugPos.x, debugPos.y );
 }
 
+void debugTextWorld( String aDebugString, float aX, float aY )
+{
+  PVector tScreenPos = camera.worldToScreen( new PVector( aX, aY ) );
+  
+  debugText( aDebugString, tScreenPos.x, tScreenPos.y );
+}
+
 void incrementDebugPos()
 {
   float tLineSpacingFactor = 1.1;

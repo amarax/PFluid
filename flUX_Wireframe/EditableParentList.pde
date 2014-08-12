@@ -8,7 +8,7 @@ class EditableParentList extends EditableRect
     super( aPosition );
 
     pinArray.get( PINARRAY_RIGHT ).updateOffset( position.x + 200 );
-    pinArray.get( PINARRAY_BOTTOM ).updateOffset( position.y + 300 );
+    pinArray.get( PINARRAY_BOTTOM ).updateOffset( position.y + editableParentListHeadingHeight );
 
     cWorldEditableElementsSorted = new ArrayList<EditableElement>();
 
@@ -17,6 +17,12 @@ class EditableParentList extends EditableRect
 
   void update()
   {
+    int tPrevElementCount = cWorldEditableElementsSorted.size();
+    EditableElementListEntry tPrevLastElement = null;
+    if ( tPrevElementCount > 0 ) { 
+      tPrevLastElement = editableElementsListMap.get( cWorldEditableElementsSorted.get( cWorldEditableElementsSorted.size() - 1 ) );
+    }
+
     ArrayList<EditableElement> tNewWorldEditableElements = new ArrayList<EditableElement>();
     for ( Entity iEntity : editableElement.childEntities )
     {
@@ -53,7 +59,7 @@ class EditableParentList extends EditableRect
       editableElementsListMap.remove( iElement );
       tListEntryToRemove.setParent( null );
     }
-    
+
     cWorldEditableElementsSorted = tNewWorldEditableElements;
 
     ArrayList<EditableElement> tEditableElementsToAdd = new ArrayList<EditableElement>();  // Map for entry to add and previous entry (where to insert)
@@ -74,22 +80,46 @@ class EditableParentList extends EditableRect
       }
       EditableElementListEntry tNewEntry = addListEntryChild( iElement, tPreviousElement );
       tPreviousElement = iElement;
-      
+
       int tIndexAfter = cWorldEditableElementsSorted.indexOf( iElement ) + 1;
-      if( tIndexAfter < cWorldEditableElementsSorted.size() )
+      if ( tIndexAfter < cWorldEditableElementsSorted.size() )
       {
         updateListEntryPins_TopBottom( cWorldEditableElementsSorted.get( tIndexAfter ), iElement );
       }
     }
 
+    int tElementCount = cWorldEditableElementsSorted.size();
+    EditableElementListEntry tLastElement = null;
+    if ( tElementCount > 0 ) { 
+      tLastElement = editableElementsListMap.get( cWorldEditableElementsSorted.get( cWorldEditableElementsSorted.size() - 1 ) );
+    }
+
+    if ( tElementCount != tPrevElementCount )
+    {
+      if ( cWorldEditableElementsSorted.size() == 0 )
+      {
+        // Switch back to local pin
+        pinArray.set( PINARRAY_BOTTOM, new EditableRectPinLocalAbsolute( null, PINARRAY_BOTTOM, position.y + editableParentListHeadingHeight, this ) );
+      }
+      else if ( tPrevElementCount == 0 )
+      {
+        pinArray.set( PINARRAY_BOTTOM, new EditableRectPinGlobalOffset( tLastElement, PINARRAY_BOTTOM, tLastElement.bottom + marginSize.getValue(), marginSize ) );
+      }
+    }
+
+    if ( tLastElement != null && tLastElement != tPrevLastElement )
+    {
+      pinArray.get( PINARRAY_BOTTOM ).pinnedSource = tLastElement;
+    }
+
     super.update();
   }
-  
+
   void plot()
   {
     PVector tWorldTopLeft = new PVector( left, top );
-//    tWorldTopLeft.add( position );
-//    tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
+    //    tWorldTopLeft.add( position );
+    //    tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
 
     float tMargin = 5;
 
@@ -97,7 +127,7 @@ class EditableParentList extends EditableRect
     textFont( font_default );
     textAlign( LEFT, TOP );
     text( "ENTITY LIST", tWorldTopLeft.x + tMargin, tWorldTopLeft.y + tMargin );
-    
+
     super.plot();
   }
 
@@ -119,7 +149,6 @@ class EditableParentList extends EditableRect
 
   EditableElementListEntry addListEntryChild( EditableElement aEditableElement, EditableElement aPreviousEditableElement /*not list entry*/ )
   {
-    float tMargin = 5;
     float tChildIndentOffset = 10;
 
     EditableElementListEntry tEntry = new EditableElementListEntry( aEditableElement, position ); 
@@ -127,44 +156,51 @@ class EditableParentList extends EditableRect
     editableElementsListMap.put( aEditableElement, tEntry );
 
     // Setup pinning information
-    tEntry.pinArray.set( PINARRAY_RIGHT, new EditableRectPinOffset( this, PINARRAY_RIGHT, right - tMargin ) );
+    tEntry.pinArray.set( PINARRAY_RIGHT, new EditableRectPinGlobalOffset( this, PINARRAY_RIGHT, right - marginSize.getValue(), marginSize ) );
 
     EditableRect tParentListEntry = editableElementsListMap.get( aEditableElement.getParent() );
-    float tLeftPinValue = getPinnedSideValue( PINARRAY_LEFT ) + tMargin;
+    float tLeftPinValue = 0;
+    Global_Float tGlobalVariable = null;
     if ( tParentListEntry != null )
     {
-      tLeftPinValue = tParentListEntry.getPinnedSideValue( PINARRAY_LEFT ) + tChildIndentOffset;
+      tGlobalVariable = parentListChildOffset;
     }
     else
     {
       tParentListEntry = this;
+      tGlobalVariable = marginSize;
     }
 
-    tEntry.pinArray.set( PINARRAY_LEFT, new EditableRectPinOffset( tParentListEntry, PINARRAY_LEFT, tLeftPinValue ) );
+    tLeftPinValue = tParentListEntry.getPinnedSideValue( PINARRAY_LEFT ) + tGlobalVariable.getValue();
+    tEntry.pinArray.set( PINARRAY_LEFT, new EditableRectPinGlobalOffset( tParentListEntry, PINARRAY_LEFT, tLeftPinValue, tGlobalVariable ) );
 
-    float tChildSize = 30;
+    float tChildSize = editableParentListEntryHeight;
 
     EditableRect tPinTarget = this;
     int tPinnedSide = PINARRAY_TOP;
-    float tPinValue = getPinnedSideValue( PINARRAY_TOP ) + tMargin + 16;
+    float tPinValue = getPinnedSideValue( PINARRAY_TOP ) + editableParentListHeadingHeight;
+    EditableRectPinOffset tPin = null;
     if ( aPreviousEditableElement != null )
     {
       tPinTarget = editableElementsListMap.get( aPreviousEditableElement );
       tPinnedSide = PINARRAY_BOTTOM;
-      tPinValue = tPinTarget.getPinnedSideValue( tPinnedSide ) + tMargin;
+      tPinValue = tPinTarget.getPinnedSideValue( tPinnedSide ) + marginSize.getValue();
+      tPin = new EditableRectPinGlobalOffset( tPinTarget, tPinnedSide, tPinValue, marginSize );
+    }
+    else
+    {
+      tPin = new EditableRectPinOffset( tPinTarget, tPinnedSide, tPinValue );
     }
 
-    tEntry.pinArray.set( PINARRAY_TOP, new EditableRectPinOffset( tPinTarget, tPinnedSide, tPinValue ) );
-    tEntry.pinArray.set( PINARRAY_BOTTOM, new EditableRectPinOffset( tPinTarget, tPinnedSide, tPinValue + tChildSize ) );
+    tEntry.pinArray.set( PINARRAY_TOP, tPin );
+    //tEntry.pinArray.set( PINARRAY_BOTTOM, new EditableRectPinOffset( tPinTarget, tPinnedSide, tPinValue + tChildSize ) );
+    tEntry.pinArray.set( PINARRAY_BOTTOM, new EditableRectPinOffset( tEntry, PINARRAY_TOP, tChildSize ) );
 
     return tEntry;
   }
 
   void updateListEntryPins_TopBottom( EditableElement aEditableElement, EditableElement aPreviousEditableElement )
   {
-    float tMargin = 5;
-    float tChildSize = 30;
-
     EditableElementListEntry tEntry = editableElementsListMap.get( aEditableElement );
     if ( tEntry == null ) { 
       return;
@@ -172,15 +208,15 @@ class EditableParentList extends EditableRect
 
     int tPinnedEdge = PINARRAY_BOTTOM;
     EditableElementListEntry tPreviousEntry = editableElementsListMap.get( aPreviousEditableElement );
-    if( tPreviousEntry == null )
+    if ( tPreviousEntry == null )
     {
       tPinnedEdge = PINARRAY_TOP;
     }
-    
+
     tEntry.pinArray.get( PINARRAY_TOP ).pinnedSource = tPreviousEntry;
     tEntry.pinArray.get( PINARRAY_TOP ).pinnedSourceEdge = tPinnedEdge;
-    tEntry.pinArray.get( PINARRAY_BOTTOM ).pinnedSource = tPreviousEntry;
-    tEntry.pinArray.get( PINARRAY_BOTTOM ).pinnedSourceEdge = tPinnedEdge;
+//    tEntry.pinArray.get( PINARRAY_BOTTOM ).pinnedSource = tPreviousEntry;
+//    tEntry.pinArray.get( PINARRAY_BOTTOM ).pinnedSourceEdge = tPinnedEdge;
   }
 }
 
@@ -206,8 +242,8 @@ class EditableElementListEntry extends EditableRect
     String tDisplayString = linkedEditableElement.getClass().getSimpleName();
 
     PVector tWorldTopLeft = new PVector( left, top );
-//    tWorldTopLeft.add( position );
-//    tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
+    //    tWorldTopLeft.add( position );
+    //    tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
 
     fill( color_buttonText );
     textFont( font_default );

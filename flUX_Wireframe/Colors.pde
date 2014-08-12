@@ -17,6 +17,9 @@ color color_greyedEditableElementRect;
 color color_selectedEditableElementRectParent;
 color color_selectedEditableElementRectChild;
 
+color color_sliderBackground_default;
+color color_sliderBackground_hovered;
+color color_sliderDefault;
 
 color color_editedEdgeFill;
 color color_hoveredEdgeStroke;
@@ -48,18 +51,21 @@ void setupColors()
   color_hoveredEditableElementRect = color( 0.05, 1.0, 1.0, 0.7 );
   color_greyedEditableElementRect = color( 0.07, 1.0, 1.0, 0.3 );
 
- color_selectedEditableElementRectParent = color( 0.02, 1.0, 1.0, 0.7 );
- color_selectedEditableElementRectChild = color( 0.57, 1.0, 1.0, 0.7 );
-
+  color_selectedEditableElementRectParent = color( 0.02, 1.0, 1.0, 0.7 );
+  color_selectedEditableElementRectChild = color( 0.57, 1.0, 0.5, 0.7 );
 
   color_editedEdgeFill = color( 1, 0, 0, 0.3 );
   color_hoveredEdgeStroke = color( 1, 0, 0.5 );
   color_pinSourceEdgeFill = color( 1, 0, 0, 0.1 );
 
-  color_buttonBg_default = color( 1,0,0,0.1);
-  color_buttonBg_inEffect =color( 1,0,0,0.3);
-  color_buttonBg_hover = color( 1,0,0,0.5);
-  color_buttonBg_pressed = color( 1,0,0,0.6);
-  color_buttonText = color( 1,0,0,0.8);
+  color_buttonBg_default = color( 1, 0, 0, 0.1);
+  color_buttonBg_inEffect = color( 1, 0, 0, 0.3);
+  color_buttonBg_hover = color( 1, 0, 0, 0.5);
+  color_buttonBg_pressed = color( 1, 0, 0, 0.6);
+  color_buttonText = color( 1, 0, 0, 0.8);
+
+  color_sliderBackground_default = color_buttonBg_default;
+  color_sliderBackground_hovered = color_buttonBg_inEffect;
+  color_sliderDefault = color_buttonBg_hover;
 }
 

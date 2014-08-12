@@ -99,6 +99,9 @@ class EditableRectPinOffset extends EditableRectPin
 
   float calcPinnedEdgePosition()
   {
+    if ( pinnedSource == null )
+      return offset;
+
     return ((EditableRect)pinnedSource).getPinnedEdgeValue( pinnedSourceEdge ) + offset;
   }
 
@@ -113,6 +116,30 @@ class EditableRectPinOffset extends EditableRectPin
   void mirrorOffset()
   {
     offset *= -1;
+  }
+}
+
+class EditableRectPinGlobalOffset extends EditableRectPinOffset
+{
+  Global_Float globalOffsetValue;
+
+  EditableRectPinGlobalOffset( EditableRect aPinnedSource, int aPinnedSourceEdge, float aCurrentPos, Global_Float aGlobalOffsetValue )
+  {
+    super( aPinnedSource, aPinnedSourceEdge, aCurrentPos );
+    setGlobalValue( aGlobalOffsetValue );
+  }
+
+  float calcPinnedEdgePosition()
+  {
+    if ( pinnedSource == null )
+      return globalOffsetValue.getValue() * ( offset / abs( offset ) );
+
+    return ((EditableRect)pinnedSource).getPinnedEdgeValue( pinnedSourceEdge ) + globalOffsetValue.getValue() * ( offset / abs( offset ) );
+  }
+
+  void setGlobalValue( Global_Float aGlobalOffsetValue )
+  {
+    globalOffsetValue = aGlobalOffsetValue;
   }
 }
 

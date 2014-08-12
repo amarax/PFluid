@@ -349,7 +349,11 @@ class EditableRect extends EditableElement
               tOffset.y = tOffsetPin.offset;
             }
 
-            noFill();
+            if ( iPin instanceof EditableRectPinGlobalOffset )
+              fill( tWireframeColor );
+            else
+              noFill();
+              
             stroke( tWireframeColor );
             strokeWeight( 1 );
 
@@ -414,6 +418,11 @@ class EditableRect extends EditableElement
     if ( aRectIndex < 0 || aRectIndex >= cRectArray.size() )
       return;
 
+    if( aRectIndex == 4 )
+    {
+      return;
+    }
+      
     Rectangle tRect = cRectArray.get( aRectIndex );
 
     if ( alpha( aFillColor ) > EPSILON )
@@ -553,24 +562,19 @@ class EditableRect extends EditableElement
   boolean isValidPinningTarget()
   {
     if ( mouseCursor.focusedEntity == null )
-    {
       return false;
-    }
 
     if ( this == mouseCursor.focusedEntity.parent )
-    {
       return true;
-    }
 
     if ( getParent() == mouseCursor.focusedEntity.getParent() && this != mouseCursor.focusedEntity )
-    {
       return true;
-    }
 
     if ( getParent() == mouseCursor.focusedEntity )
-    {
       return true;
-    }
+
+    if( this == mouseCursor.focusedEntity )
+      return true;
 
     return false;
   }
@@ -581,35 +585,39 @@ class EditableRect extends EditableElement
     tPin.updateOffset( getPinnedEdgeValue(aPinArrayIndex) );
   }
 
-  void mirrorChildren()
+  void mirrorChildren( Entity aMirroredEntity )
   {
     for ( Entity iChild : childEntities )
     {
       if ( iChild instanceof EditableRect )
       {
-        ( (EditableRect)iChild ).mirror();
+        ( (EditableRect)iChild ).mirror( aMirroredEntity );
       }
     }
   }
 
-  void mirror()
+  void mirror( Entity aMirroredEntity )
   {
     swapPins( 1, 0 );
     pinArray.get( PINARRAY_LEFT ).mirror();
     pinArray.get( PINARRAY_RIGHT ).mirror();
 
-    if ( getParent() instanceof EditableRect )
+    float tNewXPos = position.x; 
+
+    if ( getParent() instanceof EditableRect && getParent() == aMirroredEntity )
     {
       EditableRect tParentRect = (EditableRect)getParent();
       float tRelativePos = 1 - ( localToWorld( position ).x - tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) ) / ( tParentRect.getPinnedEdgeValue( PINARRAY_RIGHT ) - tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) );
-      position.x = worldToLocal( new PVector( tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) * (1-tRelativePos) + tParentRect.getPinnedEdgeValue( PINARRAY_RIGHT ) * tRelativePos, 0 ) ).x;
+      tNewXPos = worldToLocal( new PVector( tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) * (1-tRelativePos) + tParentRect.getPinnedEdgeValue( PINARRAY_RIGHT ) * tRelativePos, 0 ) ).x;
     }
     else
     {
-      position.x *= -1;
+      tNewXPos *= -1;
     }
 
-    mirrorChildren();
+    mirrorChildren( aMirroredEntity );
+    
+    position.x = tNewXPos;
   }
 
   void onSetParent( Entity aPreviousParent )

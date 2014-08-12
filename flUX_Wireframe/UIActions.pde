@@ -16,7 +16,7 @@ class Action_MirrorSelection implements I_UIAction
   {
     if ( world.selectedEntity instanceof EditableRect )
     {
-      ( (EditableRect)( world.selectedEntity ) ).mirrorChildren();
+      ( (EditableRect)( world.selectedEntity ) ).mirrorChildren( world.selectedEntity );
     }
   }
 }

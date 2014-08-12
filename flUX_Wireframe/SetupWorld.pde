@@ -62,6 +62,12 @@ void setupWorld_wireframeLayout()
   tPosition.y += tButton.size.y + tMargin;
   world.addEntity( tButton );
   
-  EditableParentList tParentList = new EditableParentList( new PVector( 20, 200 ) );
+  EditableParentList tParentList = new EditableParentList( new PVector( 20, 210 ) );
   world.addEntity( tParentList );
+  
+  EditableSlider tMarginSlider = new EditableSlider( new PVector( 20, 100 ), marginSize, "Margin Size" );
+  world.addEntity( tMarginSlider );
+
+  tMarginSlider = new EditableSlider( new PVector( 20, 150 ), parentListChildOffset, "Child Offset" );
+  world.addEntity( tMarginSlider );
 }
