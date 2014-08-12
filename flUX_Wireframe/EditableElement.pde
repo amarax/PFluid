@@ -574,7 +574,10 @@ class EditableRect extends EditableElement
       return true;
 
     if( this == mouseCursor.focusedEntity )
-      return true;
+    {
+      // Only allow pinning to opposite edge
+      return getHoveredEdge() == getOppositeEdgeIndex( edgeBeingEdited );
+    }
 
     return false;
   }
