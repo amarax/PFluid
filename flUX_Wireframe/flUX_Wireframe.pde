@@ -47,7 +47,6 @@ void update()
   camera.update();
   mouseCursor.update();
   world.update();
-  world.update();  // Quick hack to improve apparent reactivity of elements 
   uiModeManager.update();
 }
 

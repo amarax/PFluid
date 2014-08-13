@@ -59,13 +59,13 @@ void setupColors()
   color_pinSourceEdgeFill = color( 1, 0, 0, 0.1 );
 
   color_buttonBg_default = color( 1, 0, 0, 0.1);
-  color_buttonBg_inEffect = color( 1, 0, 0, 0.3);
-  color_buttonBg_hover = color( 1, 0, 0, 0.5);
-  color_buttonBg_pressed = color( 1, 0, 0, 0.6);
+  color_buttonBg_hover = color( 1, 0, 0, 0.2);
+  color_buttonBg_pressed = color( 1, 0, 0, 0.3);
+  color_buttonBg_inEffect = color( 1, 0, 0, 0.5 );
   color_buttonText = color( 1, 0, 0, 0.8);
 
   color_sliderBackground_default = color_buttonBg_default;
-  color_sliderBackground_hovered = color_buttonBg_inEffect;
-  color_sliderDefault = color_buttonBg_hover;
+  color_sliderBackground_hovered = color_buttonBg_hover;
+  color_sliderDefault = color_buttonText;
 }
 

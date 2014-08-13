@@ -29,6 +29,21 @@ abstract class EditableRectPin
   void mirrorOffset()
   {
   }
+
+  void plot( PVector aPinAnchorPosition, color aWireframeColor, boolean aIsPinnedToChild )
+  {
+    plotDebug( aPinAnchorPosition );
+  }
+
+  void plotDebug( PVector aPinAnchorPosition )
+  {
+    if ( debug_editableRect_pins )
+    {
+      textAlign( LEFT, TOP );
+      String tDebugDisplayString = this.getClass().getSimpleName();
+      debugText( tDebugDisplayString, aPinAnchorPosition.x, aPinAnchorPosition.y );
+    }
+  }
 }
 
 class EditableRectPinLocalAbsolute extends EditableRectPin
@@ -36,9 +51,17 @@ class EditableRectPinLocalAbsolute extends EditableRectPin
   float localPos;
   EditableRect pinnedTarget;
 
-  EditableRectPinLocalAbsolute( Entity aPinnedSource, int aPinnedSourceEdge, float aLocalPos, EditableRect aPinnedTarget )
+  EditableRectPinLocalAbsolute( EditableRect aPinnedTarget, int aPinnedEdge )
   {
-    super( aPinnedSource, aPinnedSourceEdge );
+    super( aPinnedTarget.getParent(), aPinnedEdge );
+
+    pinnedTarget = aPinnedTarget;
+    updateOffset( pinnedTarget.getPinnedEdgeValue( aPinnedEdge ) );
+  }
+
+  EditableRectPinLocalAbsolute( EditableRect aPinnedTarget, int aPinnedEdge, float aLocalPos )
+  {
+    super( aPinnedTarget.getParent(), aPinnedEdge );
 
     pinnedTarget = aPinnedTarget;
     updateOffset( aLocalPos );
@@ -82,7 +105,7 @@ class EditableRectPinLocalAbsolute extends EditableRectPin
   {
     if ( pinnedSource instanceof EditableRect )
     {
-       localPos *= -1;
+      localPos *= -1;
     }
   }
 }
@@ -117,11 +140,68 @@ class EditableRectPinOffset extends EditableRectPin
   {
     offset *= -1;
   }
+
+  void plot( PVector aPinAnchorPosition, color aWireframeColor, boolean aIsPinnedToChild )
+  {
+    PVector tOffset = new PVector( 0, 0 );
+    if ( pinnedSourceEdge == PINARRAY_LEFT || pinnedSourceEdge == PINARRAY_RIGHT )
+    {
+      tOffset.x = offset;
+    } 
+    else
+    {
+      tOffset.y = offset;
+    }
+
+    if ( isPinFilled() )
+    {
+      fill( aWireframeColor );
+    }
+    else
+    {
+      noFill();
+    }
+    stroke( aWireframeColor );
+    strokeWeight( 1 );
+
+    if ( aIsPinnedToChild )
+    {
+      pinArc( aPinAnchorPosition.x, aPinAnchorPosition.y, tOffset.x, tOffset.y, pinArcSize );
+    } 
+    else
+    {
+      pinTriangle( aPinAnchorPosition.x, aPinAnchorPosition.y, -tOffset.x, -tOffset.y, pinTriangleSize );
+    }
+
+    plotDebug( aPinAnchorPosition );
+  }
+
+  void plotDebug( PVector aPinAnchorPosition )
+  {
+    super.plotDebug( aPinAnchorPosition );
+    if ( debug_editableRect_pins )
+    {
+      String tDebugDisplayString = "Offset=";
+      tDebugDisplayString += offset;
+      debugText( tDebugDisplayString );
+    }
+  }
+
+  boolean isPinFilled()
+  {
+    return false;
+  }
 }
 
 class EditableRectPinGlobalOffset extends EditableRectPinOffset
 {
   Global_Float globalOffsetValue;
+
+  EditableRectPinGlobalOffset( EditableRectPinOffset aExistingPin, Global_Float aGlobalOffsetValue )
+  {
+    super( (EditableRect)( aExistingPin.pinnedSource ), aExistingPin.pinnedSourceEdge, aExistingPin.calcPinnedEdgePosition() );
+    setGlobalValue( aGlobalOffsetValue );
+  }
 
   EditableRectPinGlobalOffset( EditableRect aPinnedSource, int aPinnedSourceEdge, float aCurrentPos, Global_Float aGlobalOffsetValue )
   {
@@ -140,6 +220,11 @@ class EditableRectPinGlobalOffset extends EditableRectPinOffset
   void setGlobalValue( Global_Float aGlobalOffsetValue )
   {
     globalOffsetValue = aGlobalOffsetValue;
+  }
+
+  boolean isPinFilled()
+  {
+    return true;
   }
 }
 
@@ -170,6 +255,27 @@ class EditableRectPinRelative extends EditableRectPin
   void mirrorOffset()
   {
     relativePos = 1.0 - relativePos;
+  }
+
+  void plot( PVector aPinAnchorPosition, color aWireframeColor, boolean aIsPinnedToChild )
+  {
+    PVector tOffset = new PVector( 0, 0 );
+    if ( pinnedSourceEdge == PINARRAY_LEFT || pinnedSourceEdge == PINARRAY_RIGHT )
+    {
+      tOffset.x = 1.0;
+    } 
+    else
+    {
+      tOffset.y = 1.0;
+    }
+
+    noFill();
+    stroke( aWireframeColor );
+    strokeWeight( 1 );
+    pinTriangle( aPinAnchorPosition.x, aPinAnchorPosition.y, -tOffset.x, -tOffset.y, pinTriangleSize );
+    pinTriangle( aPinAnchorPosition.x, aPinAnchorPosition.y, tOffset.x, tOffset.y, pinTriangleSize );
+
+    plotDebug( aPinAnchorPosition );
   }
 }
 

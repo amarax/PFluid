@@ -65,9 +65,14 @@ void setupWorld_wireframeLayout()
   EditableParentList tParentList = new EditableParentList( new PVector( 20, 210 ) );
   world.addEntity( tParentList );
   
+  EditableRect tSliderRect = new EditableRect( new PVector( 15, 95 ) );
+  tSliderRect.pinArray.get( PINARRAY_RIGHT ).updateOffset( 165 );
+  tSliderRect.pinArray.get( PINARRAY_BOTTOM ).updateOffset( 185 );
+  world.addEntity( tSliderRect );
+  
   EditableSlider tMarginSlider = new EditableSlider( new PVector( 20, 100 ), marginSize, "Margin Size" );
-  world.addEntity( tMarginSlider );
+  tSliderRect.addChildEntity( tMarginSlider );
 
   tMarginSlider = new EditableSlider( new PVector( 20, 150 ), parentListChildOffset, "Child Offset" );
-  world.addEntity( tMarginSlider );
+  tSliderRect.addChildEntity( tMarginSlider );
 }

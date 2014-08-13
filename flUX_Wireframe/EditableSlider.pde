@@ -37,7 +37,7 @@ class EditableSlider extends EditableRect
       linkedGlobalVariable.setValue( tTargetValue );
     }
 
-    linkedGlobalVariable.setValue( min( max( linkedGlobalVariable.getValue(), minValue ), maxValue ) ); 
+    linkedGlobalVariable.setValue( min( max( linkedGlobalVariable.getValue(), minValue ), maxValue ) );
   }
 
   void plot()
@@ -68,24 +68,36 @@ class EditableSlider extends EditableRect
 
   color calcBackgroundColor()
   {
-    if( this == mouseCursor.focusedEntity && uiModeManager.currentMode == UIMODE_ENTITYSPECIFIC )
+    if ( this == mouseCursor.focusedEntity && uiModeManager.currentMode == UIMODE_ENTITYSPECIFIC )
       return color_sliderBackground_hovered;
 
-    if( getHoveredEdge() == 5 && mouseCursor.focusedEntity == null )
-      return color_sliderBackground_hovered;
-    
+    if ( isHoveringOverSlider() )
+    {
+      if ( mouseCursor.focusedEntity == null )
+        return color_sliderBackground_hovered;
+
+      if ( uiModeManager.currentMode == UIMODE_PINNING )
+      {
+        if ( mouseCursor.focusedEntity instanceof EditableRect )
+        {
+          EditableRect tFocusedRect = (EditableRect)( mouseCursor.focusedEntity );
+          if ( tFocusedRect.canEditedPinBeGlobal() )
+          {
+            return color_sliderBackground_hovered;
+          }
+        }
+      }
+    }
+
     return color_buttonBg_default;
   }
 
   boolean isMouseInside()
   {
-    int tHoveredEdge = getHoveredEdge();
-    if ( tHoveredEdge == 5 )
-    {
+    if ( isHoveringOverSlider() )
       return true;
-    } 
 
-    return tHoveredEdge != 0;
+    return getHoveredEdge() != 0;
   }
 
   void plotDebug()
@@ -95,13 +107,14 @@ class EditableSlider extends EditableRect
     if ( debug_editableSlider )
     {
       textAlign( LEFT, TOP );
-      debugTextWorld( globalVariableName + "=" + linkedGlobalVariable.getValue(), position.x, position.y );
+      PVector tWorldPosition = localToWorld( position );
+      debugTextWorld( globalVariableName + "=" + linkedGlobalVariable.getValue(), tWorldPosition.x, tWorldPosition.y );
     }
   }
 
   void processMousePressed()
   {
-    if ( getHoveredEdge() == 5 )
+    if ( isHoveringOverSlider() )
     {
       uiModeManager.setMode( UIMODE_ENTITYSPECIFIC );
       return;
@@ -119,6 +132,11 @@ class EditableSlider extends EditableRect
     }
 
     super.processMouseReleased();
+  }
+
+  boolean isHoveringOverSlider()
+  {
+    return getHoveredEdge() == 5;
   }
 }
 

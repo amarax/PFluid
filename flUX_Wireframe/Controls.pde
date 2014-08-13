@@ -44,7 +44,7 @@ class Button extends Entity
     {
       return color_buttonBg_pressed;
     } 
-    else if ( mouseCursor.hoveredEntity == this )
+    else if ( mouseCursor.hoveredEntity == this && mouseCursor.focusedEntity == null )
     {
       return color_buttonBg_hover;
     }
@@ -62,19 +62,27 @@ class UIModeButton extends Button
     associatedUIMode = aUIMode;
   }
 
+  void plot()
+  {
+    super.plot();
+    
+    if( abs( uiModeManager.currentMode - associatedUIMode ) < 5 )
+    {
+      noFill();
+      stroke( color_buttonBg_inEffect );
+      rect( position.x, position.y, size.x, size.y );
+    }
+  }
+
   void processMousePressed()
   {
     super.processMousePressed();
 
-    uiModeManager.setModeClean( associatedUIMode );
+    uiModeManager.setMode( associatedUIMode );
   }
 
   color calcBackgroundColor()
   {
-    if ( mouseCursor.hoveredEntity != this && mouseCursor.focusedEntity != this &&  abs( uiModeManager.currentMode - associatedUIMode ) < 5 )
-    {
-      return color_buttonBg_inEffect;
-    }
     return super.calcBackgroundColor();
   }
 }

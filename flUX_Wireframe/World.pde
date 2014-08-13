@@ -283,6 +283,7 @@ class Entity
     parent.childrenToRemove.add( this );
     if ( mouseCursor.focusedEntity == this )
     {
+      mouseCursor.focusLocked = false;
       mouseCursor.focusedEntity = null;
     }
   }
@@ -295,7 +296,6 @@ class Entity
       mouseCursorDragOffset.sub( position ); 
 
       uiModeManager.currentMode = UIMODE_MOVING;
-      mouseCursor.focusLocked = true;
     }
   }
 
@@ -306,7 +306,6 @@ class Entity
       mouseCursorDragOffset = null;
 
       uiModeManager.currentMode = UIMODE_MOVABLE;
-      mouseCursor.focusLocked = false;
     }
   }
   

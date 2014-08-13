@@ -26,6 +26,9 @@ PVector debugPos;
 float editableParentListEntryHeight = 50;
 float editableParentListHeadingHeight = 21;
 
+float pinTriangleSize = 6;
+float pinArcSize = 9; 
+
 
 Global_Float marginSize = new Global_Float( 5.0 );
 Global_Float parentListChildOffset = new Global_Float( 10.0 );

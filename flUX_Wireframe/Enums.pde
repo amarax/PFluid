@@ -38,23 +38,40 @@ static int getOppositePinnedEdgeIndex( int aPinnedEdge )
 
 static int getOppositeEdgeIndex( int aEdge )
 {
-  if ( aEdge == EDGE_LEFT )
+  int tOppositeEdge = aEdge;
+  tOppositeEdge = getHorizontallyOppositeEdgeIndex( tOppositeEdge );
+  tOppositeEdge = getVerticallyOppositeEdgeIndex( tOppositeEdge );
+  return tOppositeEdge;
+}
+
+static int getHorizontallyOppositeEdgeIndex( int aEdge )
+{
+  int tOppositeEdge = aEdge;
+  switch( tOppositeEdge % 3 )
   {
-    return EDGE_RIGHT;
+  case 0:
+      tOppositeEdge -= 2;
+    break;
+  case 1:
+      tOppositeEdge+= 2;
+    break;
   }
-  if ( aEdge == EDGE_RIGHT )
+  return tOppositeEdge; 
+}
+
+static int getVerticallyOppositeEdgeIndex( int aEdge )
+{
+  int tOppositeEdge = aEdge;
+  switch( ( tOppositeEdge - 1 ) / 3 )
   {
-    return EDGE_LEFT;
+  case 0:
+      tOppositeEdge += 6;
+    break;
+  case 2:
+      tOppositeEdge -= 6;
+    break;
   }
-  if ( aEdge == EDGE_TOP )
-  {
-    return EDGE_BOTTOM;
-  }
-  if ( aEdge == EDGE_BOTTOM )
-  {
-    return EDGE_TOP;
-  }
-  return -1;
+  return tOppositeEdge; 
 }
 
 static int getPinnableEdgeIndex( int aEdgeCorner )
@@ -98,3 +115,4 @@ static int getEdgeRectIndex( int aPinnableEdge )
   }
   return -1;
 }
+

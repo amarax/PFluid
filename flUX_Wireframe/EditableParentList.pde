@@ -99,7 +99,7 @@ class EditableParentList extends EditableRect
       if ( cWorldEditableElementsSorted.size() == 0 )
       {
         // Switch back to local pin
-        pinArray.set( PINARRAY_BOTTOM, new EditableRectPinLocalAbsolute( null, PINARRAY_BOTTOM, position.y + editableParentListHeadingHeight, this ) );
+        pinArray.set( PINARRAY_BOTTOM, new EditableRectPinLocalAbsolute( this, PINARRAY_BOTTOM, position.y + editableParentListHeadingHeight ) );
       }
       else if ( tPrevElementCount == 0 )
       {

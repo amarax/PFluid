@@ -44,10 +44,10 @@ class EditableRect extends EditableElement
     edgeBeingEdited = 0;
 
     pinArray = new ArrayList<EditableRectPin>();
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_LEFT, 0.0, this ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_RIGHT, 0.0, this ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_TOP, 0.0, this ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( null, PINARRAY_BOTTOM, 0.0, this ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_LEFT ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_RIGHT ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_TOP ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_BOTTOM ) );
 
     position.set( aPosition );
     pinArray.get( PINARRAY_LEFT ).updateOffset( position.x );
@@ -56,87 +56,68 @@ class EditableRect extends EditableElement
 
   void update()
   {
-    // If moving, update entity update first because it runs all position updates.
-    if ( uiModeManager.currentMode == UIMODE_MOVING )
+    // If moving, update entity update first because it runs all position updates. 
+    if ( mouseCursor.focusedEntity == this && uiModeManager.currentMode == UIMODE_MOVING )
       super.update();
-
-    for ( int i = PINARRAY_LEFT; i <= PINARRAY_BOTTOM; ++i )
-    {
-      //if ( !childEntities.contains( pinArray.get( i ).pinnedSource ) )
-      setPinnableEdgeValue( i, pinArray.get( i ).calcPinnedEdgePosition() );
-    }
 
     if ( mouseCursor.focusedEntity == this )
     {
       if ( uiModeManager.currentMode == UIMODE_RESIZING )
       {
         PVector tMouseRelativePos = mouseCursor.position;
-        //        tMouseRelativePos.set( worldToLocal( tMouseRelativePos ) );
-        //        tMouseRelativePos.sub( position );
 
         switch( edgeBeingEdited % 3 )
         {
         case 0:
-          right = tMouseRelativePos.x;
-          updatePin( 1 );
-          if ( right < left )
-          {
-            right = left;
-            left = tMouseRelativePos.x;
-            edgeBeingEdited -= 2;
-
-            swapPins( 1, 0 );
-          }
+          pinArray.get( PINARRAY_RIGHT ).updateOffset( tMouseRelativePos.x );
           break;
         case 1:
-          left = tMouseRelativePos.x;
-          updatePin( 0 );
-          if ( left > right )
-          {
-            left = right;
-            right = tMouseRelativePos.x;
-            edgeBeingEdited+= 2;
-
-            swapPins( 1, 0 );
-          }
+          pinArray.get( PINARRAY_LEFT ).updateOffset( tMouseRelativePos.x );
           break;
         }
 
         switch( ( edgeBeingEdited - 1 ) / 3 )
         {
         case 0:
-          bottom = tMouseRelativePos.y;
-          updatePin( 3 );
-          if ( bottom < top )
-          {
-            bottom = top;
-            top = tMouseRelativePos.y;
-            edgeBeingEdited += 6;
-
-            swapPins( 2, 3 );
-          }
+          pinArray.get( PINARRAY_BOTTOM ).updateOffset( tMouseRelativePos.y );
           break;
         case 2:
-          top = tMouseRelativePos.y;
-          updatePin( 2 );
-          if ( top > bottom )
-          {
-            top = bottom;
-            bottom = tMouseRelativePos.y;
-            edgeBeingEdited -= 6;
-
-            swapPins( 2, 3 );
-          }
+          pinArray.get( PINARRAY_TOP ).updateOffset( tMouseRelativePos.y );
           break;
         }
-      } 
-      else if ( uiModeManager.currentMode == UIMODE_PINNING )
-      {
+
+        // Swap if necessary
+        if ( pinArray.get( PINARRAY_RIGHT ).calcPinnedEdgePosition() < pinArray.get( PINARRAY_LEFT ).calcPinnedEdgePosition() )
+        {
+          // Swap horizontally
+          swapPins( PINARRAY_LEFT, PINARRAY_RIGHT );
+          edgeBeingEdited = getHorizontallyOppositeEdgeIndex( edgeBeingEdited );
+        }
+
+        if ( pinArray.get( PINARRAY_BOTTOM ).calcPinnedEdgePosition() < pinArray.get( PINARRAY_TOP ).calcPinnedEdgePosition() )
+        {
+          // Swap vertically
+          swapPins( PINARRAY_TOP, PINARRAY_BOTTOM );
+          edgeBeingEdited = getVerticallyOppositeEdgeIndex( edgeBeingEdited );
+        }
       }
     }
 
-    if ( uiModeManager.currentMode != UIMODE_MOVING )
-      super.update();
+    // FK pass
+    for ( int i = PINARRAY_LEFT; i <= PINARRAY_BOTTOM; ++i )
+    {
+      if ( !childEntities.contains( pinArray.get( i ).pinnedSource ) )
+        setPinnableEdgeValue( i, pinArray.get( i ).calcPinnedEdgePosition() );
+    }
+
+    super.update();
+
+    // IK pass
+    for ( int i = PINARRAY_LEFT; i <= PINARRAY_BOTTOM; ++i )
+    {
+      if ( childEntities.contains( pinArray.get( i ).pinnedSource ) )
+        setPinnableEdgeValue( i, pinArray.get( i ).calcPinnedEdgePosition() );
+    }
 
     calcEdgeRects();
   }
@@ -170,13 +151,11 @@ class EditableRect extends EditableElement
 
   float getPinnedSideValue( int aPinnedSide )
   {
+    if( aPinnedSide < 0 || aPinnedSide >= pinArray.size() )
+      return 0;
+      
     EditableRectPin tPin = pinArray.get( aPinnedSide );
-    //if ( tPin.pinnedSource != null )
-    {
-      return tPin.calcPinnedEdgePosition();
-    }
-    // else
-    //return getPinnedEdgeValue(aPinnedSide);
+    return tPin.calcPinnedEdgePosition();
   }
 
   void plot()
@@ -219,8 +198,6 @@ class EditableRect extends EditableElement
     strokeWeight( 1 );
 
     PVector tWorldPos = new PVector( left, top );
-    //    tWorldPos.add( position );
-    //    tWorldPos.set( localToWorld( tWorldPos ) );
     rect( tWorldPos.x, tWorldPos.y, right-left, bottom-top );
 
     int tEdgeRectIndex = -1;
@@ -283,7 +260,7 @@ class EditableRect extends EditableElement
         if ( tPinnableEdgeIndex >= 0 )
         {
           EditableRectPin tFocusedPin = tPinnedRect.pinArray.get( tPinnableEdgeIndex );
-          if ( tFocusedPin.pinnedSource == this )
+          if ( tFocusedPin.pinnedSource == this && !(tFocusedPin instanceof EditableRectPinLocalAbsolute) )
           {
             tEdgeRectIndex = getEdgeRectIndex( tFocusedPin.pinnedSourceEdge ) - 1;
             tEdgeFillColor = color_pinSourceEdgeFill;
@@ -299,108 +276,34 @@ class EditableRect extends EditableElement
       }
     }
 
-
     if ( showPins )
     {
+      PVector tWorldTopLeft = new PVector( left, top );
+      PVector tWorldBottomRight = new PVector( right, bottom );
+      PVector tWorldMiddle = new PVector( (tWorldTopLeft.x + tWorldBottomRight.x)/2.0, (tWorldTopLeft.y + tWorldBottomRight.y)/2.0 );
+
       int iIndex = 0;
       for ( EditableRectPin iPin : pinArray )
       {
-        if ( !(iPin instanceof EditableRectPinLocalAbsolute ) )
+        PVector tPinPosition = tWorldMiddle.get();
+        if ( iIndex == PINARRAY_LEFT )
         {
-          PVector tWorldTopLeft = new PVector( left, top );
-          //          tWorldTopLeft.add( position );
-          //          tWorldTopLeft.set( localToWorld( tWorldTopLeft ) );
-
-          PVector tWorldBottomRight = new PVector( right, bottom );
-          //          tWorldBottomRight.add( position );
-          //          tWorldBottomRight.set( localToWorld( tWorldBottomRight ) );
-
-          PVector tPinPosition = new PVector( (tWorldTopLeft.x + tWorldBottomRight.x)/2.0, (tWorldTopLeft.y + tWorldBottomRight.y)/2.0 );
-          if ( iIndex == PINARRAY_LEFT )
-          {
-            tPinPosition.x = tWorldTopLeft.x;
-          } 
-          else if ( iIndex == PINARRAY_RIGHT )
-          {
-            tPinPosition.x = tWorldBottomRight.x;
-          } 
-          else if ( iIndex == PINARRAY_TOP )
-          {
-            tPinPosition.y = tWorldTopLeft.y;
-          } 
-          else if ( iIndex == PINARRAY_BOTTOM )
-          {
-            tPinPosition.y = tWorldBottomRight.y;
-          }
-
-          PVector tOffset = new PVector( 0, 0 );
-          float tPinTriangleSize = 6;
-          float tPinArcSize = tPinTriangleSize * 1.5;
-          if ( iPin instanceof EditableRectPinOffset )
-          {
-            EditableRectPinOffset tOffsetPin = (EditableRectPinOffset)iPin;
-
-            if ( iIndex == PINARRAY_LEFT || iIndex == PINARRAY_RIGHT )
-            {
-              tOffset.x = tOffsetPin.offset;
-            } 
-            else
-            {
-              tOffset.y = tOffsetPin.offset;
-            }
-
-            if ( iPin instanceof EditableRectPinGlobalOffset )
-              fill( tWireframeColor );
-            else
-              noFill();
-              
-            stroke( tWireframeColor );
-            strokeWeight( 1 );
-
-            if ( childEntities.contains( tOffsetPin.pinnedSource ) )
-            {
-              pinArc( tPinPosition.x, tPinPosition.y, tOffset.x, tOffset.y, tPinArcSize );
-            } 
-            else
-            {
-              pinTriangle( tPinPosition.x, tPinPosition.y, -tOffset.x, -tOffset.y, tPinTriangleSize );
-            }
-          } 
-          else if ( iPin instanceof EditableRectPinRelative )
-          {
-            EditableRectPinRelative tOffsetPin = (EditableRectPinRelative)iPin;
-
-            if ( iIndex == PINARRAY_LEFT || iIndex == PINARRAY_RIGHT )
-            {
-              tOffset.x = 1.0;
-            } 
-            else
-            {
-              tOffset.y = 1.0;
-            }
-
-            noFill();
-            stroke( tWireframeColor );
-            strokeWeight( 1 );
-            pinTriangle( tPinPosition.x, tPinPosition.y, -tOffset.x, -tOffset.y, tPinTriangleSize );
-            pinTriangle( tPinPosition.x, tPinPosition.y, tOffset.x, tOffset.y, tPinTriangleSize );
-          }
-
-          if ( debug_editableRect_pins )
-          {
-            textAlign( LEFT, TOP );
-            String[] tClassStrings = split( iPin.getClass().getCanonicalName(), "." );
-            String tDebugDisplayString = tClassStrings[tClassStrings.length - 1];
-            debugText( tDebugDisplayString, tPinPosition.x, tPinPosition.y );
-            if ( iPin instanceof EditableRectPinOffset )
-            {
-              tDebugDisplayString = "Offset=";
-              tDebugDisplayString += ((EditableRectPinOffset)iPin).offset;
-              debugText( tDebugDisplayString );
-            }
-          }
+          tPinPosition.x = tWorldTopLeft.x;
+        } 
+        else if ( iIndex == PINARRAY_RIGHT )
+        {
+          tPinPosition.x = tWorldBottomRight.x;
+        } 
+        else if ( iIndex == PINARRAY_TOP )
+        {
+          tPinPosition.y = tWorldTopLeft.y;
+        } 
+        else if ( iIndex == PINARRAY_BOTTOM )
+        {
+          tPinPosition.y = tWorldBottomRight.y;
         }
 
+        iPin.plot( tPinPosition, tWireframeColor, childEntities.contains( iPin.pinnedSource ) );
 
         ++iIndex;
       }
@@ -418,11 +321,11 @@ class EditableRect extends EditableElement
     if ( aRectIndex < 0 || aRectIndex >= cRectArray.size() )
       return;
 
-    if( aRectIndex == 4 )
+    if ( aRectIndex == 4 )
     {
       return;
     }
-      
+
     Rectangle tRect = cRectArray.get( aRectIndex );
 
     if ( alpha( aFillColor ) > EPSILON )
@@ -573,19 +476,13 @@ class EditableRect extends EditableElement
     if ( getParent() == mouseCursor.focusedEntity )
       return true;
 
-    if( this == mouseCursor.focusedEntity )
+    if ( this == mouseCursor.focusedEntity )
     {
       // Only allow pinning to opposite edge
       return getHoveredEdge() == getOppositeEdgeIndex( edgeBeingEdited );
     }
 
     return false;
-  }
-
-  void updatePin( int aPinArrayIndex )
-  {
-    EditableRectPin tPin = pinArray.get( aPinArrayIndex );
-    tPin.updateOffset( getPinnedEdgeValue(aPinArrayIndex) );
   }
 
   void mirrorChildren( Entity aMirroredEntity )
@@ -619,7 +516,7 @@ class EditableRect extends EditableElement
     }
 
     mirrorChildren( aMirroredEntity );
-    
+
     position.x = tNewXPos;
   }
 
@@ -651,33 +548,7 @@ class EditableRect extends EditableElement
     }
     else if ( uiModeManager.currentMode == UIMODE_PINNING )
     {
-      if ( mouseCursor.hoveredEntity instanceof EditableRect )
-      {
-        EditableRect tSourceRect = (EditableRect)( mouseCursor.hoveredEntity );
-        EditableRect tTargetRect = this;
-        if ( tSourceRect.isValidPinningTarget() )
-        {
-          int tPinnedSourceEdge = tSourceRect.getPinnedSourceEdge();
-          int tPinnedTargetEdge = tTargetRect.getPinnedTargetEdge();
-
-          float tTargetEdgeCurrentValue = tTargetRect.getPinnedEdgeValue( tPinnedTargetEdge );
-          EditableRectPin tPin = null;
-          if ( tPinnedSourceEdge == tPinnedTargetEdge || tPinnedSourceEdge == getOppositePinnedEdgeIndex( tPinnedTargetEdge ) )
-          {
-            tPin = new EditableRectPinOffset( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
-          }
-          else
-          {
-            // Get diagonal edge
-            tPinnedSourceEdge += 2;
-            tPinnedSourceEdge = tPinnedSourceEdge % 4;
-
-            tPin = new EditableRectPinRelative( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
-          }
-
-          tTargetRect.pinArray.set( tPinnedTargetEdge, tPin );
-        }
-      }
+      pinOnMousePressed();
 
       uiModeManager.currentMode = UIMODE_PINNABLE;
       mouseCursor.focusLocked = false;
@@ -686,8 +557,6 @@ class EditableRect extends EditableElement
     {
       edgeBeingEdited = getHoveredEdge();
       uiModeManager.currentMode = UIMODE_RESIZING;
-
-      mouseCursor.focusLocked = true;
     } 
     else if ( uiModeManager.currentMode == UIMODE_PINNABLE )
     {
@@ -712,6 +581,62 @@ class EditableRect extends EditableElement
         world.selectedEntity = this;
       }
     }
+  }
+
+  void pinOnMousePressed()
+  {
+    if ( mouseButton == LEFT )
+    {
+      int tPinnedTargetEdge = getPinnedTargetEdge();
+
+      EditableRectPin tPin = null;
+
+      if ( mouseCursor.hoveredEntity instanceof EditableSlider )
+      {
+        EditableSlider tHoveredSlider = (EditableSlider)( mouseCursor.hoveredEntity );
+        if ( tHoveredSlider.isHoveringOverSlider() && canEditedPinBeGlobal() )
+        {
+          EditableRectPinOffset tCurrentPin = (EditableRectPinOffset)( pinArray.get( tPinnedTargetEdge ) );
+          tPin = new EditableRectPinGlobalOffset( tCurrentPin, tHoveredSlider.linkedGlobalVariable );
+        }
+      }
+
+      if ( mouseCursor.hoveredEntity instanceof EditableRect && tPin == null )
+      {
+        EditableRect tSourceRect = (EditableRect)( mouseCursor.hoveredEntity );
+        if ( tSourceRect.isValidPinningTarget() )
+        {
+          int tPinnedSourceEdge = tSourceRect.getPinnedSourceEdge();
+
+          float tTargetEdgeCurrentValue = getPinnedEdgeValue( tPinnedTargetEdge );
+          if ( tPinnedSourceEdge == tPinnedTargetEdge || tPinnedSourceEdge == getOppositePinnedEdgeIndex( tPinnedTargetEdge ) )
+          {
+            tPin = new EditableRectPinOffset( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+          }
+          else
+          {
+            // Get diagonal edge
+            tPinnedSourceEdge += 2;
+            tPinnedSourceEdge = tPinnedSourceEdge % 4;
+
+            tPin = new EditableRectPinRelative( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+          }
+        }
+      }
+
+      if ( tPin == null )
+      {
+        tPin = new EditableRectPinLocalAbsolute( this, tPinnedTargetEdge );
+      }
+
+
+      pinArray.set( tPinnedTargetEdge, tPin );
+    }
+  }
+
+  boolean canEditedPinBeGlobal()
+  {
+    return pinArray.get( getPinnedTargetEdge() ) instanceof EditableRectPinOffset;
   }
 }
 
