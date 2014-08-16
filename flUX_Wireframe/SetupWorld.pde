@@ -66,8 +66,8 @@ void setupWorld_wireframeLayout()
   world.addEntity( tParentList );
   
   EditableRect tSliderRect = new EditableRect( new PVector( 15, 95 ) );
-  tSliderRect.pinArray.get( PINARRAY_RIGHT ).updateOffset( 165 );
-  tSliderRect.pinArray.get( PINARRAY_BOTTOM ).updateOffset( 185 );
+  tSliderRect.getPin( PinEdge.PINEDGE_RIGHT ).updateOffset( 165 );
+  tSliderRect.getPin( PinEdge.PINEDGE_BOTTOM ).updateOffset( 185 );
   world.addEntity( tSliderRect );
   
   EditableSlider tMarginSlider = new EditableSlider( new PVector( 20, 100 ), marginSize, "Margin Size" );

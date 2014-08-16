@@ -7,8 +7,8 @@ class EditableParentList extends EditableRect
   {
     super( aPosition );
 
-    pinArray.get( PINARRAY_RIGHT ).updateOffset( position.x + 200 );
-    pinArray.get( PINARRAY_BOTTOM ).updateOffset( position.y + editableParentListHeadingHeight );
+    getPin( PinEdge.PINEDGE_RIGHT ).updateOffset( position.x + 200 );
+    getPin( PinEdge.PINEDGE_BOTTOM ).updateOffset( position.y + editableParentListHeadingHeight );
 
     cWorldEditableElementsSorted = new ArrayList<EditableElement>();
 
@@ -99,17 +99,17 @@ class EditableParentList extends EditableRect
       if ( cWorldEditableElementsSorted.size() == 0 )
       {
         // Switch back to local pin
-        pinArray.set( PINARRAY_BOTTOM, new EditableRectPinLocalAbsolute( this, PINARRAY_BOTTOM, position.y + editableParentListHeadingHeight ) );
+        setPin( PinEdge.PINEDGE_BOTTOM, new EditableRectPinLocalAbsolute( this, PinEdge.PINEDGE_BOTTOM, position.y + editableParentListHeadingHeight ) );
       }
       else if ( tPrevElementCount == 0 )
       {
-        pinArray.set( PINARRAY_BOTTOM, new EditableRectPinGlobalOffset( tLastElement, PINARRAY_BOTTOM, tLastElement.bottom + marginSize.getValue(), marginSize ) );
+        setPin( PinEdge.PINEDGE_BOTTOM, new EditableRectPinGlobalOffset( this, PinEdge.PINEDGE_BOTTOM, tLastElement, PinEdge.PINEDGE_BOTTOM, tLastElement.bottom + marginSize.getValue(), marginSize ) );
       }
     }
 
     if ( tLastElement != null && tLastElement != tPrevLastElement )
     {
-      pinArray.get( PINARRAY_BOTTOM ).pinnedSource = tLastElement;
+      getPin( PinEdge.PINEDGE_BOTTOM ).pinnedSource = tLastElement;
     }
 
     super.update();
@@ -156,7 +156,7 @@ class EditableParentList extends EditableRect
     editableElementsListMap.put( aEditableElement, tEntry );
 
     // Setup pinning information
-    tEntry.pinArray.set( PINARRAY_RIGHT, new EditableRectPinGlobalOffset( this, PINARRAY_RIGHT, right - marginSize.getValue(), marginSize ) );
+    tEntry.setPin( PinEdge.PINEDGE_RIGHT, new EditableRectPinGlobalOffset( tEntry, PinEdge.PINEDGE_RIGHT, this, PinEdge.PINEDGE_RIGHT, right - marginSize.getValue(), marginSize ) );
 
     EditableRect tParentListEntry = editableElementsListMap.get( aEditableElement.getParent() );
     float tLeftPinValue = 0;
@@ -171,30 +171,29 @@ class EditableParentList extends EditableRect
       tGlobalVariable = marginSize;
     }
 
-    tLeftPinValue = tParentListEntry.getPinnedSideValue( PINARRAY_LEFT ) + tGlobalVariable.getValue();
-    tEntry.pinArray.set( PINARRAY_LEFT, new EditableRectPinGlobalOffset( tParentListEntry, PINARRAY_LEFT, tLeftPinValue, tGlobalVariable ) );
+    tLeftPinValue = tParentListEntry.getPinnedSideValue( PinEdge.PINEDGE_LEFT ) + tGlobalVariable.getValue();
+    tEntry.setPin( PinEdge.PINEDGE_LEFT, new EditableRectPinGlobalOffset( tEntry, PinEdge.PINEDGE_LEFT, tParentListEntry, PinEdge.PINEDGE_LEFT, tLeftPinValue, tGlobalVariable ) );
 
     float tChildSize = editableParentListEntryHeight;
 
     EditableRect tPinTarget = this;
-    int tPinnedSide = PINARRAY_TOP;
-    float tPinValue = getPinnedSideValue( PINARRAY_TOP ) + editableParentListHeadingHeight;
+    PinEdge tPinnedSide = PinEdge.PINEDGE_TOP;
+    float tPinValue = getPinnedSideValue( PinEdge.PINEDGE_TOP ) + editableParentListHeadingHeight;
     EditableRectPinOffset tPin = null;
     if ( aPreviousEditableElement != null )
     {
       tPinTarget = editableElementsListMap.get( aPreviousEditableElement );
-      tPinnedSide = PINARRAY_BOTTOM;
+      tPinnedSide = PinEdge.PINEDGE_BOTTOM;
       tPinValue = tPinTarget.getPinnedSideValue( tPinnedSide ) + marginSize.getValue();
-      tPin = new EditableRectPinGlobalOffset( tPinTarget, tPinnedSide, tPinValue, marginSize );
+      tPin = new EditableRectPinGlobalOffset( tEntry, PinEdge.PINEDGE_TOP, tPinTarget, tPinnedSide, tPinValue, marginSize );
     }
     else
     {
-      tPin = new EditableRectPinOffset( tPinTarget, tPinnedSide, tPinValue );
+      tPin = new EditableRectPinOffset( tEntry, PinEdge.PINEDGE_TOP, tPinTarget, tPinnedSide, tPinValue );
     }
 
-    tEntry.pinArray.set( PINARRAY_TOP, tPin );
-    //tEntry.pinArray.set( PINARRAY_BOTTOM, new EditableRectPinOffset( tPinTarget, tPinnedSide, tPinValue + tChildSize ) );
-    tEntry.pinArray.set( PINARRAY_BOTTOM, new EditableRectPinOffset( tEntry, PINARRAY_TOP, tChildSize ) );
+    tEntry.setPin( PinEdge.PINEDGE_TOP, tPin );
+    tEntry.setPin( PinEdge.PINEDGE_BOTTOM, new EditableRectPinOffset( tEntry, PinEdge.PINEDGE_BOTTOM, tEntry, PinEdge.PINEDGE_TOP, tChildSize ) );
 
     return tEntry;
   }
@@ -206,17 +205,16 @@ class EditableParentList extends EditableRect
       return;
     }
 
-    int tPinnedEdge = PINARRAY_BOTTOM;
+    PinEdge tPinnedEdge = PinEdge.PINEDGE_BOTTOM;
     EditableElementListEntry tPreviousEntry = editableElementsListMap.get( aPreviousEditableElement );
     if ( tPreviousEntry == null )
     {
-      tPinnedEdge = PINARRAY_TOP;
+      tPinnedEdge = PinEdge.PINEDGE_TOP;
     }
 
-    tEntry.pinArray.get( PINARRAY_TOP ).pinnedSource = tPreviousEntry;
-    tEntry.pinArray.get( PINARRAY_TOP ).pinnedSourceEdge = tPinnedEdge;
-//    tEntry.pinArray.get( PINARRAY_BOTTOM ).pinnedSource = tPreviousEntry;
-//    tEntry.pinArray.get( PINARRAY_BOTTOM ).pinnedSourceEdge = tPinnedEdge;
+    EditableRectPin tTopPin = tEntry.getPin( PinEdge.PINEDGE_TOP ); 
+    tTopPin.pinnedSource = tPreviousEntry;
+    tTopPin.sourcePinEdge = tPinnedEdge;
   }
 }
 

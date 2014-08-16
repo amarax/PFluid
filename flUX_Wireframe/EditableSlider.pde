@@ -20,8 +20,8 @@ class EditableSlider extends EditableRect
     float tWidth = 140;
     float tHeight = 30;
 
-    pinArray.get( PINARRAY_RIGHT ).updateOffset( position.x + tWidth );
-    pinArray.get( PINARRAY_BOTTOM ).updateOffset( position.y + tHeight );
+    getPin( PinEdge.PINEDGE_RIGHT ).updateOffset( position.x + tWidth );
+    getPin( PinEdge.PINEDGE_BOTTOM ).updateOffset( position.y + tHeight );
   }
 
   void update()

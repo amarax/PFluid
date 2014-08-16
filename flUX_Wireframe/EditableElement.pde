@@ -30,7 +30,7 @@ class EditableRect extends EditableElement
 
   int edgeBeingEdited;
 
-  ArrayList<EditableRectPin> pinArray;
+  private ArrayList<EditableRectPin> pinArray;
 
   EditableRect( PVector aPosition )
   {
@@ -44,14 +44,14 @@ class EditableRect extends EditableElement
     edgeBeingEdited = 0;
 
     pinArray = new ArrayList<EditableRectPin>();
-    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_LEFT ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_RIGHT ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_TOP ) );
-    pinArray.add( new EditableRectPinLocalAbsolute( this, PINARRAY_BOTTOM ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PinEdge.PINEDGE_LEFT ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PinEdge.PINEDGE_RIGHT ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PinEdge.PINEDGE_TOP ) );
+    pinArray.add( new EditableRectPinLocalAbsolute( this, PinEdge.PINEDGE_BOTTOM ) );
 
     position.set( aPosition );
-    pinArray.get( PINARRAY_LEFT ).updateOffset( position.x );
-    pinArray.get( PINARRAY_TOP ).updateOffset( position.y );
+    getPin( PinEdge.PINEDGE_LEFT ).updateOffset( position.x );
+    getPin( PinEdge.PINEDGE_TOP ).updateOffset( position.y );
   }
 
   void update()
@@ -69,92 +69,79 @@ class EditableRect extends EditableElement
         switch( edgeBeingEdited % 3 )
         {
         case 0:
-          pinArray.get( PINARRAY_RIGHT ).updateOffset( tMouseRelativePos.x );
+          getPin( PinEdge.PINEDGE_RIGHT ).updateOffset( tMouseRelativePos.x );
           break;
         case 1:
-          pinArray.get( PINARRAY_LEFT ).updateOffset( tMouseRelativePos.x );
+          getPin( PinEdge.PINEDGE_LEFT ).updateOffset( tMouseRelativePos.x );
           break;
         }
 
         switch( ( edgeBeingEdited - 1 ) / 3 )
         {
         case 0:
-          pinArray.get( PINARRAY_BOTTOM ).updateOffset( tMouseRelativePos.y );
+          getPin( PinEdge.PINEDGE_BOTTOM ).updateOffset( tMouseRelativePos.y );
           break;
         case 2:
-          pinArray.get( PINARRAY_TOP ).updateOffset( tMouseRelativePos.y );
+          getPin( PinEdge.PINEDGE_TOP ).updateOffset( tMouseRelativePos.y );
           break;
         }
 
         // Swap if necessary
-        if ( pinArray.get( PINARRAY_RIGHT ).calcPinnedEdgePosition() < pinArray.get( PINARRAY_LEFT ).calcPinnedEdgePosition() )
+        if ( getPin( PinEdge.PINEDGE_RIGHT ).calcPinnedEdgePosition() < getPin( PinEdge.PINEDGE_LEFT ).calcPinnedEdgePosition() )
         {
           // Swap horizontally
-          swapPins( PINARRAY_LEFT, PINARRAY_RIGHT );
+          swapPins( PinEdge.PINEDGE_LEFT, PinEdge.PINEDGE_RIGHT );
           edgeBeingEdited = getHorizontallyOppositeEdgeIndex( edgeBeingEdited );
         }
 
-        if ( pinArray.get( PINARRAY_BOTTOM ).calcPinnedEdgePosition() < pinArray.get( PINARRAY_TOP ).calcPinnedEdgePosition() )
+        if ( getPin( PinEdge.PINEDGE_BOTTOM ).calcPinnedEdgePosition() < getPin( PinEdge.PINEDGE_TOP ).calcPinnedEdgePosition() )
         {
           // Swap vertically
-          swapPins( PINARRAY_TOP, PINARRAY_BOTTOM );
+          swapPins( PinEdge.PINEDGE_TOP, PinEdge.PINEDGE_BOTTOM );
           edgeBeingEdited = getVerticallyOppositeEdgeIndex( edgeBeingEdited );
         }
       }
     }
 
     // FK pass
-    for ( int i = PINARRAY_LEFT; i <= PINARRAY_BOTTOM; ++i )
+    for ( EditableRectPin iPin : pinArray )
     {
-      if ( !childEntities.contains( pinArray.get( i ).pinnedSource ) )
-        setPinnableEdgeValue( i, pinArray.get( i ).calcPinnedEdgePosition() );
+      if ( !childEntities.contains( iPin.pinnedSource ) )
+        iPin.updateTarget();
     }
 
     super.update();
 
     // IK pass
-    for ( int i = PINARRAY_LEFT; i <= PINARRAY_BOTTOM; ++i )
+    for ( EditableRectPin iPin : pinArray )
     {
-      if ( childEntities.contains( pinArray.get( i ).pinnedSource ) )
-        setPinnableEdgeValue( i, pinArray.get( i ).calcPinnedEdgePosition() );
+      if ( childEntities.contains( iPin.pinnedSource ) )
+        iPin.updateTarget();
     }
 
     calcEdgeRects();
   }
 
-  void swapPins( int iIndexA, int iIndexB )
+  void swapPins( PinEdge aEdgeA, PinEdge aEdgeB )
   {
-    EditableRectPin tPin = pinArray.get(iIndexA);
-    pinArray.set( iIndexA, pinArray.get(iIndexB) );
-    pinArray.set( iIndexB, tPin );
+    if ( aEdgeA.arrayIndex < 0 || aEdgeA.arrayIndex >= pinArray.size() )
+      return;
+    if ( aEdgeB.arrayIndex < 0 || aEdgeB.arrayIndex >= pinArray.size() )
+      return;
+
+    EditableRectPin tPinA = getPin( aEdgeA );
+    EditableRectPin tPinB = getPin( aEdgeB );
+
+    pinArray.set( aEdgeA.arrayIndex, tPinB );
+    pinArray.set( aEdgeB.arrayIndex, tPinA );
   }
 
-  void setPinnableEdgeValue( int aPinnableEdge, float aValue )
+  float getPinnedSideValue( PinEdge aPinnedSide )
   {
-    if ( aPinnableEdge == PINARRAY_LEFT )
-    {
-      left = aValue;
-    }
-    if ( aPinnableEdge == PINARRAY_RIGHT )
-    {
-      right = aValue;
-    }
-    if ( aPinnableEdge == PINARRAY_TOP )
-    {
-      top = aValue;
-    }
-    if ( aPinnableEdge == PINARRAY_BOTTOM )
-    {
-      bottom = aValue;
-    }
-  }
-
-  float getPinnedSideValue( int aPinnedSide )
-  {
-    if( aPinnedSide < 0 || aPinnedSide >= pinArray.size() )
+    if ( aPinnedSide.arrayIndex < 0 || aPinnedSide.arrayIndex >= pinArray.size() )
       return 0;
-      
-    EditableRectPin tPin = pinArray.get( aPinnedSide );
+
+    EditableRectPin tPin = getPin( aPinnedSide );
     return tPin.calcPinnedEdgePosition();
   }
 
@@ -237,13 +224,13 @@ class EditableRect extends EditableElement
       tEdgeFillColor = color( 0, 0, 0, 0 );
       tEdgeStrokeColor = color( 0, 0, 0, 0 );
       EditableRect tPinnedRect = null;
-      int tPinnableEdgeIndex = -1;
+      PinEdge tPinnedEdge = PinEdge.PINEDGE_INVALID;
       if ( mouseCursor.focusedEntity != null )
       {
         if ( mouseCursor.focusedEntity instanceof EditableRect )
         {
           tPinnedRect = (EditableRect)( mouseCursor.focusedEntity );
-          tPinnableEdgeIndex = getPinnableEdgeIndex( tPinnedRect.edgeBeingEdited );
+          tPinnedEdge = getPinEdge( tPinnedRect.edgeBeingEdited );
         }
       } 
       else if ( mouseCursor.hoveredEntity != null )
@@ -251,24 +238,24 @@ class EditableRect extends EditableElement
         if ( mouseCursor.hoveredEntity instanceof EditableRect )
         {
           tPinnedRect = (EditableRect)( mouseCursor.hoveredEntity );
-          tPinnableEdgeIndex = getPinnableEdgeIndex( tPinnedRect.getHoveredEdge() );
+          tPinnedEdge = getPinEdge( tPinnedRect.getHoveredEdge() );
         }
       }
 
       if ( tPinnedRect != null )
       {
-        if ( tPinnableEdgeIndex >= 0 )
+        if ( tPinnedEdge != PinEdge.PINEDGE_INVALID )
         {
-          EditableRectPin tFocusedPin = tPinnedRect.pinArray.get( tPinnableEdgeIndex );
+          EditableRectPin tFocusedPin = tPinnedRect.getPin( tPinnedEdge );
           if ( tFocusedPin.pinnedSource == this && !(tFocusedPin instanceof EditableRectPinLocalAbsolute) )
           {
-            tEdgeRectIndex = getEdgeRectIndex( tFocusedPin.pinnedSourceEdge ) - 1;
+            tEdgeRectIndex = getEdgeRectIndex( tFocusedPin.sourcePinEdge ) - 1;
             tEdgeFillColor = color_pinSourceEdgeFill;
             plotEdgeRect( tEdgeRectIndex, tEdgeFillColor, tEdgeStrokeColor );
 
             if ( tFocusedPin instanceof EditableRectPinRelative )
             {
-              tEdgeRectIndex = getEdgeRectIndex( getOppositePinnedEdgeIndex( tFocusedPin.pinnedSourceEdge ) ) - 1;
+              tEdgeRectIndex = getEdgeRectIndex( getOppositePinEdge( tFocusedPin.sourcePinEdge ) ) - 1;
               plotEdgeRect( tEdgeRectIndex, tEdgeFillColor, tEdgeStrokeColor );
             }
           }
@@ -286,21 +273,21 @@ class EditableRect extends EditableElement
       for ( EditableRectPin iPin : pinArray )
       {
         PVector tPinPosition = tWorldMiddle.get();
-        if ( iIndex == PINARRAY_LEFT )
+
+        switch( iPin.targetEdge )
         {
+        case PINEDGE_LEFT:
           tPinPosition.x = tWorldTopLeft.x;
-        } 
-        else if ( iIndex == PINARRAY_RIGHT )
-        {
+          break;
+        case PINEDGE_RIGHT:
           tPinPosition.x = tWorldBottomRight.x;
-        } 
-        else if ( iIndex == PINARRAY_TOP )
-        {
+          break;
+        case PINEDGE_TOP:
           tPinPosition.y = tWorldTopLeft.y;
-        } 
-        else if ( iIndex == PINARRAY_BOTTOM )
-        {
+          break;
+        case PINEDGE_BOTTOM:
           tPinPosition.y = tWorldBottomRight.y;
+          break;
         }
 
         iPin.plot( tPinPosition, tWireframeColor, childEntities.contains( iPin.pinnedSource ) );
@@ -431,32 +418,48 @@ class EditableRect extends EditableElement
     return 0;
   }
 
-  int getPinnedTargetEdge()
-  {
-    return getPinnableEdgeIndex( edgeBeingEdited );
-  }
+  //  PinEdge getPinnedTargetEdge()
+  //  {
+  //    return getPinnableEdgeIndex( edgeBeingEdited );
+  //  }
+  //
+  //  PinEdge getsourcePinEdge()
+  //  {
+  //    return getPinnableEdgeIndex( getHoveredEdge() );
+  //  }
+  //
+  //  float getPinnedEdgeValue( int aPinnedEdge )
+  //  {
+  //    if ( aPinnedEdge == PINARRAY_LEFT )
+  //    {
+  //      return left;
+  //    }
+  //    if ( aPinnedEdge == PINARRAY_RIGHT )
+  //    {
+  //      return right;
+  //    }
+  //    if ( aPinnedEdge == PINARRAY_TOP )
+  //    {
+  //      return top;
+  //    }
+  //    if ( aPinnedEdge == PINARRAY_BOTTOM )
+  //    {
+  //      return bottom;
+  //    }
+  //    return 0;
+  //  }
 
-  int getPinnedSourceEdge()
+  float getPinnedEdgeValue( PinEdge aEdge )
   {
-    return getPinnableEdgeIndex( getHoveredEdge() );
-  }
-
-  float getPinnedEdgeValue( int aPinnedEdge )
-  {
-    if ( aPinnedEdge == PINARRAY_LEFT )
+    switch( aEdge )
     {
+    case PINEDGE_LEFT:
       return left;
-    }
-    if ( aPinnedEdge == PINARRAY_RIGHT )
-    {
+    case PINEDGE_RIGHT:
       return right;
-    }
-    if ( aPinnedEdge == PINARRAY_TOP )
-    {
+    case PINEDGE_TOP:
       return top;
-    }
-    if ( aPinnedEdge == PINARRAY_BOTTOM )
-    {
+    case PINEDGE_BOTTOM:
       return bottom;
     }
     return 0;
@@ -498,17 +501,17 @@ class EditableRect extends EditableElement
 
   void mirror( Entity aMirroredEntity )
   {
-    swapPins( 1, 0 );
-    pinArray.get( PINARRAY_LEFT ).mirror();
-    pinArray.get( PINARRAY_RIGHT ).mirror();
+    swapPins( PinEdge.PINEDGE_LEFT, PinEdge.PINEDGE_RIGHT );
+    getPin( PinEdge.PINEDGE_LEFT ).mirror();
+    getPin( PinEdge.PINEDGE_RIGHT ).mirror();
 
     float tNewXPos = position.x; 
 
     if ( getParent() instanceof EditableRect && getParent() == aMirroredEntity )
     {
       EditableRect tParentRect = (EditableRect)getParent();
-      float tRelativePos = 1 - ( localToWorld( position ).x - tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) ) / ( tParentRect.getPinnedEdgeValue( PINARRAY_RIGHT ) - tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) );
-      tNewXPos = worldToLocal( new PVector( tParentRect.getPinnedEdgeValue( PINARRAY_LEFT ) * (1-tRelativePos) + tParentRect.getPinnedEdgeValue( PINARRAY_RIGHT ) * tRelativePos, 0 ) ).x;
+      float tRelativePos = 1 - ( localToWorld( position ).x - tParentRect.getPinnedEdgeValue( PinEdge.PINEDGE_LEFT ) ) / ( tParentRect.getPinnedEdgeValue( PinEdge.PINEDGE_RIGHT ) - tParentRect.getPinnedEdgeValue( PinEdge.PINEDGE_LEFT ) );
+      tNewXPos = worldToLocal( new PVector( tParentRect.getPinnedEdgeValue( PinEdge.PINEDGE_LEFT ) * (1-tRelativePos) + tParentRect.getPinnedEdgeValue( PinEdge.PINEDGE_RIGHT ) * tRelativePos, 0 ) ).x;
     }
     else
     {
@@ -587,7 +590,7 @@ class EditableRect extends EditableElement
   {
     if ( mouseButton == LEFT )
     {
-      int tPinnedTargetEdge = getPinnedTargetEdge();
+      PinEdge tPinnedTargetEdge = getPinEdge( edgeBeingEdited );
 
       EditableRectPin tPin = null;
 
@@ -596,7 +599,7 @@ class EditableRect extends EditableElement
         EditableSlider tHoveredSlider = (EditableSlider)( mouseCursor.hoveredEntity );
         if ( tHoveredSlider.isHoveringOverSlider() && canEditedPinBeGlobal() )
         {
-          EditableRectPinOffset tCurrentPin = (EditableRectPinOffset)( pinArray.get( tPinnedTargetEdge ) );
+          EditableRectPinOffset tCurrentPin = (EditableRectPinOffset)( getPin( tPinnedTargetEdge ) );
           tPin = new EditableRectPinGlobalOffset( tCurrentPin, tHoveredSlider.linkedGlobalVariable );
         }
       }
@@ -606,20 +609,18 @@ class EditableRect extends EditableElement
         EditableRect tSourceRect = (EditableRect)( mouseCursor.hoveredEntity );
         if ( tSourceRect.isValidPinningTarget() )
         {
-          int tPinnedSourceEdge = tSourceRect.getPinnedSourceEdge();
+          PinEdge tSourcePinEdge = getPinEdge( tSourceRect.getHoveredEdge() );
 
           float tTargetEdgeCurrentValue = getPinnedEdgeValue( tPinnedTargetEdge );
-          if ( tPinnedSourceEdge == tPinnedTargetEdge || tPinnedSourceEdge == getOppositePinnedEdgeIndex( tPinnedTargetEdge ) )
+          if ( tSourcePinEdge == tPinnedTargetEdge || tSourcePinEdge == getOppositePinEdge( tPinnedTargetEdge ) )
           {
-            tPin = new EditableRectPinOffset( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+            tPin = new EditableRectPinOffset( this, tPinnedTargetEdge, tSourceRect, tSourcePinEdge, tTargetEdgeCurrentValue );
           }
           else
           {
-            // Get diagonal edge
-            tPinnedSourceEdge += 2;
-            tPinnedSourceEdge = tPinnedSourceEdge % 4;
+            tSourcePinEdge = getDiagonalPinEdge( tSourcePinEdge );
 
-            tPin = new EditableRectPinRelative( tSourceRect, tPinnedSourceEdge, tTargetEdgeCurrentValue );
+            tPin = new EditableRectPinRelative( this, tPinnedTargetEdge, tSourceRect, tSourcePinEdge, tTargetEdgeCurrentValue );
           }
         }
       }
@@ -630,13 +631,27 @@ class EditableRect extends EditableElement
       }
 
 
-      pinArray.set( tPinnedTargetEdge, tPin );
+      pinArray.set( tPinnedTargetEdge.arrayIndex, tPin );
     }
   }
 
   boolean canEditedPinBeGlobal()
   {
-    return pinArray.get( getPinnedTargetEdge() ) instanceof EditableRectPinOffset;
+    return getPin( getPinEdge( edgeBeingEdited ) ) instanceof EditableRectPinOffset;
+  }
+
+  EditableRectPin getPin( PinEdge aEdge )
+  {
+    int tIndex = aEdge.arrayIndex;
+    if ( tIndex < 0 || tIndex >= pinArray.size() )
+      return null;
+
+    return pinArray.get( tIndex );
+  }
+
+  EditableRectPin setPin( PinEdge aEdge, EditableRectPin aPin )
+  {
+    return pinArray.set( aEdge.arrayIndex, aPin );
   }
 }
 
